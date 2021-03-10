@@ -32,6 +32,17 @@ public class PlayerAiming : MonoBehaviour
             Vector3 hitPos = ray.GetPoint(dis);
 
             if (debugObject) debugObject.position = hitPos;
+
+            Vector3 vectorToHitPos = hitPos - transform.position;
+
+            //Atan2 corrects for divide by 0 errors. Arguments are (numerator, denominator)
+            //Atan returns in radians.
+            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+            angle /= Mathf.PI; // Convert from "radians" to "semi-circles"
+            angle *= 180; // Converts from "semi-circles" to "degrees"
+
+            transform.eulerAngles = new Vector3(0, angle, 0);
         }
 
 
