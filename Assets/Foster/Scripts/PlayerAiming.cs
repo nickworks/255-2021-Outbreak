@@ -28,6 +28,14 @@ public class PlayerAiming : MonoBehaviour
            Vector3 hitPos =  ray.GetPoint(dis);
 
            if(debugObject) debugObject.position = hitPos;
+
+            Vector3 vectorToHitPos = hitPos - transform.position;
+            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+            angle /= Mathf.PI; // converts from radians to half-circles
+            angle *= 180;// 
+
+            transform.eulerAngles = new Vector3(0, angle, 0);
         }
 
 
