@@ -7,10 +7,19 @@ namespace _JSmith
 {
     public class PlayerMovement : MonoBehaviour
     {
+        public enum MoveState
+        {
+            Regular, // 0
+            Dashing, // 1
+            Sprinting, // 2
+            Sneaking // 3
+        }
 
         public float playerSpeed = 10;
 
         private CharacterController pawn;
+
+        MoveState currentMoveState = MoveState.Regular;
 
         void Start()
         {
@@ -18,6 +27,53 @@ namespace _JSmith
         }
 
         void Update()
+        {
+
+            switch (currentMoveState)
+            {
+                case MoveState.Regular:
+
+                    //do behavior for this state:
+
+                    MoveThePlayer(1);
+
+                    //transitions to other states:
+                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
+
+                    break;
+                case MoveState.Dashing:
+                    //do behavior for this state:
+
+                    //transitions to other states:
+
+                    break;
+                case MoveState.Sprinting:
+
+                    //do behavior for this state:
+
+                    MoveThePlayer(2);
+
+                    //transitions to other states:
+                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
+
+                    break;
+                case MoveState.Sneaking:
+
+                    //do behavior for this state:
+
+                    MoveThePlayer(.5f);
+
+                    //transitions to other states:
+
+                    break;
+            }
+
+
+
+
+        }
+
+        private void MoveThePlayer(float mult = 1)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -27,8 +83,7 @@ namespace _JSmith
 
             if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed);
-
+            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
         }
     }
 }
