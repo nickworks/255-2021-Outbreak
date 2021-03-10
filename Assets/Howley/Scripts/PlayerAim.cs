@@ -28,6 +28,16 @@ namespace Howley
                 Vector3 hitPos = ray.GetPoint(dis);
 
                 if (debugObject) debugObject.position = hitPos;
+
+                Vector3 vectorToHitPos = hitPos - transform.position;
+
+                float angleInRad = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+                // Converting radians to degrees
+                angleInRad /= Mathf.PI; // Convert to half circles
+                angleInRad *= 180; // Converts to a full circle/degrees
+
+                transform.eulerAngles = new Vector3(0, angleInRad, 0);
             }
         }
     }

@@ -6,9 +6,19 @@ namespace Howley
 {
     public class PlayerMovement : MonoBehaviour
     {
+        public enum MoveState
+        {
+            Regular, // 0
+            Dashing, // 1
+            Sprinting, // 2
+            Sneaking // 3
+        }
+
         public float playerSpeed = 10;
 
         private CharacterController pawn;
+
+        MoveState currentMoveState = MoveState.Regular;
 
         void Start()
         {
@@ -17,6 +27,48 @@ namespace Howley
 
         void Update()
         {
+            switch (currentMoveState)
+            {
+                case MoveState.Regular:
+
+                    // Do behavior for this state
+                    MovePlayer(1);
+
+                    // Transition to other states
+                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
+                    else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+
+                    break;
+                case MoveState.Dashing:
+
+                    // Do behavior for this state
+
+                    // Transition to other states
+
+                    break;
+                case MoveState.Sprinting:
+
+                    // Do behavior for this state
+                    MovePlayer(2);
+
+                    // Transition to other states
+                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
+                    else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    break;
+                case MoveState.Sneaking:
+
+                    // Do behavior for this state
+                    MovePlayer(.5f);
+
+                    // Transition to other states
+                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    break;
+            }
+
+        }
+
+        private void MovePlayer(float mult = 1)
+        {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
@@ -24,7 +76,7 @@ namespace Howley
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed);
+            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
         }
     }
 }
