@@ -34,6 +34,14 @@ namespace Jelsomeno
 
                 debugObject.position = hitPos;
 
+                Vector3 vectorToHitPos = hitPos - transform.position;
+
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+                angle /= Mathf.PI; // converts from radians to half circles 
+                angle *= 180; // converts to half circles to degrees
+
+                transform.eulerAngles = new Vector3(0, angle, 0);
 
             }
 

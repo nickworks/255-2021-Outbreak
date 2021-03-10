@@ -8,9 +8,21 @@ namespace Jelsomeno
     public class PlayerMovement : MonoBehaviour
     {
 
+        public enum MoveState
+        {
+            Regular, //0
+            Dashing, //1
+            Sprinting, //2
+            Sneaking //3
+
+        }
+
+
         public float playerSpeed = 10;
 
         private CharacterController pawn;
+
+        MoveState currentMoveState = MoveState.Regular;
 
         // Start is called before the first frame update
         void Start()
@@ -21,6 +33,53 @@ namespace Jelsomeno
         // Update is called once per frame
         void Update()
         {
+
+            switch (currentMoveState)
+            {
+                case MoveState.Regular:
+
+                    // do behavior for this state:
+
+                    MoveThePlayer(1);
+
+                    // transitions to other states:
+                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
+                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+
+                    break;
+                case MoveState.Dashing:
+
+                    // do behavior for this state:
+
+                    // transitions to other states:
+
+                    break;
+                case MoveState.Sprinting:
+
+                    // do behavior for this state:
+
+                    MoveThePlayer(2);
+
+                    // transitions to other states:
+                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
+                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+
+                    break;
+                case MoveState.Sneaking:
+
+                    // do behavior for this state:
+
+                    MoveThePlayer(0.5f);
+
+                    // transitions to other states:
+                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+
+                    break;
+            }
+        }
+
+        private void MoveThePlayer(float mult = 1)
+        {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
@@ -28,9 +87,7 @@ namespace Jelsomeno
 
             if (move.sqrMagnitude > 1) move.Normalize();
 
-            pawn.Move(move * Time.deltaTime * playerSpeed);
-
-
+            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
         }
     }
 }
