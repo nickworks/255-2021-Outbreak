@@ -28,6 +28,14 @@ namespace Szczesniak {
 
                 if (debugObject) debugObject.position = hitPos;
 
+                Vector3 vectorToHitPos = hitPos - transform.position;
+
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+                angle /= Mathf.PI; // convert from "radians" to "half-circles"
+                angle *= 180; // convert from "half-cirlce" to "degrees"
+
+                transform.eulerAngles = new Vector3(0, angle, 0);
+
             }
         }
     }
