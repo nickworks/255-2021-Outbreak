@@ -12,9 +12,13 @@ namespace Szczesniak {
             Sneaking //3
         }
 
+        private Vector3 move = new Vector3();
+
         public float playerSpeed = 10;
 
         private CharacterController pawn;
+
+        private float dashTime = .3f;
 
         MoveState currentMoveState = MoveState.Regular;
         // 1 = regular
@@ -38,14 +42,20 @@ namespace Szczesniak {
                     // transitions to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
+                    if (Input.GetButtonDown("Fire2")) currentMoveState = MoveState.Dashing;
 
                     break;
                 case MoveState.Dashing:
 
                     // do behaviour for this state:
-
+                    DashMove(25);
                     // transitions to other states:
-                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
+
+                    dashTime -= Time.deltaTime;
+                    if (dashTime <= 0) {
+                        currentMoveState = MoveState.Regular;
+                        dashTime = .3f;
+                    }
 
                     break;
                 case MoveState.Sprinting:
@@ -79,13 +89,17 @@ namespace Szczesniak {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
-            Vector3 move = Vector3.right * h + Vector3.forward * v;
+            move = Vector3.right * h + Vector3.forward * v;
 
             //move.Normalize(); Doesn't work with gamepads like this also expensive
 
             if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diagonal input vectors
 
             pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+        }
+
+        private void DashMove(float dashSpeed = 1f) {
+            pawn.Move(transform.forward * dashSpeed * Time.deltaTime);
         }
     }
 }

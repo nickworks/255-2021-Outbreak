@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  dashSpeed: 50
 --- !u!114 &1607653274
 MonoBehaviour:
   m_ObjectHideFlags: 0
