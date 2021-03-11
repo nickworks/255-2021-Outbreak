@@ -21,7 +21,7 @@ namespace Miller
 
         private CharacterController pawn;
 
-        int currentMoveState = 1;
+        MoveState currentMoveState = MoveState.Regular;
         //1 = regular
         //2 = dashing
         //3 = sneaking
@@ -71,7 +71,11 @@ namespace Miller
 
                     // do behavior for this state:
 
+                    MoveThePlayer(0.5f);
+
                     // transitions to other states:
+                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+
 
                     break;
             }
@@ -87,7 +91,7 @@ namespace Miller
 
             if (move.sqrMagnitude > 1) move.Normalize(); // fix diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed);
+            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
 
         }
     }
