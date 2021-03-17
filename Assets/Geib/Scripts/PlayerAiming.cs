@@ -14,14 +14,28 @@ namespace Geib
         /// A debug object that displas where the mouse clicks.
         /// </summary>
         public Transform debugObject;
+       
 
         void Start()
         {
             cam = Camera.main;
         }
 
-
+        /// <summary>
+        /// The update function is called every frame
+        /// </summary>
         void Update()
+        {
+            AimAtMouse();
+
+
+
+        }
+
+        /// <summary>
+        /// This method forces the player to aim at the mouse
+        /// </summary>
+        private void AimAtMouse()
         {
             //make a ray and a plane
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -46,10 +60,6 @@ namespace Geib
 
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
-
-
-
-
         }
     }
 }
