@@ -2,43 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAiming : MonoBehaviour
+
+namespace Foster
 {
-    private Camera cam;
-
-    public Transform debugObject;
-
-   
-    void Start()
+    public class PlayerAiming : MonoBehaviour
     {
-        cam = Camera.main;
-    }
+        private Camera cam;
 
-    
-    void Update()
-    {
-        //makes the plane and the ray
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, transform.position);
+        public Transform debugObject;
 
-        //does the ray hit the plan
-        if(plane.Raycast(ray, out float dis))
+
+        void Start()
         {
-            //find where the ray hits the plane
-           Vector3 hitPos =  ray.GetPoint(dis);
-
-           if(debugObject) debugObject.position = hitPos;
-
-            Vector3 vectorToHitPos = hitPos - transform.position;
-            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
-
-            angle /= Mathf.PI; // converts from radians to half-circles
-            angle *= 180;// 
-
-            transform.eulerAngles = new Vector3(0, angle, 0);
+            cam = Camera.main;
         }
 
 
-        
+        void Update()
+        {
+            //makes the plane and the ray
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Plane plane = new Plane(Vector3.up, transform.position);
+
+            //does the ray hit the plan
+            if (plane.Raycast(ray, out float dis))
+            {
+                //find where the ray hits the plane
+                Vector3 hitPos = ray.GetPoint(dis);
+
+                if (debugObject) debugObject.position = hitPos;
+
+                Vector3 vectorToHitPos = hitPos - transform.position;
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+                angle /= Mathf.PI; // converts from radians to half-circles
+                angle *= 180;// 
+
+                transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+
+
+
+        }
     }
 }
