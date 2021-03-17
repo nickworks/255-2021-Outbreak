@@ -7,19 +7,25 @@ namespace Hodgkins {
     {
         public enum MoveState
         {
-            Regualar, // 0
+            Regular, // 0
             Dashing, // 1
             Sprinting, // 2
             Sneaking // 3
         }
-        
-        
-        
+                        
         public float playerSpeed = 10;
-
         private CharacterController pawn;
+        MoveState currentMoveState = MoveState.Regular;
 
-        MoveState currentMoveState = MoveState.Regualar;
+        private Vector3 dashDirection;
+        /// <summary>
+        /// This stores how many seconds are left in dash
+        /// </summary>
+        private float dashTimer = 0;
+        /// <summary>
+        /// How long a dash lasts, in seconds
+        /// </summary>
+        public float dashDuration = 0.25f;
 
         void Start()
         {
@@ -31,26 +37,41 @@ namespace Hodgkins {
         {
             switch (currentMoveState)
             {
-                case MoveState.Regualar:
+                case MoveState.Regular:
                     // do behaviour for this state
                     MoveThePlayer(1);
                     // transition to other state
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    if (Input.GetButton("Fire2"))  // transition to dashing
+                    {
+                        currentMoveState = MoveState.Dashing;
+                        float h = Input.GetAxis("Horizontal");
+                        float v = Input.GetAxis("Vertical");
+                        dashDirection = new Vector3(h, 0, v);
+
+                        // clamp the length of DashDir to 1
+                        if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
+                    }
                     break;
                 case MoveState.Dashing:
+                    // do behaviour for this state
+                    DashThePlayer();
+                    dashTimer -= Time.deltaTime;
+                    // transition to other state
+                    if (dashTimer <= 0) currentMoveState = MoveState.Regular;
                     break;
                 case MoveState.Sprinting:
                     // do behaviour for this state
                     MoveThePlayer(2);
                     // transition to other state
-                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regualar;
+                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
                     break;
                 case MoveState.Sneaking:
                     // do behaviour for this state
                     MoveThePlayer(0.5f);
                     // transition to other state
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regualar;
+                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
 
                     break;
@@ -59,7 +80,14 @@ namespace Hodgkins {
 
 
         }
-
+        /// <summary>
+        /// This function moes the player while they are dashing;
+        /// </summary>
+        private void DashThePlayer()
+        {
+            pawn.Move(dashDirection * Time.deltaTime * 100);
+        }
+        
         private void MoveThePlayer(float mult = 1)
         {
             float h = Input.GetAxis("Horizontal");
