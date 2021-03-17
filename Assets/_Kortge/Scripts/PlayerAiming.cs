@@ -8,6 +8,7 @@ namespace Kortge
     {
         private Camera cam;
         public Transform debugObject;
+        public Projectile prefabProjectile;
 
         // Start is called before the first frame update
         void Start()
@@ -17,6 +18,11 @@ namespace Kortge
 
         // Update is called once per frame
         void Update()
+        {
+            AimAtMouse();
+        }
+
+        private void AimAtMouse()
         {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
