@@ -24,7 +24,7 @@ namespace Kortge
         /// </summary>
         public float dashDuration = 0.25f;
 
-        public float dashTimer = 0;
+        public float dashTimer = 0.25f;
 
         private Vector3 dashDirection;
         /// <summary>
@@ -42,7 +42,7 @@ namespace Kortge
         // Update is called once per frame
         void Update()
         {
-            //print(currentMoveState);
+            print(currentMoveState);
             switch (currentMoveState)
             {
                 case MoveState.Regular:
@@ -102,7 +102,7 @@ namespace Kortge
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
-            Vector3 move = Vector3.right * h + Vector3.forward * v;
+            Vector3 move = (Vector3.right * h + Vector3.forward * v) * mult;
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagnoal input measures.
 
