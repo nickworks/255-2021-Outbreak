@@ -75,11 +75,10 @@ namespace Kortge
                     break;
 
                 case MoveState.Sprinting:
-                    DashThePlayer();
                     // Behavior for this state:
                     MoveThePlayer(2);
                     // Transitions for other states.
-                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
+                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
                     if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     break;
                 
@@ -87,7 +86,7 @@ namespace Kortge
                     // Behavior for this state:
                     MoveThePlayer(0.5f);
                     // Transitions for other states.
-                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
+                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
                     break;
             }
         }
