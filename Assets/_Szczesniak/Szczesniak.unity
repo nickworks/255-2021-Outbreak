@@ -771,6 +771,7 @@ GameObject:
   - component: {fileID: 1607653269}
   - component: {fileID: 1607653273}
   - component: {fileID: 1607653274}
+  - component: {fileID: 1607653275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -873,7 +874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
-  dashSpeed: 50
+  dashDuration: 0.25
 --- !u!114 &1607653274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +888,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 2143352181}
+--- !u!114 &1607653275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607653268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cbaeae831ea81b4880c83a72164a22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabProjectile: {fileID: 8583240119884183109, guid: 0f55c2bf01f4a3c488d2b226cfc786b0,
+    type: 3}
+  maxRoundsInClip: 8
+  roundsPerSecond: 5
+  reloadTime: 1
 --- !u!1 &2143352177
 GameObject:
   m_ObjectHideFlags: 0

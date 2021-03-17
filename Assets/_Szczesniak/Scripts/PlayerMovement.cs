@@ -20,7 +20,7 @@ namespace Szczesniak {
 
         private CharacterController pawn;
 
-        private float dashTime = .3f;
+        //private float dashTime = .3f;
         MoveState currentMoveState = MoveState.Regular;
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace Szczesniak {
 
                     // transitions to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButtonDown("Fire2")) { // transition to dashing
+                    //if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
+                    if (Input.GetButton("Fire2")) { // transition to dashing
                        
                         currentMoveState = MoveState.Dashing;
                         float h = Input.GetAxis("Horizontal");
@@ -98,7 +98,7 @@ namespace Szczesniak {
 
                     // transitions to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     break;
                 case MoveState.Sneaking:
