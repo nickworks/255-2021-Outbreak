@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  dashDuration: 0.25
 --- !u!114 &757666141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 1636485811}
+  prefabProjectile: {fileID: 4376843534723086319, guid: 03113173eb307a04b97ff9baaf2f95b3,
+    type: 3}
 --- !u!1 &768623427
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 1636485807}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.18, y: 0.63, z: 1.6595504}
-  m_LocalScale: {x: 1.97, y: 1.97, z: 1.97}
+  m_LocalScale: {x: 0.53865707, y: 0.53865707, z: 0.53865707}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
