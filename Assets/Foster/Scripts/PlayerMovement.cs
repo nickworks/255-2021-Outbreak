@@ -20,7 +20,16 @@ namespace Foster
         private CharacterController pawn;
 
         MoveState currentMoveState = MoveState.Regular;
-        
+
+        /// <summary>
+        /// How long a dash should take in seconds
+        /// </summary>
+        public float dashDuration = .25f;
+        private Vector3 dashDirection;
+        /// <summary>
+        /// This stores how many seconds are left
+        /// </summary>
+        private float dashTimer = 0;
 
         void Start()
         {
@@ -43,6 +52,16 @@ namespace Foster
                     //transition to other states;
                     if (Input.GetButtonDown("Fire3")) currentMoveState = MoveState.Sprinting;
                     if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
+
+                    if (Input.GetButtonDown("Fire2")) //transition into dashing
+                    {
+
+                        currentMoveState = MoveState.Dashing;
+                        float h = Input.GetAxis("Horizontal");
+                        float v = Input.GetAxis("Vertical");
+                        dashDirection = new Vector3(h, 0, v);
+
+                    }
 
                     break;
 
@@ -71,8 +90,9 @@ namespace Foster
                 case MoveState.Dashing:
 
                     //do behavioyr for this state;
-                    
+                    DashThePlayer();
 
+                    dashTimer -= Time.deltaTime;
 
                     //transition to other states;
 
@@ -81,7 +101,10 @@ namespace Foster
             }
 
         }
-
+        private void DashThePlayer()
+        {
+            pawn.Move(dashDirection * Time.deltaTime * 100);
+        }
         private void MoveThePlayer(float mult)
         {
             float h = Input.GetAxis("Horizontal");
