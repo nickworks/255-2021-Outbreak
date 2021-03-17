@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTracking : MonoBehaviour
+
+namespace Foster
 {
-    public Transform target;
-
-   
-    void Start()
+    public class CameraTracking : MonoBehaviour
     {
-        
+        public Transform target;
 
 
-    }
-
-    
-    void Update()
-    {
-        if (target)
+        void Start()
         {
-            transform.position = target.position;
-        } 
 
 
+
+        }
+
+
+        void Update()
+        {
+            if (target)
+            {
+                transform.position = target.position;
+            }
+
+
+        }
     }
 }
