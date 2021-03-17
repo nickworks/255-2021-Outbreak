@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTracking : MonoBehaviour
+namespace Geib
 {
-    /// <summary>
-    /// This is the position for the target object that will be tracked by the camera rig.
-    /// </summary>
-    public Transform target;
-
-    /// <summary>
-    /// Runs every game tick
-    /// </summary>
-    void Update()
+    public class CameraTracking : MonoBehaviour
     {
-        if (target)
+        /// <summary>
+        /// This is the position for the target object that will be tracked by the camera rig.
+        /// </summary>
+        public Transform target;
+
+        /// <summary>
+        /// Runs every game tick
+        /// </summary>
+        void Update()
         {
-            transform.position = target.position;
+            if (target)
+            {
+                transform.position = target.position;
+            }
         }
     }
 }
