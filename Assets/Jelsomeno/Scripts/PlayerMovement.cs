@@ -45,7 +45,7 @@ namespace Jelsomeno
         void Update()
         {
 
-            print(currentMoveState);
+            //print(currentMoveState);
 
             switch (currentMoveState)
             {
@@ -66,6 +66,7 @@ namespace Jelsomeno
                         float h = Input.GetAxis("Horizontal");
                         float v = Input.GetAxis("Veritcal");
                         dashDirection = new Vector3(h, 0, v);
+
                         // clamp length to dashDirection
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
 
@@ -111,7 +112,7 @@ namespace Jelsomeno
 
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 50);
+            pawn.Move(dashDirection * Time.deltaTime * 110);
         }
 
         private void MoveThePlayer(float mult = 1)
