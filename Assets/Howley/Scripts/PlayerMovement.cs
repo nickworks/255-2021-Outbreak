@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,15 @@ namespace Howley
 
         public float playerSpeed = 10;
 
+        public Vector3 dashDirection;
+
+        public float dashDuration = 0.25f;
+
+        /// <summary>
+        /// How many seconds are left:
+        /// </summary>
+        private float dashTimer = 0;
+
         private CharacterController pawn;
 
         MoveState currentMoveState = MoveState.Regular;
@@ -27,6 +37,8 @@ namespace Howley
 
         void Update()
         {
+            print(currentMoveState);
+
             switch (currentMoveState)
             {
                 case MoveState.Regular:
@@ -37,14 +49,26 @@ namespace Howley
                     // Transition to other states
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    if (Input.GetButton("Fire2"))
+                    {
+                        currentMoveState = MoveState.Dashing;
+                        float h = Input.GetAxis("Horizontal");
+                        float v = Input.GetAxis("Vertical");
+                        dashDirection = new Vector3(h, 0, v);
+
+                        if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
+                    }
 
                     break;
                 case MoveState.Dashing:
 
                     // Do behavior for this state
+                    DashThePlayer();
+
+                    dashTimer -= Time.deltaTime;
 
                     // Transition to other states
-
+                    if (dashTimer <= 0) currentMoveState = MoveState.Regular;
                     break;
                 case MoveState.Sprinting:
 
@@ -65,6 +89,11 @@ namespace Howley
                     break;
             }
 
+        }
+
+        private void DashThePlayer()
+        {
+            pawn.Move(dashDirection * Time.deltaTime * 100);
         }
 
         private void MovePlayer(float mult = 1)
