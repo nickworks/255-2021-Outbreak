@@ -15,7 +15,7 @@ namespace Kortge
                 {
                     return null;
                 }
-                virtual public void OnStart()
+                virtual public void OnStart(EnemyController enemyController)
                 {
 
                 }
