@@ -41,7 +41,7 @@ namespace Geib
         /// <summary>
         /// How long the dash should take, in seconds:
         /// </summary>
-        public float dashDuration = 0.25f;
+        public float dashDuration = 1f;
         /// <summary>
         /// This stores how many seconds are left:
         /// </summary>
