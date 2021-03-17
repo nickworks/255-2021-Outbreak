@@ -569,6 +569,7 @@ GameObject:
   - component: {fileID: 933493564}
   - component: {fileID: 933493569}
   - component: {fileID: 933493566}
+  - component: {fileID: 933493570}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -648,7 +649,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 1521018783}
-  prefabProjectile: {fileID: 0}
+  prefabProjectile: {fileID: 3106936378358330303, guid: b6eb01ec40d544647928a07cdbf78900,
+    type: 3}
 --- !u!33 &933493567
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -687,6 +689,21 @@ MonoBehaviour:
   playerSpeed: 10
   dashDuration: 0.25
   dashTimer: 0
+--- !u!114 &933493570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933493563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4bd2dd7acb08d442916f50555312014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabProjectile: {fileID: 3106936378358330303, guid: b6eb01ec40d544647928a07cdbf78900,
+    type: 3}
+  roundsPerSecond: 5
 --- !u!1 &1356204426
 GameObject:
   m_ObjectHideFlags: 0

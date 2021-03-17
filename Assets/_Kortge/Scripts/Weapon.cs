@@ -38,7 +38,6 @@ namespace Kortge{
             public class Regular : State {
                 virtual public State Update()
                 {
-                    weapon.SpawnProjectile();
 
                     // transitions:
                     if (!Input.GetButton("Fire1")) return new States.Attacking();
@@ -50,7 +49,8 @@ namespace Kortge{
                 public override State Update()
                 {
                     if (!Input.GetButton("Fire1")) return new States.Regular();
-                    return null;
+                    weapon.SpawnProjectile();
+                    return new States.Cooldown();
                 }
             }
             public class Cooldown : State {
