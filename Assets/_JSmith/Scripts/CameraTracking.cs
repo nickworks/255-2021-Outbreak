@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTracking : MonoBehaviour
+namespace _JSmith
 {
-
-    public Transform target;
-
-    void Update()
+    public class CameraTracking : MonoBehaviour
     {
-        if (target)
+
+        public Transform target;
+
+        void Update()
         {
-            transform.position = target.position;
+            if (target)
+            {
+                transform.position = target.position;
+            }
         }
     }
 }
