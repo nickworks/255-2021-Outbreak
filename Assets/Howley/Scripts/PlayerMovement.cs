@@ -48,7 +48,7 @@ namespace Howley
 
                     // Transition to other states
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire2"))
                     {
                         currentMoveState = MoveState.Dashing;
@@ -77,7 +77,7 @@ namespace Howley
 
                     // Transition to other states
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     break;
                 case MoveState.Sneaking:
 
@@ -85,7 +85,7 @@ namespace Howley
                     MovePlayer(.5f);
 
                     // Transition to other states
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
                     break;
             }
 
