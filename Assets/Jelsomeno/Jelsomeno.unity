@@ -854,6 +854,7 @@ GameObject:
   - component: {fileID: 1990520640}
   - component: {fileID: 1990520639}
   - component: {fileID: 1990520645}
+  - component: {fileID: 1990520641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -892,6 +893,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  dashDuration: 0.25
+--- !u!114 &1990520641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990520638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42395f775efb6484da80e21ce48f1b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabProjectile: {fileID: 6927756242551754187, guid: 9d904e1997b8bb3408bac6b45fff0b95,
+    type: 3}
+  roundsPerSecond: 5
+  reloadTime: 1
 --- !u!23 &1990520642
 MeshRenderer:
   m_ObjectHideFlags: 0

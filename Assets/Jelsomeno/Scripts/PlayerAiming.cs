@@ -12,6 +12,7 @@ namespace Jelsomeno
 
         public Transform debugObject;
 
+
         // Start is called before the first frame update
         void Start()
         {
@@ -21,12 +22,18 @@ namespace Jelsomeno
         // Update is called once per frame
         void Update()
         {
+            AimAtMouse();
+
+        }
+
+        private void AimAtMouse()
+        {
             // make a ray and a plane 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, transform.position);
 
             // does the ray hit the plane?
-            if(plane.Raycast(ray, out float dis))
+            if (plane.Raycast(ray, out float dis))
             {
 
                 // find where the ray hit the plane
@@ -44,7 +51,6 @@ namespace Jelsomeno
                 transform.eulerAngles = new Vector3(0, angle, 0);
 
             }
-
         }
     }
 }
