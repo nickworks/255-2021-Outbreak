@@ -104,6 +104,9 @@ namespace Miller
 
         }
 
+        /// <summary>
+        /// this function moves the player while they are dashing
+        /// </summary>
         private void DashThePlayer()
         {
             pawn.Move(dashDirection * Time.deltaTime * 25);
