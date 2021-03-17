@@ -10,13 +10,21 @@ namespace Hodgkins
 
         public Transform debugObject;
 
+
         void Start()
         {
             cam = Camera.main;
         }
 
+        
         // Update is called once per frame
         void Update()
+        {
+            AimAtMouse();
+            
+        }
+
+        private void AimAtMouse()
         {
             // make a ray and plane
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -38,7 +46,6 @@ namespace Hodgkins
 
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
-
         }
     }
 }
