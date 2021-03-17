@@ -954,6 +954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  dashDuration: 0.5
 --- !u!114 &1237390013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,6 +968,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 1926774239}
+  prefabProjectile: {fileID: 405466321392859109, guid: 95709fba6508aa34291e68235ec3fe8f,
+    type: 3}
 --- !u!1 &1926238166
 GameObject:
   m_ObjectHideFlags: 0

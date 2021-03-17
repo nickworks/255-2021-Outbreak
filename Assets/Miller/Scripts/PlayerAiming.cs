@@ -18,6 +18,15 @@ namespace Miller
 
         void Update()
         {
+
+            AimAtMouse();
+
+            
+
+        }
+
+        private void AimAtMouse()
+        {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, transform.position);
