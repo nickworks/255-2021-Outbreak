@@ -36,7 +36,7 @@ namespace Kortge{
                 }
             }
             public class Regular : State {
-                virtual public State Update()
+                override public State Update()
                 {
 
                     // transitions:
