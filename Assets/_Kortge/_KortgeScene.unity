@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 709258063}
   - component: {fileID: 709258062}
   - component: {fileID: 709258064}
+  - component: {fileID: 709258065}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -808,6 +809,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+--- !u!114 &709258065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709258061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4bd2dd7acb08d442916f50555312014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabProjectile: {fileID: 3106936378358330303, guid: b6eb01ec40d544647928a07cdbf78900,
+    type: 3}
+  roundsPerSecond: 5
 --- !u!1 &1167876377
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +855,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoke: {fileID: 7888557201410464071, guid: 37825ab66c06003428d1b4edc4fbae5a, type: 3}
   player: {fileID: 709258063}
+  beamPrefab: {fileID: 3106936378358330303, guid: b6eb01ec40d544647928a07cdbf78900,
+    type: 3}
 --- !u!4 &1167876379
 Transform:
   m_ObjectHideFlags: 0

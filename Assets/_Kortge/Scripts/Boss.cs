@@ -2,145 +2,173 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+namespace Kortge
 {
-    public enum BossState
+    public class Boss : MonoBehaviour
     {
-        Draw,
-        Teleport,
-        Beam,
-        Thrust,
-        Spin,
-        Hit,
-        Death
-    }
-
-    public static class States
-    {
-        public class State
+        public enum BossState
         {
-            protected Boss boss;
-            virtual public State Update()
+            Draw,
+            Teleport,
+            Beam,
+            Thrust,
+            Spin,
+            Hit,
+            Death
+        }
+
+        public static class States
+        {
+            public class State
             {
-                return null;
+                protected Boss boss;
+                virtual public State Update()
+                {
+                    return null;
+                }
+                virtual public void OnStart(Boss boss)
+                {
+                    this.boss = boss;
+                }
+                virtual public void OnEnd()
+                {
+
+                }
             }
-            virtual public void OnStart(Boss boss)
+
+            public class Draw : State
             {
-                this.boss = boss;
             }
-            virtual public void OnEnd()
+
+            public class Teleport : State
             {
-
+                float particleTime = 0.25f;
+                public override void OnStart(Boss boss)
+                {
+                    boss.SmokeOut();
+                }
+                public override State Update()
+                {
+                    particleTime -= Time.deltaTime;
+                    if (particleTime <= 0) return new States.Beam();
+                    return null;
+                }
             }
-        }
 
-        public class Draw : State
-        {
-        }
-
-        public class Teleport : State
-        {
-            float particleTime = 0.25f;
-            public override void OnStart(Boss boss)
+            public class Beam : State
             {
-                boss.SmokeOut();
+                float beamTime = 0.3f;
+                int shots;
+                float shotDelay;
+                float shotTimeLeft;
+                public override State Update()
+                {
+                    beamTime -= Time.deltaTime;
+                    if (shots >= 0)
+                    {
+                        if (shotTimeLeft <= 0)
+                        {
+                            boss.Beam(20);
+                            shots--;
+                            shotTimeLeft = shotDelay;
+                        }
+                        else shotTimeLeft -= Time.deltaTime;
+
+                    }
+                    if (beamTime <= 0) return new States.Teleport();
+                    return null;
+                }
+
+                public override void OnStart(Boss boss)
+                {
+                    boss.SmokeIn();
+                    shots = 9;
+                    shotDelay = 1f / 30f;
+                    shotTimeLeft = shotDelay;
+                }
             }
-            public override State Update()
+
+            public class Thrust : State
             {
-                particleTime -= Time.deltaTime;
-                if (particleTime <= 0) return new States.Beam();
-                return null;
             }
-        }
 
-        public class Beam : State
-        {
-            float beamTime = 1f;
-            public override void OnStart(Boss boss)
+            public class Spin : State
             {
-                boss.SmokeIn();
             }
-            public override State Update()
+
+            public class Hit : State
             {
-                beamTime -= Time.deltaTime;
-                if (beamTime <= 0) return new States.Teleport();
-                return null;
+            }
+
+            public class Death : State
+            {
             }
         }
 
-        public class Thrust : State
+        private States.State state;
+        public ParticleSystem smoke;
+        public Transform player;
+        public Projectile beamPrefab;
+
+        // Start is called before the first frame update
+        void Start()
         {
         }
 
-        public class Spin : State
+        // Update is called once per frame
+        void Update()
         {
+            if (state == null) SwitchState(new States.Teleport());
+
+            if (state != null)
+            {
+                if (state != null) SwitchState(state.Update());
+            };
+
+            LookAtPlayer();
+
+            //if (timerSpawnBullt <= 0)
         }
 
-        public class Hit : State
+        void SwitchState(States.State newState)
         {
+            if (newState == null) return;
+
+            if (state != null) state.OnEnd();
+
+            state = newState;
+
+            state.OnStart(this);
         }
 
-        public class Death : State
+        void SmokeOut()
         {
+            Instantiate(smoke, transform.position, transform.rotation);
+            transform.position = transform.up * (-20);
         }
-    }
 
-    private States.State state;
-    public ParticleSystem smoke;
-    public Transform player;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (state == null) SwitchState(new States.Teleport());
-
-        if (state != null)
+        void SmokeIn()
         {
-            if (state != null) SwitchState(state.Update());
-        };
+            transform.position = (Vector3.right * Random.Range(-10f, 10f)) + (Vector3.up * Random.Range(-5f, 5f));
+            Instantiate(smoke, transform.position, transform.rotation);
+        }
 
-        LookAtPlayer();
+        void LookAtPlayer()
+        {
+            Vector3 vectorToHitPos = player.position - transform.position;
 
-        //if (timerSpawnBullt <= 0)
-    }
+            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
 
-    void SwitchState(States.State newState)
-    {
-        if (newState == null) return;
+            angle /= Mathf.PI;
+            angle *= 180; // Converts from radians to half-circles to degrees.
 
-        if (state != null) state.OnEnd();
+            transform.eulerAngles = new Vector3(0, 0, -angle);
+        }
 
-        state = newState;
-
-        state.OnStart(this);
-    }
-
-    void SmokeOut()
-    {
-        Instantiate(smoke, transform.position, transform.rotation);
-        transform.position = transform.up * (-20);
-    }
-
-    void SmokeIn()
-    {
-        transform.position = (Vector3.right * Random.Range(-10f, 10f)) + (Vector3.up * Random.Range(-5f, 5f));
-        Instantiate(smoke, transform.position, transform.rotation);
-    }
-
-    void LookAtPlayer()
-    {
-        Vector3 vectorToHitPos = player.position - transform.position;
-
-        float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
-
-        angle /= Mathf.PI;
-        angle *= 180; // Converts from radians to half-circles to degrees.
-
-        transform.eulerAngles = new Vector3(0, 0, -angle);
+        void Beam(float speed)
+        {
+            Projectile beam = Instantiate(beamPrefab, transform.position + (transform.up / 2), Quaternion.identity);
+            beam.InitBullet(transform.forward * speed);
+        }
     }
 }
