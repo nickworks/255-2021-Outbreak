@@ -40,7 +40,7 @@ public class Boss : MonoBehaviour
 
         public class Teleport : State
         {
-            float particleTime = 1f;
+            float particleTime = 0.25f;
             public override void OnStart(Boss boss)
             {
                 boss.SmokeOut();
@@ -55,13 +55,16 @@ public class Boss : MonoBehaviour
 
         public class Beam : State
         {
+            float beamTime = 1f;
             public override void OnStart(Boss boss)
             {
                 boss.SmokeIn();
             }
             public override State Update()
             {
-                return new States.Teleport();
+                beamTime -= Time.deltaTime;
+                if (beamTime <= 0) return new States.Teleport();
+                return null;
             }
         }
 
@@ -84,6 +87,7 @@ public class Boss : MonoBehaviour
 
     private States.State state;
     public ParticleSystem smoke;
+    public Transform player;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +103,8 @@ public class Boss : MonoBehaviour
         {
             if (state != null) SwitchState(state.Update());
         };
+
+        LookAtPlayer();
 
         //if (timerSpawnBullt <= 0)
     }
@@ -117,12 +123,24 @@ public class Boss : MonoBehaviour
     void SmokeOut()
     {
         Instantiate(smoke, transform.position, transform.rotation);
-        transform.position = transform.forward * (-20);
+        transform.position = transform.up * (-20);
     }
 
     void SmokeIn()
     {
+        transform.position = (Vector3.right * Random.Range(-10f, 10f)) + (Vector3.up * Random.Range(-5f, 5f));
         Instantiate(smoke, transform.position, transform.rotation);
-        transform.position = transform.right * Random.Range(-10f, 10f) + transform.up * Random.Range(-5f, 5f);
+    }
+
+    void LookAtPlayer()
+    {
+        Vector3 vectorToHitPos = player.position - transform.position;
+
+        float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
+
+        angle /= Mathf.PI;
+        angle *= 180; // Converts from radians to half-circles to degrees.
+
+        transform.eulerAngles = new Vector3(0, 0, -angle);
     }
 }
