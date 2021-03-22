@@ -17,25 +17,6 @@ namespace Kortge
 
         public float playerSpeed = 10;
 
-        /// <summary>
-        /// How long a dash should take, in seconds:
-        /// </summary>
-        public float dashDuration = 0.25f;
-
-        public float dashTimer = 0.25f;
-
-        private Vector3 dashDirection;
-        /// <summary>
-        /// This stores how many seconds are left:
-        /// </summary>
-
-        MoveState currentMoveState = MoveState.Regular;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
         // Update is called once per frame
         void Update()
         {
