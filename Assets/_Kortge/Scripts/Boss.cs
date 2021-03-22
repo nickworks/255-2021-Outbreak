@@ -42,7 +42,7 @@ namespace Kortge
 
             public class Teleport : State
             {
-                float particleTime = 0.25f;
+                float particleTime = 0.5f;
                 public override void OnStart(Boss boss)
                 {
                     boss.SmokeOut();
@@ -57,34 +57,37 @@ namespace Kortge
 
             public class Beam : State
             {
-                float beamTime = 0.3f;
-                int shots;
+                float beamTime;
+                float beamStartTime;
+                float beamEndTime;
                 float shotDelay;
-                float shotTimeLeft;
+                float shotTime;
                 public override State Update()
                 {
+                    print(beamStartTime);
                     beamTime -= Time.deltaTime;
-                    if (shots >= 0)
+                    if (beamTime <= beamStartTime && beamTime >= beamEndTime)
                     {
-                        if (shotTimeLeft <= 0)
+                        if (shotTime <= 0)
                         {
-                            boss.Beam(20);
-                            shots--;
-                            shotTimeLeft = shotDelay;
+                            boss.Beam(9f);
+                            shotTime = shotDelay;
                         }
-                        else shotTimeLeft -= Time.deltaTime;
-
+                        else shotTime -= Time.deltaTime;
                     }
-                    if (beamTime <= 0) return new States.Teleport();
+                    else if (beamTime <= 0) return new States.Teleport();
                     return null;
                 }
 
                 public override void OnStart(Boss boss)
                 {
+                    beamTime = boss.reactionTime * 3;
+                    beamStartTime = boss.reactionTime * 2;
+                    beamEndTime = boss.reactionTime;
                     boss.SmokeIn();
-                    shots = 9;
-                    shotDelay = 1f / 30f;
-                    shotTimeLeft = shotDelay;
+                    shotDelay = boss.reactionTime/boss.burst;
+                    shotTime = shotDelay;
+                    base.OnStart(boss);
                 }
             }
 
@@ -98,6 +101,7 @@ namespace Kortge
 
             public class Hit : State
             {
+
             }
 
             public class Death : State
@@ -109,10 +113,14 @@ namespace Kortge
         public ParticleSystem smoke;
         public Transform player;
         public Projectile beamPrefab;
+        private float reactionTime = 2f;
+        private Health health;
+        private int burst = 7;
 
         // Start is called before the first frame update
         void Start()
         {
+            health = GetComponent<Health>();
         }
 
         // Update is called once per frame
@@ -128,6 +136,15 @@ namespace Kortge
             LookAtPlayer();
 
             //if (timerSpawnBullt <= 0)
+
+            if (health.health == 6) {
+                reactionTime = 1f;
+                burst = 14;
+            }
+            if (health.health == 3) { reactionTime = 0.5f;
+                burst = 28;
+            }
+
         }
 
         void SwitchState(States.State newState)
@@ -167,8 +184,8 @@ namespace Kortge
 
         void Beam(float speed)
         {
-            Projectile beam = Instantiate(beamPrefab, transform.position + (transform.up / 2), Quaternion.identity);
-            beam.InitBullet(transform.forward * speed);
+            Projectile beam = Instantiate(beamPrefab, transform.position + transform.up, Quaternion.identity);
+            beam.InitBullet(transform.up * speed);
         }
     }
 }
