@@ -64,7 +64,7 @@ namespace Kortge
                 float shotTime;
                 public override State Update()
                 {
-                    print(beamStartTime);
+                    if (boss.hit) return new States.Hit();
                     beamTime -= Time.deltaTime;
                     if (beamTime <= beamStartTime && beamTime >= beamEndTime)
                     {
@@ -101,7 +101,40 @@ namespace Kortge
 
             public class Hit : State
             {
+                float hitTime = 1f;
+                bool transparent = false;
+                public override State Update()
+                {
+                    hitTime -= Time.deltaTime;
+                    if (transparent)
+                    {
+                        boss.sprite.color = new Color(0.2f, 0.2f, 0.2f, 1);
+                        transparent = false;
+                    }
+                    else
+                    {
+                        boss.sprite.color = Color.clear;
+                        transparent = true;
+                    }
+                    if (hitTime <= 0) {
+                        boss.sprite.color = new Color(0.2f, 0.2f, 0.2f, 1);
+                        return new States.Teleport();
+                    }
+                    return null;
+                }
 
+                public override void OnStart(Boss boss)
+                {
+                    boss.hit = false;
+                    boss.rigidBody.AddForce(boss.transform.position - boss.player.position, ForceMode2D.Impulse);
+                    boss.collider2d.enabled = false;
+                    base.OnStart(boss);
+                }
+
+                public override void OnEnd()
+                {
+                    boss.collider2d.enabled = true;
+                }
             }
 
             public class Death : State
@@ -116,11 +149,18 @@ namespace Kortge
         private float reactionTime = 2f;
         private Health health;
         private int burst = 7;
+        private Rigidbody2D rigidBody;
+        private SpriteRenderer sprite;
+        private BoxCollider2D collider2d;
+        public bool hit = false;
 
         // Start is called before the first frame update
         void Start()
         {
             health = GetComponent<Health>();
+            rigidBody = GetComponent<Rigidbody2D>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
+            collider2d = GetComponent<BoxCollider2D>();
         }
 
         // Update is called once per frame
