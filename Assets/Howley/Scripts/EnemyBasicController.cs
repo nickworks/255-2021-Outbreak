@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Howley
 {
@@ -39,12 +40,19 @@ namespace Howley
 
         private States.State state;
 
+        private NavMeshAgent nav;
+
+        public Transform attackTarget;
+
         void Start()
         {
+            nav = GetComponent<NavMeshAgent>();
 
         }
         void Update()
         {
+            if (attackTarget != null) nav.SetDestination(attackTarget.position);
+
             if (state == null) SwitchState(new States.Idle());
 
             if (state != null) SwitchState(state.Update());

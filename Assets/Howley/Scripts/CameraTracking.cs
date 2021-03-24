@@ -8,15 +8,19 @@ namespace Howley
     {
         public Transform target;
 
-        void Update()
+        void LateUpdate()
         {
             if (target)
             {
                 //transform.position = target.position;
 
-                Vector3 vToTarget = target.position - transform.position;
+                //Vector3 vToTarget = target.position - transform.position;
+                //transform.position += vToTarget * .01f;
+                //transform.position = Vector3.Lerp(transform.position, target.position, .05f);
 
-                transform.position += vToTarget * .01f;
+                // Framerate independant slide
+                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, target.position, p);
             }
         }
     }

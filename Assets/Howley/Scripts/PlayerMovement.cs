@@ -109,7 +109,9 @@ namespace Howley
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
+
         }
     }
 }
