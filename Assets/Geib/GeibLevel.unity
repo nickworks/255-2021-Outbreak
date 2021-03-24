@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 237541068}
   - component: {fileID: 237541072}
   - component: {fileID: 237541073}
+  - component: {fileID: 237541074}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -239,6 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
+  dashDuration: 0.25
+  dashTimer: 0
 --- !u!114 &237541073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +255,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugObject: {fileID: 602333621}
+  prefabProjectile: {fileID: 5471498040535886994, guid: e56c20b2178e421408de63ad5de9e33b,
+    type: 3}
+--- !u!114 &237541074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237541067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a05cf2ec087f8e4b9d7357647202fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabProjectile: {fileID: 5471498040535886994, guid: e56c20b2178e421408de63ad5de9e33b,
+    type: 3}
 --- !u!1 &575492737
 GameObject:
   m_ObjectHideFlags: 0

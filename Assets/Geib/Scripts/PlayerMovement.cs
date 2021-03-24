@@ -18,7 +18,7 @@ namespace Geib
             Dashing, // 1
             Sprinting, // 2
             Sneaking, // 3
-            Shielding
+            
         }
         
         
@@ -70,8 +70,8 @@ namespace Geib
                     MoveThePlayer(1);
 
                     // transition to other states:
+                    // if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire2")) // Transition into Dashing
                     {
                         currentMoveState = MoveState.Dashing;
@@ -104,7 +104,7 @@ namespace Geib
 
                     // transition to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    // if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
 
 
