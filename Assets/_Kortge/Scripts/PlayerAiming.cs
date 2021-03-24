@@ -8,19 +8,29 @@ namespace Kortge
     {
         private Camera cam;
         public Transform debugObject;
+        public Projectile prefabProjectile;
+        private Animator animator;
+        public bool stabbing;
 
         // Start is called before the first frame update
         void Start()
         {
             cam = Camera.main;
+            animator = GetComponentInChildren<Animator>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            AimAtMouse();
+            if (Input.GetButtonDown("Fire1") && !stabbing) animator.SetTrigger("Stab");
+        }
+
+        private void AimAtMouse()
+        {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.up, transform.position);
+            Plane plane = new Plane(Vector3.forward, transform.position);
 
             // does the ray hit the plane?
             if (plane.Raycast(ray, out float dis))
@@ -32,12 +42,12 @@ namespace Kortge
 
                 Vector3 vectorToHitPos = hitPos - transform.position;
 
-                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
 
                 angle /= Mathf.PI;
                 angle *= 180; // Converts from radians to half-circles to degrees.
 
-                transform.eulerAngles = new Vector3(0, angle, 0);
+                transform.eulerAngles = new Vector3(0, 0, -angle);
             }
         }
     }
