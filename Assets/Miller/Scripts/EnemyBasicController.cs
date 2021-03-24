@@ -8,8 +8,8 @@ namespace Miller
     {
        
 
-       static class States
-       {
+        static class States
+        {
             public class State
             {
                 protected EnemyBasicController enemy;
@@ -18,7 +18,7 @@ namespace Miller
                 {
                     return null;
                 }
-                virtual public void OnStart()
+                virtual public void OnStart(EnemyBasicController enemy)
                 {
                     this.enemy = enemy;
                 }
@@ -39,7 +39,7 @@ namespace Miller
 
 
 
-       }
+        }
 
 
         private States.State state;
@@ -61,7 +61,6 @@ namespace Miller
         void SwitchState (States.State newState)
         {
             if (newState == null) return; // don't switch to nothing....
-
             if (state != null) state.OnEnd();// tell previous states it is done
             state = newState;//swap states
             state.OnStart(this);
