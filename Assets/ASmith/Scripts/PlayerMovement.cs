@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,35 @@ namespace ASmith
             Regular, // 0
             Dashing, // 1
             Sprinting, // 2
-            Sneaking // 3
+            Sneaking, // 3
+            Shielding, // 4
         }
-
-        MoveState currentMoveState = MoveState.Regular;
 
         public float playerSpeed = 10;
 
+        /// <summary>
+        /// How long a dash should take in seconds
+        /// </summary>
+        public float dashDuration = .5f;
+
+        /// <summary>
+        /// Stores how many seconds left in dash
+        /// </summary>
+        private float dashTimer = 0;
+
+        /// <summary>
+        /// How strong the dash is
+        /// The higher the number, the stronger the dash
+        /// </summary>
+        public float dashMagnitude = 75;
+
         private CharacterController pawn;
+
+        MoveState currentMoveState = MoveState.Regular;
+
+        private Vector3 dashDirection;
+
+        
 
         void Start()
         {
@@ -27,6 +49,8 @@ namespace ASmith
 
         void Update()
         {
+            //print(currentMoveState);
+
             switch (currentMoveState)
             {
                 case MoveState.Regular:
@@ -36,14 +60,24 @@ namespace ASmith
 
                     // Transition to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting; // When holding shift start sprinting state
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking; // When holding ctrl go to sneak state
-
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking; // When holding ctrl go to sneak state
+                    if (Input.GetButton("Fire2")) // When holding right mouse go to dash state
+                    {
+                        currentMoveState = MoveState.Dashing;
+                        float h = Input.GetAxis("Horizontal");
+                        float v = Input.GetAxis("Vertical");
+                        dashDirection = new Vector3(h, 0, v); // Ties the dash vector to "h" and "v" for the x and z axis respectively
+                        if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize(); // Clamps the length of dash to 1 so diagonal movement is same length
+                    }
                     break;
                 case MoveState.Dashing:
 
                     // Do behavior for this state:
-                    
+                    DashThePlayer();
+
+                    dashTimer -= Time.deltaTime;
                     // Transition to other states:
+                    if (dashTimer <= 0) currentMoveState = MoveState.Regular;
 
                     break;
                 case MoveState.Sprinting:
@@ -53,7 +87,7 @@ namespace ASmith
 
                     // Transition to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular; // When not holding shift return to regular state
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When holding ctrl go to sneak state
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When holding ctrl go to sneak state
 
                     break;
                 case MoveState.Sneaking:
@@ -62,10 +96,18 @@ namespace ASmith
                     MoveThePlayer(.5f);
 
                     // Transition to other states:
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When not holding ctrl return to regular state
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When not holding ctrl return to regular state
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// This function moves the player while they are dashing
+        /// </summary>
+        private void DashThePlayer()
+        {
+            pawn.Move(dashDirection * Time.deltaTime * dashMagnitude); 
         }
 
         private void MoveThePlayer(float mult = 1)
