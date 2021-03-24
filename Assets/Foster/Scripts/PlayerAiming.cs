@@ -20,6 +20,14 @@ namespace Foster
 
         void Update()
         {
+
+            AimAtMouse();
+
+            
+        }
+
+        private void AimAtMouse()
+        {
             //makes the plane and the ray
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, transform.position);
@@ -40,9 +48,6 @@ namespace Foster
 
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
-
-
-
         }
     }
 }
