@@ -17,6 +17,11 @@ namespace ASmith
 
         void Update()
         {
+            AimAtMouse();
+        }
+
+        private void AimAtMouse()
+        {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, transform.position);
@@ -27,7 +32,7 @@ namespace ASmith
                 // find point where the ray hits the plane
                 Vector3 hitPos = ray.GetPoint(dis);
 
-                if(debugObject) debugObject.position = hitPos;
+                if (debugObject) debugObject.position = hitPos;
 
                 Vector3 vectorToHitPos = hitPos - transform.position;
 
