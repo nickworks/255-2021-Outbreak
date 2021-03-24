@@ -122,7 +122,8 @@ namespace ASmith
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fixes bug that makes diagonal movement faster
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult); // Moves the player based on created variables
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult); // Moves the player based on created variables
+            pawn.SimpleMove(move * playerSpeed * mult); // using simple move doesn't need Delta Time and also applies gravity automatically
         }
     }
 }
