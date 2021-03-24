@@ -12,7 +12,10 @@ namespace Pattison {
         /// </summary>
         void Update() {
             if (target) {
-                transform.position = target.position;
+                //transform.position = target.position;
+
+                transform.position += (target.position - transform.position) * .01f;
+
             }
         }
     }
