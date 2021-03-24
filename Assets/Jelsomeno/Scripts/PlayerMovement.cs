@@ -29,6 +29,11 @@ namespace Jelsomeno
         /// </summary>
         public float dashDuration = 0.25f;
 
+        /// <summary>
+        /// how many meters per second to move whil dashing 
+        /// </summary>
+        public float dashSpeed = 50;
+
         private Vector3 dashDirection;
         /// <summary>
         /// This stores how many seconds are left
@@ -59,13 +64,14 @@ namespace Jelsomeno
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
-                    if (Input.GetButton("Fire2"))
+                    if (Input.GetButtonDown("Fire2"))
                     {
 
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Veritcal");
-                        dashDirection = new Vector3(h, 0, v);
+                        float h = Input.GetAxisRaw("Horizontal");
+                        float v = Input.GetAxisRaw("Vertical");
+                        dashDirection = new Vector3(h, 0, v).normalized;                        
+                        dashTimer = .15f;
 
                         // clamp length to dashDirection
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
@@ -112,7 +118,7 @@ namespace Jelsomeno
 
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 110);
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
 
         private void MoveThePlayer(float mult = 1)
@@ -124,7 +130,8 @@ namespace Jelsomeno
 
             if (move.sqrMagnitude > 1) move.Normalize();
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
         }
     }
 }
