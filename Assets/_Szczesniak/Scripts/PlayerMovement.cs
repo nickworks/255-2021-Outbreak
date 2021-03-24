@@ -138,7 +138,8 @@ namespace Szczesniak {
 
             if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
         }
 
         //private void DashMove(float dashSpeed = 1f) {

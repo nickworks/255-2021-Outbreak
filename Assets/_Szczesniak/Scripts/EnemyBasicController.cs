@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Szczesniak {
 
@@ -65,8 +66,14 @@ namespace Szczesniak {
 
         private States.State state;
 
-        void Start() {
+        private NavMeshAgent nav;
 
+        public Transform attackTarget;
+
+        void Start() {
+            nav = GetComponent<NavMeshAgent>();
+
+            
         }
 
         void Update() {
@@ -75,7 +82,10 @@ namespace Szczesniak {
             //if (state == null) state = 
 
             if (state != null) SwitchState(state.Update());
+        }
 
+        void MoveTowardTarget() {
+            if (attackTarget) nav.SetDestination(attackTarget.position);
         }
 
         void SwitchState(States.State newState) {
