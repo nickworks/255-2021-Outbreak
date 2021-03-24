@@ -43,6 +43,7 @@ namespace Outbreak {
              * TODO: Add student's zone info objects here...
              * Namespace.Zone.info
              */
+            Pattison.Zone.info,
 
         };
         public static List<ZoneInfo> zones { get { return _zones; } }
