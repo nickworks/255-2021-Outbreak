@@ -18,6 +18,7 @@ namespace Hodgkins {
         MoveState currentMoveState = MoveState.Regular;
 
         private Vector3 dashDirection;
+        public float dashSpeed = 50;
         /// <summary>
         /// This stores how many seconds are left in dash
         /// </summary>
@@ -43,12 +44,14 @@ namespace Hodgkins {
                     // transition to other state
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButton("Fire2"))  // transition to dashing
+                    if (Input.GetButtonDown("Fire2"))  // transition to dashing
                     {
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Vertical");
+                        float h = Input.GetAxisRaw("Horizontal"); // -1 or 0 or 1
+                        float v = Input.GetAxisRaw("Vertical"); // -1 or 0 or 1
                         dashDirection = new Vector3(h, 0, v);
+                        dashDirection.Normalize();
+                        dashTimer = .25f;
 
                         // clamp the length of DashDir to 1
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();

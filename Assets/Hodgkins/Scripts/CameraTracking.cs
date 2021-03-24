@@ -14,7 +14,11 @@ namespace Hodgkins
         {
             if (target)
             {
-                transform.position = target.position;
+                //transform.position = target.position;
+
+                Vector3 vToTarget = target.position - transform.position;
+
+                transform.position += vToTarget * .01f;
             }
         }
     }
