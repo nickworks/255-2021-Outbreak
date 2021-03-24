@@ -92,7 +92,7 @@ namespace ASmith
         }
 
         public Projectile prefabProjectile;
-        private States.State state = new States.Regular();
+        private States.State state;
 
         public int maxRoundsInClip = 10;
         private int roundsInClip = 10;
