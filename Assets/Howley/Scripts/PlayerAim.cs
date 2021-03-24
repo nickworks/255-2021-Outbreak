@@ -16,6 +16,14 @@ namespace Howley
         }
         private void Update()
         {
+            AimAtMouse();
+        }
+
+        /// <summary>
+        /// This function aims the player at the mouse.
+        /// </summary>
+        private void AimAtMouse()
+        {
             // Create a ray and a plane.
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
