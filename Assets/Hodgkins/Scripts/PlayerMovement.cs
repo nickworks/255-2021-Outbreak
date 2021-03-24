@@ -42,7 +42,7 @@ namespace Hodgkins {
                     MoveThePlayer(1);
                     // transition to other state
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire2"))  // transition to dashing
                     {
                         currentMoveState = MoveState.Dashing;
