@@ -57,7 +57,7 @@ namespace Jelsomeno
 
                     // transitions to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     if (Input.GetButton("Fire2"))
                     {
@@ -94,7 +94,7 @@ namespace Jelsomeno
 
                     // transitions to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     break;
                 case MoveState.Sneaking:
@@ -104,7 +104,7 @@ namespace Jelsomeno
                     MoveThePlayer(0.5f);
 
                     // transitions to other states:
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
 
                     break;
             }
