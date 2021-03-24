@@ -82,7 +82,7 @@ namespace _JSmith
 
                     //transitions to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     break;
                 case MoveState.Sneaking:
@@ -92,7 +92,7 @@ namespace _JSmith
                     MoveThePlayer(.5f);
 
                     //transitions to other states:
-
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
                     break;
             }
 

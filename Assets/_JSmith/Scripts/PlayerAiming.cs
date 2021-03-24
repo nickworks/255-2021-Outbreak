@@ -9,6 +9,7 @@ namespace _JSmith
 
 
         private Camera cam;
+
         public Transform debugObject;
 
         void Start()
@@ -17,6 +18,14 @@ namespace _JSmith
         }
 
         void Update()
+        {
+            AimAtMouse();
+
+            
+            
+        }
+
+        private void AimAtMouse()
         {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -40,7 +49,6 @@ namespace _JSmith
 
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
-
         }
     }
 }
