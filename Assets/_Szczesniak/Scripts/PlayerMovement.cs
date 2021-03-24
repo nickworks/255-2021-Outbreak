@@ -27,6 +27,11 @@ namespace Szczesniak {
         /// How long a dash should take, in seconds
         /// </summary>
         public float dashDuration = 0.25f;
+        
+        /// <summary>
+        /// How many meters per second to move while dashing.
+        /// </summary>
+        public float dashSpeed = 60;
 
         private Vector3 dashDirection;
 
@@ -34,6 +39,7 @@ namespace Szczesniak {
         /// This stores how many seconds are left:
         /// </summary>
         private float dashTimer = 0;
+
 
         // 1 = regular
         // 2 = dashing 
@@ -58,12 +64,14 @@ namespace Szczesniak {
                     // transitions to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     //if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButton("Fire2")) { // transition to dashing
+                    if (Input.GetButtonDown("Fire2")) { // transition to dashing
                        
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Vertical");
-                        dashDirection = new Vector3(h, 0, v);
+                        float h = Input.GetAxisRaw("Horizontal"); // either -1, 0, 1
+                        float v = Input.GetAxisRaw("Vertical");
+                        dashDirection = new Vector3(h, 0, v).normalized;
+                        //dashDirection.Normalize();
+                        dashTimer = .15f;
 
                         // clamp the length of dashDir to 1:
                         if (dashDirection.sqrMagnitude > 1)
@@ -116,7 +124,7 @@ namespace Szczesniak {
         }
 
         private void DashThePlayer() {
-            pawn.Move(dashDirection * Time.deltaTime * 100);
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
 
         private void MoveThePlayer(float mult = 1) {

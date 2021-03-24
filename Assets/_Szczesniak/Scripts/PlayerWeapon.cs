@@ -142,7 +142,7 @@ namespace Szczesniak {
             if (roundsInClip <= 0) return; // no ammo
 
             Projectile p = Instantiate(prefabProjectile, transform.position, Quaternion.identity);
-            p.InitBullet(transform.forward * 20);
+            p.InitBullet(transform.forward * 30);
 
             roundsInClip--;
             timerSpawnBullet = 1 / roundsPerSecond;

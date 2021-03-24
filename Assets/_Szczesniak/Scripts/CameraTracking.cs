@@ -13,7 +13,9 @@ namespace Szczesniak {
         void Update() {
 
             if (target) {
-                transform.position = target.position;
+                //transform.position = target.position;
+
+                transform.position += (target.position - transform.position) * .025f;
             }
 
         }
