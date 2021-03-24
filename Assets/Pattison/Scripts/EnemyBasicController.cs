@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Pattison {
     public class EnemyBasicController : MonoBehaviour {
@@ -34,17 +35,38 @@ namespace Pattison {
 
         }
 
+        enum BossPhase {
+            PhaseOne,
+            PhaseTwo,
+            PhaseThree
+        }
+
+        private BossPhase currentPhase;
+
         private States.State state;
 
+        private NavMeshAgent nav;
+
+        public Transform attackTarget;
+
+
         void Start() {
+            nav = GetComponent<NavMeshAgent>();
+
 
         }
 
         void Update() {
 
+
             if (state == null) SwitchState(new States.Idle());
 
             if (state != null) SwitchState(state.Update());
+
+        }
+        void MoveTowardsTarget() {
+
+            if (attackTarget != null) nav.SetDestination(attackTarget.position);
 
         }
         void SwitchState(States.State newState) {

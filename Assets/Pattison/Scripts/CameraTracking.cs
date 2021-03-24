@@ -10,11 +10,19 @@ namespace Pattison {
         /// <summary>
         /// Runs every time the physics engine ticks.
         /// </summary>
-        void Update() {
+        void LateUpdate() {
             if (target) {
                 //transform.position = target.position;
+                //transform.position += (target.position - transform.position) * .05f;
+                //transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime);
 
-                transform.position += (target.position - transform.position) * .01f;
+                //p = 1 - pow(amountLeftAfter1Second, deltaTime)
+                //current = lerp(current, target, p)
+
+                // framerate-independent slide:
+
+                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, target.position, p);
 
             }
         }

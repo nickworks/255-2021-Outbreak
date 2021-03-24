@@ -123,7 +123,9 @@ namespace Pattison {
             Vector3 move = Vector3.right * h + Vector3.forward * v;
             if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+
+            pawn.SimpleMove(move * playerSpeed * mult);
         }
     }
 }
