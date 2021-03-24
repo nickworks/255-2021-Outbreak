@@ -10,15 +10,21 @@ namespace Hodgkins
 
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             if (target)
             {
                 //transform.position = target.position;
+                //transform.position += (target.position - transform.position) * .05f;
+                //transform.position = Vector3.Lerp(transform.position, target.position, .05f);
 
-                Vector3 vToTarget = target.position - transform.position;
+                //p = 1 - pow(amountLeftAfter1Second, deltaTime)
+                //current = lerp(current, target, print)
 
-                transform.position += vToTarget * .01f;
+                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+
+                transform.position = Vector3.Lerp(transform.position, target.position, p);
+
             }
         }
     }

@@ -34,7 +34,7 @@ namespace Hodgkins {
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             switch (currentMoveState)
             {
@@ -101,7 +101,8 @@ namespace Hodgkins {
 
             if (move.sqrMagnitude > 1) move.Normalize(); // fix diagonal movement bug
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
         }
     }
 }
