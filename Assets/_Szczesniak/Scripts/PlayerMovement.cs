@@ -80,7 +80,6 @@ namespace Szczesniak {
                     dashTimer -= Time.deltaTime;
 
                     // transitions to other states:
-
                     if (dashTimer <= 0) currentMoveState = MoveState.Regular;
 
                     //dashTime -= Time.deltaTime;
