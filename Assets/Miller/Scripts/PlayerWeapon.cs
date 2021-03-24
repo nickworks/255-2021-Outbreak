@@ -38,11 +38,11 @@ namespace Miller
                     // transitions:
                     if (Input.GetButton("Fire1"))
                     {
-                        if (weapon.roundsInClip <= 0) return new States.Cooldown(weapon.reloadTIme);
+                        if (weapon.roundsInClip <= 0) return new States.Cooldown(weapon.reloadTime);
 
                         return new States.Attacking();
                     }
-                    if (Input.GetButton("Reload")) return new States.Cooldown(weapon.reloadTIme);
+                    if (Input.GetButton("Reload")) return new States.Cooldown(weapon.reloadTime);
 
                     return null;
                 }
@@ -103,7 +103,7 @@ namespace Miller
         /// </summary>
         private float timerSpawnBullet = 0;
 
-        public float reloadTIme = 1;
+        public float reloadTime = 1;
 
 
         // Start is called before the first frame update

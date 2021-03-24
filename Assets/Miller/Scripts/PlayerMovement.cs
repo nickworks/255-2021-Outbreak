@@ -53,7 +53,7 @@ namespace Miller
                     MoveThePlayer(1);
 
                     // transitions to other states:
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     if (Input.GetButton("Fire2"))
                     {
@@ -96,7 +96,7 @@ namespace Miller
                     MoveThePlayer(0.5f);
 
                     // transitions to other states:
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
 
 
                     break;
