@@ -53,9 +53,9 @@ namespace Miller
                     MoveThePlayer(1);
 
                     // transitions to other states:
-                    if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    if (Input.GetButton("Fire2"))
+                    //if (Input.GetButton("Fire2"))
                     {
                         currentMoveState = MoveState.Dashing;
                         float h = Input.GetAxis("Horizontal");
@@ -86,7 +86,7 @@ namespace Miller
 
                     // transitions to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     break;
                 case MoveState.Sneaking:
@@ -96,7 +96,7 @@ namespace Miller
                     MoveThePlayer(0.5f);
 
                     // transitions to other states:
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
 
 
                     break;
