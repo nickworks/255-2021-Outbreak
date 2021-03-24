@@ -10,9 +10,9 @@ namespace Kortge
         {
             Draw,
             Teleport,
-            Beam,
-            Thrust,
-            Spin,
+            Charge,
+            Attack,
+            Cooldown,
             Hit,
             Death
         }
@@ -50,24 +50,40 @@ namespace Kortge
                 public override State Update()
                 {
                     particleTime -= Time.deltaTime;
-                    if (particleTime <= 0) return new States.Beam();
+                    if (particleTime <= 0) return new States.Attack();
                     return null;
                 }
             }
+            public class Charge : State
+            {
+            }
 
-            public class Beam : State
+            public class Attack : State
             {
                 float beamTime;
                 float beamStartTime;
                 float beamEndTime;
                 float shotDelay;
                 float shotTime;
+                bool beamReadied = false;
+                bool beamFiring = false;
+                bool beamFinished = false;
                 public override State Update()
                 {
                     if (boss.hit) return new States.Hit();
                     beamTime -= Time.deltaTime;
+                    if (beamTime <= beamStartTime + 0.5f && !beamReadied) { 
+                        boss.animator.SetTrigger("Beam Ready");
+                        var gleamMain = boss.gleam.main;
+                        gleamMain.startColor = Color.blue;
+                        beamReadied = true;
+                    }
                     if (beamTime <= beamStartTime && beamTime >= beamEndTime)
                     {
+                        if (!beamFiring) { 
+                            boss.animator.SetTrigger("Beam Fire");
+                            beamFiring = true;
+                        }
                         if (shotTime <= 0)
                         {
                             boss.Beam(9f);
@@ -75,27 +91,32 @@ namespace Kortge
                         }
                         else shotTime -= Time.deltaTime;
                     }
-                    else if (beamTime <= 0) return new States.Teleport();
+                    if (beamTime <= beamEndTime && !beamFinished)
+                    {
+                        boss.animator.SetTrigger("Beam Finish");
+                        boss.gleam.Stop();
+                        beamFinished = true;
+                    }
+                    if (beamTime <= 0) return new States.Teleport();
                     return null;
                 }
 
                 public override void OnStart(Boss boss)
                 {
                     beamTime = boss.reactionTime * 3;
+                    
                     beamStartTime = boss.reactionTime * 2;
                     beamEndTime = boss.reactionTime;
                     boss.SmokeIn();
                     shotDelay = boss.reactionTime/boss.burst;
                     shotTime = shotDelay;
+                    boss.gleam.Play();
                     base.OnStart(boss);
                 }
             }
 
-            public class Thrust : State
-            {
-            }
 
-            public class Spin : State
+            public class Cooldown : State
             {
             }
 
@@ -153,6 +174,8 @@ namespace Kortge
         private SpriteRenderer sprite;
         private BoxCollider2D collider2d;
         public bool hit = false;
+        private Animator animator;
+        private ParticleSystem gleam;
 
         // Start is called before the first frame update
         void Start()
@@ -161,6 +184,9 @@ namespace Kortge
             rigidBody = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             collider2d = GetComponent<BoxCollider2D>();
+            animator = GetComponentInChildren<Animator>();
+            gleam = GetComponentInChildren<ParticleSystem>();
+            gleam.Stop();
         }
 
         // Update is called once per frame
