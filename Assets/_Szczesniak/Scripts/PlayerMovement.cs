@@ -6,6 +6,95 @@ using UnityEngine;
 namespace Szczesniak {
     public class PlayerMovement : MonoBehaviour {
 
+        static class States {
+            public class State {
+
+                protected PlayerMovement player;
+
+                virtual public State Update() {
+                    return null;
+                }
+
+                virtual public void OnStart(PlayerMovement player) {
+                    this.player = player;
+                }
+
+                virtual public void OnEnd() {
+
+                }
+            }
+
+            /// Child Classes:
+
+            public class Idle : State {
+                public override State Update() {
+
+                    
+                    return null;
+                }
+            }
+
+            public class Walking : State {
+                public override State Update() {
+                    // Behavior:
+                    player.MoveThePlayer(1);
+
+                    // transitions to other states:
+                    //if (player.transform.position == player.transform.position)
+                        //return new States.Idle();
+
+                    if (Input.GetButton("Fire3")) return new States.Sprinting();
+
+                    if (Input.GetButtonDown("Fire2")) // transition to dashing
+                        return new States.Dashing();
+
+                    return null;
+                }
+            }
+
+            public class Sprinting : State {
+
+            }
+
+            public class Dashing : State {
+                public override State Update() {
+                    // Behavior:
+                    player.DashMove();
+
+                    // transition:
+                    player.dashTimer -= Time.deltaTime;
+                    if (player.dashTimer <= 0) return new States.Walking();
+
+                        return null;
+                }
+
+                public override void OnEnd() {
+                    player.dashTimer = .15f;
+                }
+
+            }
+
+            public class AssualtRife : State {
+
+            }
+            public class RifleReload : State {
+
+            }
+
+            public class Rockets : State {
+
+            }
+
+            public class Artilary : State {
+
+            }
+
+        }
+
+        private States.State state;
+
+
+
         public enum MoveState {
             Regular, // 0
             Dashing, // 1
@@ -27,7 +116,7 @@ namespace Szczesniak {
         /// How long a dash should take, in seconds
         /// </summary>
         public float dashDuration = 0.25f;
-        
+
         /// <summary>
         /// How many meters per second to move while dashing.
         /// </summary>
@@ -52,31 +141,17 @@ namespace Szczesniak {
 
         void Update() {
 
-            //print(currentMoveState);
+            if (state == null) SwitchingStates(new States.Walking());
 
+            if (state != null) SwitchingStates(state.Update());
+
+            //print(currentMoveState);
+            /*
             switch (currentMoveState) {
                 case MoveState.Regular:
 
                     // do behaviour for this state:
 
-                    MoveThePlayer(1);
-
-                    // transitions to other states:
-                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    //if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButtonDown("Fire2")) { // transition to dashing
-                       
-                        currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxisRaw("Horizontal"); // either -1, 0, 1
-                        float v = Input.GetAxisRaw("Vertical");
-                        dashDirection = new Vector3(h, 0, v).normalized;
-                        //dashDirection.Normalize();
-                        dashTimer = .15f;
-
-                        // clamp the length of dashDir to 1:
-                        if (dashDirection.sqrMagnitude > 1)
-                            dashDirection.Normalize();
-                    }
 
                     break;
                 case MoveState.Dashing:
@@ -85,10 +160,10 @@ namespace Szczesniak {
                     //DashMove(25);
                     DashThePlayer();
 
-                    dashTimer -= Time.deltaTime;
+                    
 
                     // transitions to other states:
-                    if (dashTimer <= 0) currentMoveState = MoveState.Regular;
+                    
 
                     //dashTime -= Time.deltaTime;
                     //if (dashTime <= 0) {
@@ -120,11 +195,16 @@ namespace Szczesniak {
                     break;
             }
 
-
+*/
         }
 
-        private void DashThePlayer() {
-            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
+        private void SwitchingStates(States.State newState) {
+            if (newState == null) return;
+
+            if (state != null) state.OnEnd();
+
+            state = newState;
+            state.OnStart(this);
         }
 
         private void MoveThePlayer(float mult = 1) {
@@ -144,6 +224,19 @@ namespace Szczesniak {
 
         //private void DashMove(float dashSpeed = 1f) {
         //    pawn.Move(transform.forward * dashSpeed * Time.deltaTime);
-        //}
+        
+        private void DashMove() {
+            float h = Input.GetAxisRaw("Horizontal"); // either -1, 0, 1
+            float v = Input.GetAxisRaw("Vertical");
+
+            dashDirection = new Vector3(h, 0, v).normalized;
+            //dashDirection.Normalize();
+
+            // clamp the length of dashDir to 1:
+            if (dashDirection.sqrMagnitude > 1)
+                dashDirection.Normalize();
+            
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
+        }
     }
 }
