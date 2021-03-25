@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4955926412035255574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2543680746053356592}
+  m_Layer: 0
+  m_Name: Left Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2543680746053356592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4955926412035255574}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5033730303369884561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5033730303358415519
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,8 +60,8 @@ Transform:
   m_LocalScale: {x: 0.67582726, y: 0.33050188, z: 0.57422477}
   m_Children:
   - {fileID: 5033730304867721512}
-  - {fileID: 5033730303440242885}
   - {fileID: 5033730303369884561}
+  - {fileID: 5033730303440242885}
   m_Father: {fileID: 5033730304190295617}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -96,7 +126,7 @@ GameObject:
   - component: {fileID: 5033730303369884563}
   - component: {fileID: 5033730303369884560}
   m_Layer: 0
-  m_Name: Gun (1)
+  m_Name: Left Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,9 +142,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.929, y: 0, z: 0.265}
   m_LocalScale: {x: 1, y: 0.15243198, z: 0.078619465}
-  m_Children: []
+  m_Children:
+  - {fileID: 2543680746053356592}
   m_Father: {fileID: 5033730303358415518}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5033730303369884563
 MeshFilter:
@@ -197,7 +228,7 @@ Transform:
   - {fileID: 5033730303935045076}
   - {fileID: 5033730303593629572}
   m_Father: {fileID: 5033730303358415518}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5033730303440242887
 MeshFilter:
@@ -517,7 +548,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5033730304190295642}
-  m_LocalRotation: {x: -0, y: 0.9317443, z: -0, w: 0.36311513}
+  m_LocalRotation: {x: 0, y: 0.9317451, z: 0, w: 0.36311302}
   m_LocalPosition: {x: -80.73, y: 19.37, z: 15.61}
   m_LocalScale: {x: 3.2346432, y: 3.2346432, z: 3.2346432}
   m_Children:
@@ -557,10 +588,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTarget: {fileID: 0}
-  patrolPoints: []
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   viewingDistance: 20
   viewingAngle: 180
   stoppingDistance: 18
+  prefabMachineGunBullets: {fileID: 8583240119884183109, guid: 0f55c2bf01f4a3c488d2b226cfc786b0,
+    type: 3}
+  leftMuzzle: {fileID: 2543680746053356592}
+  rightMuzzle: {fileID: 633626129672792454}
+  roundPerSec: 20
 --- !u!195 &5033730304190295616
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -595,7 +636,7 @@ GameObject:
   - component: {fileID: 5033730304867721514}
   - component: {fileID: 5033730304867721515}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Right Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,7 +652,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.929, y: 0, z: -0.253}
   m_LocalScale: {x: 1, y: 0.15243198, z: 0.078619465}
-  m_Children: []
+  m_Children:
+  - {fileID: 633626129672792454}
   m_Father: {fileID: 5033730303358415518}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -664,3 +706,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6699287146220722747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 633626129672792454}
+  m_Layer: 0
+  m_Name: Right Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &633626129672792454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699287146220722747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5033730304867721512}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
