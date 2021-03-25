@@ -4,30 +4,30 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Szczesniak {
+    public class BossScript : MonoBehaviour {
 
-    public class EnemyBasicController : MonoBehaviour {
 
         static class States {
             public class State {
 
-                protected EnemyBasicController enemy;
+                protected BossScript enemy;
 
                 virtual public State Update() {
-                    
+
                     return null;
                 }
 
-                virtual public void OnStart(EnemyBasicController enemy) {
+                virtual public void OnStart(BossScript enemy) {
                     this.enemy = enemy;
                 }
 
-                virtual public void OnEnd() { 
+                virtual public void OnEnd() {
 
                 }
             }
-            
+
             //////////////////////////// Child Classes: 
-            
+
             public class Idle : State {
 
             }
@@ -48,15 +48,15 @@ namespace Szczesniak {
 
             }
 
-            public class MeleeAttack : State {
+            public class SpawnMinions : State {
 
             }
 
-            public class DashAttack : State {
+            public class MiniGunAttack : State {
 
             }
 
-            public class SelfDestruct : State {
+            public class HomingMissleAttack : State {
 
             }
 
@@ -76,7 +76,7 @@ namespace Szczesniak {
         void Start() {
             nav = GetComponent<NavMeshAgent>();
 
-            
+
         }
 
         void Update() {
@@ -102,11 +102,6 @@ namespace Szczesniak {
             state.OnStart(this);
         }
 
-        /// <summary>
-        /// Calculation for turret to see targets
-        /// </summary>
-        /// <param name="thing"></param>
-        /// <returns></returns>
         private bool CanSeeThing(Transform thing) {
 
             if (!thing) return false; // uh... error
