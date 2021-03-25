@@ -29,6 +29,10 @@ namespace Szczesniak {
             public class Idle : State {
                 public override State Update() {
 
+
+                    // transitions:
+                    if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+                        return new States.Walking();
                     
                     return null;
                 }
@@ -40,19 +44,28 @@ namespace Szczesniak {
                     player.MoveThePlayer(1);
 
                     // transitions to other states:
-                    //if (player.transform.position == player.transform.position)
-                        //return new States.Idle();
 
                     if (Input.GetButton("Fire3")) return new States.Sprinting();
 
                     if (Input.GetButtonDown("Fire2")) // transition to dashing
                         return new States.Dashing();
 
+                    if (!Input.GetKey("w") && !Input.GetKey("a") && !Input.GetKey("s") && !Input.GetKey("d"))
+                        return new States.Idle();
+
                     return null;
                 }
             }
 
             public class Sprinting : State {
+                public override State Update() {
+                    player.MoveThePlayer(2);
+
+                    // transitions to other states:
+                    if (!Input.GetButton("Fire3")) return new States.Idle();
+
+                    return null;
+                }
 
             }
 
@@ -93,24 +106,11 @@ namespace Szczesniak {
 
         private States.State state;
 
-
-
-        public enum MoveState {
-            Regular, // 0
-            Dashing, // 1
-            Sprinting, // 2
-            Sneaking, //3
-            Shielding,
-        }
-
         private Vector3 move = new Vector3();
 
         public float playerSpeed = 10;
 
         private CharacterController pawn;
-
-        //private float dashTime = .3f;
-        MoveState currentMoveState = MoveState.Regular;
 
         /// <summary>
         /// How long a dash should take, in seconds
@@ -129,11 +129,6 @@ namespace Szczesniak {
         /// </summary>
         private float dashTimer = 0;
 
-
-        // 1 = regular
-        // 2 = dashing 
-        // 3 = sneaking
-
         void Start() {
             pawn = GetComponent<CharacterController>();
         }
@@ -141,61 +136,9 @@ namespace Szczesniak {
 
         void Update() {
 
-            if (state == null) SwitchingStates(new States.Walking());
+            if (state == null) SwitchingStates(new States.Idle());
 
             if (state != null) SwitchingStates(state.Update());
-
-            //print(currentMoveState);
-            /*
-            switch (currentMoveState) {
-                case MoveState.Regular:
-
-                    // do behaviour for this state:
-
-
-                    break;
-                case MoveState.Dashing:
-
-                    // do behaviour for this state:
-                    //DashMove(25);
-                    DashThePlayer();
-
-                    
-
-                    // transitions to other states:
-                    
-
-                    //dashTime -= Time.deltaTime;
-                    //if (dashTime <= 0) {
-                    //    currentMoveState = MoveState.Regular;
-                    //    dashTime = .3f;
-                    //}
-
-                    break;
-                case MoveState.Sprinting:
-
-                    // do behaviour for this state:
-
-                    MoveThePlayer(2);
-
-                    // transitions to other states:
-                    if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
-
-                    break;
-                case MoveState.Sneaking:
-
-                    // do behaviour for this state:
-
-                    MoveThePlayer(.5f);
-
-                    // transitions to other states:
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
-
-                    break;
-            }
-
-*/
         }
 
         private void SwitchingStates(States.State newState) {
@@ -221,9 +164,6 @@ namespace Szczesniak {
             //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
             pawn.SimpleMove(move * playerSpeed * mult);
         }
-
-        //private void DashMove(float dashSpeed = 1f) {
-        //    pawn.Move(transform.forward * dashSpeed * Time.deltaTime);
         
         private void DashMove() {
             float h = Input.GetAxisRaw("Horizontal"); // either -1, 0, 1
