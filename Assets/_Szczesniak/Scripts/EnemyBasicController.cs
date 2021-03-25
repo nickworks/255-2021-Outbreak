@@ -82,6 +82,8 @@ namespace Szczesniak {
             //if (state == null) state = 
 
             if (state != null) SwitchState(state.Update());
+
+            MoveTowardTarget();
         }
 
         void MoveTowardTarget() {
