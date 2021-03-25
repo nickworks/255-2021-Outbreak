@@ -45,7 +45,7 @@ namespace Szczesniak {
                     // Patroling
                     idleTime -= Time.deltaTime;
                     if (!boss.CanSeeThing(boss.attackTarget) && idleTime <= 0)
-                        return new States.Pursuing();
+                        return new States.Patrolling(true);
 
                     return null;
                 }
@@ -64,8 +64,24 @@ namespace Szczesniak {
             }
 
             public class Patrolling : State {
+
+                bool runPatrolOnce = true;
+
+                public Patrolling(bool patrolOnce) {
+                    runPatrolOnce = patrolOnce;
+                }
+
                 public override State Update() {
 
+                    // behavior:
+                    if (runPatrolOnce) {
+                        boss.PatrolingPoints();
+                        runPatrolOnce = false;
+                    }
+
+                    // transition:
+                    if (!boss.nav.pathPending && boss.nav.remainingDistance <= 2f)
+                        return new States.Idle(boss.timeToStopIdle);
 
                     return null;
                 }
@@ -100,6 +116,9 @@ namespace Szczesniak {
         private NavMeshAgent nav;
 
         public Transform attackTarget;
+        public Transform[] patrolPoints;
+
+        private int pointPatrolling = 0;
 
         public float viewingDistance = 10;
         public float viewingAngle = 35;
@@ -167,6 +186,11 @@ namespace Szczesniak {
         }
 
         void PatrolingPoints() {
+
+            // Got help understanding patrolling with Unity Documentation
+            nav.updatePosition = true;
+            nav.destination = patrolPoints[pointPatrolling].position;
+            pointPatrolling = (pointPatrolling + 1) % patrolPoints.Length;
 
         }
     }
