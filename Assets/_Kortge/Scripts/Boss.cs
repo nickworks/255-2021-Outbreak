@@ -278,7 +278,7 @@ namespace Kortge
 
         void Beam(float speed)
         {
-            Projectile beam = Instantiate(beamPrefab, transform.position + transform.forward, Quaternion.identity);
+            Projectile beam = Instantiate(beamPrefab, transform.position + transform.forward, transform.rotation);
             beam.InitBullet(transform.forward * speed);
         }
 
