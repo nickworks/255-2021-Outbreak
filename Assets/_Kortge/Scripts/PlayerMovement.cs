@@ -7,33 +7,30 @@ namespace Kortge
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public enum MoveState
+        CharacterController controller;
+        public float playerSpeed = 10f;
+
+        private void Start()
         {
-            Regular, // 0
-            Dashing, // 1
-            Sprinting, // 2
-            Sneaking // 3
+            controller = GetComponent<CharacterController>();
         }
-
-        public float playerSpeed = 10;
-
         // Update is called once per frame
         void Update()
         {
             // Behavior for this state:
-            MoveThePlayer(1);
+            MoveThePlayer();
         }
 
-        private void MoveThePlayer(float mult = 1)
+        private void MoveThePlayer()
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
-            Vector3 move = (Vector3.right * h + Vector3.up * v) * mult;
+            Vector3 move = (Vector3.right * h + Vector3.forward * v);
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagnoal input measures.
 
-            transform.position += move * Time.deltaTime * playerSpeed;
+            controller.SimpleMove(move * playerSpeed);
         }
     }
 }

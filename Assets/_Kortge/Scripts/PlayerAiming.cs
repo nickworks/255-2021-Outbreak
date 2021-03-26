@@ -30,7 +30,7 @@ namespace Kortge
         {
             // make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.forward, transform.position);
+            Plane plane = new Plane(Vector3.up, transform.position);
 
             // does the ray hit the plane?
             if (plane.Raycast(ray, out float dis))
@@ -42,12 +42,11 @@ namespace Kortge
 
                 Vector3 vectorToHitPos = hitPos - transform.position;
 
-                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
 
                 angle /= Mathf.PI;
                 angle *= 180; // Converts from radians to half-circles to degrees.
-
-                transform.eulerAngles = new Vector3(0, 0, -angle);
+                transform.eulerAngles = new Vector3(-90, 0, angle);
             }
         }
     }

@@ -12,6 +12,7 @@ namespace Kortge
             Teleport,
             Charge,
             Attack,
+            Thrust,
             Cooldown,
             Hit,
             Death
@@ -42,10 +43,18 @@ namespace Kortge
 
             public class Teleport : State
             {
-                float particleTime = 0.5f;
+                float particleTime;
                 public override void OnStart(Boss boss)
                 {
                     boss.SmokeOut();
+                    particleTime = boss.reactionTime;
+                    base.OnStart(boss);
+                }
+                public override void OnEnd()
+                {
+                    boss.SmokeIn();
+                    boss.focused = true;
+                    boss.colliding = false;
                 }
                 public override State Update()
                 {
@@ -56,68 +65,85 @@ namespace Kortge
             }
             public class Charge : State
             {
+                float chargeTime;
+                public override State Update()
+                {
+                    chargeTime -= Time.deltaTime;
+                    if(chargeTime <= 0.25f )
+                    if (chargeTime <= 0) return new States.Attack();
+                    return null;
+                }
+                public override void OnStart(Boss boss)
+                {
+                    chargeTime = boss.reactionTime;
+                }
+                public override void OnEnd()
+                {
+                    boss.animator.SetTrigger("Beam Ready");
+                    var gleamMain = boss.gleam.main;
+                    gleamMain.startColor = Color.blue;
+                }
             }
 
             public class Attack : State
             {
                 float beamTime;
-                float beamStartTime;
-                float beamEndTime;
                 float shotDelay;
                 float shotTime;
-                bool beamReadied = false;
-                bool beamFiring = false;
-                bool beamFinished = false;
                 public override State Update()
                 {
-                    if (boss.hit) return new States.Hit();
                     beamTime -= Time.deltaTime;
-                    if (beamTime <= beamStartTime + 0.5f && !beamReadied) { 
-                        boss.animator.SetTrigger("Beam Ready");
-                        var gleamMain = boss.gleam.main;
-                        gleamMain.startColor = Color.blue;
-                        beamReadied = true;
-                    }
-                    if (beamTime <= beamStartTime && beamTime >= beamEndTime)
+                    if (beamTime <= 0) return new States.Thrust();
+                    if (shotTime <= 0)
                     {
-                        if (!beamFiring) { 
-                            boss.animator.SetTrigger("Beam Fire");
-                            beamFiring = true;
-                        }
-                        if (shotTime <= 0)
-                        {
-                            boss.Beam(9f);
-                            shotTime = shotDelay;
-                        }
-                        else shotTime -= Time.deltaTime;
+                        boss.Beam((boss.burst / 2) + 5);
+                        shotTime = shotDelay;
                     }
-                    if (beamTime <= beamEndTime && !beamFinished)
-                    {
-                        boss.animator.SetTrigger("Beam Finish");
-                        boss.gleam.Stop();
-                        beamFinished = true;
-                    }
-                    if (beamTime <= 0) return new States.Teleport();
+                    else shotTime -= Time.deltaTime;
                     return null;
                 }
 
                 public override void OnStart(Boss boss)
                 {
-                    beamTime = boss.reactionTime * 3;
-                    
-                    beamStartTime = boss.reactionTime * 2;
-                    beamEndTime = boss.reactionTime;
-                    boss.SmokeIn();
+                    beamTime = boss.reactionTime;
                     shotDelay = boss.reactionTime/boss.burst;
                     shotTime = shotDelay;
-                    boss.gleam.Play();
+                    boss.animator.SetTrigger("Beam Fire");
                     base.OnStart(boss);
                 }
             }
 
+            public class Thrust : State
+            {
+                public override State Update()
+                {
+                    boss.controller.SimpleMove(boss.transform.forward * ((boss.burst/2)+5));
+                    if (boss.colliding) return new States.Cooldown();
+                    return null;
+                }
+                public override void OnStart(Boss boss)
+                {
+                    boss.focused = false;
+                    base.OnStart(boss);
+                }
+            }
 
             public class Cooldown : State
             {
+                float cooldownTime;
+                public override State Update()
+                {
+                    cooldownTime -= Time.deltaTime;
+                    if (boss.hit) return new States.Hit();
+                    if (cooldownTime <= 0) return new States.Teleport();
+                    return null;
+                }
+                public override void OnStart(Boss boss)
+                {
+                    cooldownTime = boss.reactionTime * 2;
+                    boss.animator.SetTrigger("Beam Finish");
+                    base.OnStart(boss);
+                }
             }
 
             public class Hit : State
@@ -147,14 +173,14 @@ namespace Kortge
                 public override void OnStart(Boss boss)
                 {
                     boss.hit = false;
-                    boss.rigidBody.AddForce(boss.transform.position - boss.player.position, ForceMode2D.Impulse);
-                    boss.collider2d.enabled = false;
+                    //boss.rigidBody.AddForce(boss.transform.position - boss.player.position, ForceMode2D.Impulse);
+                    //boss.collider2d.enabled = false;
                     base.OnStart(boss);
                 }
 
                 public override void OnEnd()
                 {
-                    boss.collider2d.enabled = true;
+                    //boss.controller.enabled = true;
                 }
             }
 
@@ -164,28 +190,30 @@ namespace Kortge
         }
 
         private States.State state;
-        public ParticleSystem smoke;
+        public ParticleSystem smokeOut;
+        public ParticleSystem smokeIn;
         public Transform player;
         public Projectile beamPrefab;
-        private float reactionTime = 2f;
+        private float reactionTime;
         private Health health;
-        private int burst = 7;
-        private Rigidbody2D rigidBody;
+        private int burst;
         private SpriteRenderer sprite;
-        private BoxCollider2D collider2d;
         public bool hit = false;
         private Animator animator;
         private ParticleSystem gleam;
+        public GameObject laser;
+        private bool colliding;
+        private bool focused = true;
+        private CharacterController controller;
 
         // Start is called before the first frame update
         void Start()
         {
             health = GetComponent<Health>();
-            rigidBody = GetComponent<Rigidbody2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
-            collider2d = GetComponent<BoxCollider2D>();
             animator = GetComponentInChildren<Animator>();
             gleam = GetComponentInChildren<ParticleSystem>();
+            controller = GetComponent<CharacterController>();
             gleam.Stop();
         }
 
@@ -199,18 +227,13 @@ namespace Kortge
                 if (state != null) SwitchState(state.Update());
             };
 
-            LookAtPlayer();
+            if(focused)LookAtPlayer();
 
             //if (timerSpawnBullt <= 0)
 
-            if (health.health == 6) {
-                reactionTime = 1f;
-                burst = 14;
-            }
-            if (health.health == 3) { reactionTime = 0.5f;
-                burst = 28;
-            }
-
+            reactionTime = 0.2f + (0.02f * health.health);
+            burst = 10 - health.health + 1;
+            print(state);
         }
 
         void SwitchState(States.State newState)
@@ -226,32 +249,38 @@ namespace Kortge
 
         void SmokeOut()
         {
-            Instantiate(smoke, transform.position, transform.rotation);
-            transform.position = transform.up * (-20);
+            Instantiate(smokeOut, transform.position, new Quaternion(0,0,0,0));
+            transform.position = Vector3.up * (20);
         }
 
         void SmokeIn()
         {
-            transform.position = (Vector3.right * Random.Range(-10f, 10f)) + (Vector3.up * Random.Range(-5f, 5f));
-            Instantiate(smoke, transform.position, transform.rotation);
+            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f));
+            Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
         }
 
         void LookAtPlayer()
         {
             Vector3 vectorToHitPos = player.position - transform.position;
 
-            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.y);
+            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
 
             angle /= Mathf.PI;
             angle *= 180; // Converts from radians to half-circles to degrees.
 
-            transform.eulerAngles = new Vector3(0, 0, -angle);
+            transform.eulerAngles = new Vector3(0, angle, 0);
         }
 
         void Beam(float speed)
         {
-            Projectile beam = Instantiate(beamPrefab, transform.position + transform.up, Quaternion.identity);
-            beam.InitBullet(transform.up * speed);
+            Projectile beam = Instantiate(beamPrefab, transform.position + transform.forward, Quaternion.identity);
+            beam.InitBullet(transform.forward * speed);
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            GameObject wall = hit.gameObject;
+            if(wall.CompareTag("Wall")) colliding = true;
         }
     }
 }

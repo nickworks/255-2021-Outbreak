@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Powerup
   - Pick Up
-  - Sword
+  - Wall
+  - PlayerDamage
   layers:
   - Default
   - TransparentFX
