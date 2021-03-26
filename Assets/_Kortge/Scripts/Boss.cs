@@ -114,16 +114,34 @@ namespace Kortge
 
             public class Thrust : State
             {
+                List<AfterImage> images = new List<AfterImage>();
                 public override State Update()
                 {
                     boss.controller.SimpleMove(boss.transform.forward * ((boss.burst/2)+5));
+                    AfterImage();
                     if (boss.colliding) return new States.Cooldown();
                     return null;
                 }
+
+                private void AfterImage()
+                {
+                    AfterImage newImage = Instantiate(boss.afterImage, boss.transform.position, boss.transform.rotation);
+                    newImage.destroyTime = 2f / boss.health.health;
+                    images.Add(newImage);
+                }
+
                 public override void OnStart(Boss boss)
                 {
                     boss.focused = false;
                     base.OnStart(boss);
+                }
+
+                public override void OnEnd()
+                {
+                    foreach (AfterImage image in images)
+                    {
+                        if(image != null)Destroy(image.gameObject);
+                    }
                 }
             }
 
@@ -204,11 +222,11 @@ namespace Kortge
         private SpriteRenderer sprite;
         public bool hit = false;
         private Animator animator;
-        private ParticleSystem gleam;
         public GameObject laser;
         private bool colliding;
         private bool focused = true;
         private CharacterController controller;
+        public AfterImage afterImage;
 
         // Start is called before the first frame update
         void Start()
@@ -216,7 +234,6 @@ namespace Kortge
             health = GetComponent<Health>();
             sprite = GetComponentInChildren<SpriteRenderer>();
             animator = GetComponentInChildren<Animator>();
-            gleam = GetComponentInChildren<ParticleSystem>();
             controller = GetComponent<CharacterController>();
             reactionTime = 0.2f + (0.02f * health.health);
             burst = 10 - health.health + 1;
