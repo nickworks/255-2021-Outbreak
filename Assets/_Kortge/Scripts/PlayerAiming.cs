@@ -13,6 +13,12 @@ namespace Kortge
         public bool stabbing;
         public int roses = 0;
         public Projectile beamPrefab;
+        public GameObject sword1;
+        public GameObject sword2;
+        public GameObject sword3;
+        public GameObject sword4;
+        public GameObject sword5;
+        public GameObject sword6;
 
         // Start is called before the first frame update
         void Start()
@@ -33,6 +39,65 @@ namespace Kortge
                     Projectile beam = Instantiate(beamPrefab, transform.position + transform.forward, transform.rotation);
                     beam.InitBullet(transform.forward * 20);
                     roses--;
+                }
+                switch (roses)
+                {
+                    case 6:
+                        sword6.SetActive(false);
+                        sword5.SetActive(true);
+                        sword4.SetActive(true);
+                        sword3.SetActive(true);
+                        sword2.SetActive(true);
+                        sword1.SetActive(true);
+                        break;
+                    case 5:
+                        sword6.SetActive(false);
+                        sword5.SetActive(true);
+                        sword4.SetActive(true);
+                        sword3.SetActive(true);
+                        sword2.SetActive(true);
+                        sword1.SetActive(true);
+                        break;
+                    case 4:
+                        sword6.SetActive(false);
+                        sword5.SetActive(false);
+                        sword4.SetActive(true);
+                        sword3.SetActive(true);
+                        sword2.SetActive(true);
+                        sword1.SetActive(true);
+                        break;
+                    case 3:
+                        sword6.SetActive(false);
+                        sword5.SetActive(false);
+                        sword4.SetActive(false);
+                        sword3.SetActive(true);
+                        sword2.SetActive(true);
+                        sword1.SetActive(true);
+                        break;
+                    case 2:
+                        sword6.SetActive(false);
+                        sword5.SetActive(false);
+                        sword4.SetActive(false);
+                        sword3.SetActive(false);
+                        sword2.SetActive(true);
+                        sword1.SetActive(true);
+                        break;
+                    case 1:
+                        sword6.SetActive(false);
+                        sword5.SetActive(false);
+                        sword4.SetActive(false);
+                        sword3.SetActive(false);
+                        sword2.SetActive(false);
+                        sword1.SetActive(true);
+                        break;
+                    case 0:
+                        sword6.SetActive(false);
+                        sword5.SetActive(false);
+                        sword4.SetActive(false);
+                        sword3.SetActive(false);
+                        sword2.SetActive(false);
+                        sword1.SetActive(false);
+                        break;
                 }
             }
         }
@@ -63,7 +128,7 @@ namespace Kortge
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (hit.gameObject.CompareTag("Rose"))
+            if (hit.gameObject.CompareTag("Rose") && roses < 6)
             {
                 roses++;
                 Destroy(hit.gameObject);

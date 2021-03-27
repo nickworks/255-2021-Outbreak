@@ -12,6 +12,12 @@ namespace Kortge
         private bool transparent;
         private Color color;
         public bool vulnerable;
+        public GameObject rose1;
+        public GameObject rose2;
+        public GameObject rose3;
+        public GameObject rose4;
+        public GameObject rose5;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -22,7 +28,25 @@ namespace Kortge
         // Update is called once per frame
         void Update()
         {
-            if (health <= 0) Destroy(gameObject);
+            switch (health)
+            {
+                case 4:
+                    rose5.SetActive(false);
+                    break;
+                case 3:
+                    rose4.SetActive(false);
+                    break;
+                case 2:
+                    rose3.SetActive(false);
+                    break;
+                case 1:
+                    rose2.SetActive(false);
+                    break;
+                case 0:
+                    rose1.SetActive(false);
+                    Destroy(gameObject);
+                    break;
+            }
             if (postHit)
             {
                 invulnerabilityTime -= Time.deltaTime;
