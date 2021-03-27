@@ -39,6 +39,18 @@ namespace Kortge
 
             public class Draw : State
             {
+                float readyTime = 1;
+                public override State Update()
+                {
+                    readyTime -= Time.deltaTime;
+                    if (readyTime <= 0) return new States.Teleport();
+                    return null;
+                }
+                public override void OnStart(Boss boss)
+                {
+                    boss.SmokeIn();
+                    base.OnStart(boss);
+                }
             }
 
             public class Teleport : State
@@ -153,6 +165,7 @@ namespace Kortge
                     cooldownTime -= Time.deltaTime;
                     if (boss.hit)
                     {
+                        if (boss.health.health <= 0) return new States.Death();
                         boss.hit = false;
                         return new States.Hit();
                     }
@@ -209,7 +222,6 @@ namespace Kortge
         public Projectile beamPrefab;
         private float reactionTime;
         private Health health;
-        private SpriteRenderer sprite;
         public bool hit = false;
         private Animator animator;
         public GameObject laser;
@@ -222,7 +234,6 @@ namespace Kortge
         void Start()
         {
             health = GetComponent<Health>();
-            sprite = GetComponentInChildren<SpriteRenderer>();
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
             reactionTime = 1f;
@@ -231,7 +242,7 @@ namespace Kortge
         // Update is called once per frame
         void Update()
         {
-            if (state == null) SwitchState(new States.Teleport());
+            if (state == null) SwitchState(new States.Draw());
 
             if (state != null)
             {

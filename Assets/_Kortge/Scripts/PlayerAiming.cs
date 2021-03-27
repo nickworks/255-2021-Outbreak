@@ -60,5 +60,15 @@ namespace Kortge
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
         }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.CompareTag("Rose"))
+            {
+                roses++;
+                Destroy(hit.gameObject);
+            }
+
+        }
     }
 }

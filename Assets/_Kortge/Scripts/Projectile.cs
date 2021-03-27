@@ -23,7 +23,6 @@ namespace Kortge{
         // Start is called before the first frame update
         void Start()
         {
-
         }
         public void InitBullet(Vector3 vel)
         {
