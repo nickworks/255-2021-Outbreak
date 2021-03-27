@@ -6,6 +6,7 @@ namespace Kortge
 {
     public class Damage : MonoBehaviour
     {
+        public bool player;
         // Start is called before the first frame update
         void Start()
         {
@@ -18,12 +19,14 @@ namespace Kortge
 
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter(Collider other)
         {
-            Health victim = collision.GetComponent<Health>();
-            victim.health--;
-            Boss boss = victim.GetComponent<Boss>();
-            if (boss != null) boss.hit = true;
+            if ((player && other.CompareTag("Player"))||(!player && other.CompareTag("Boss")))
+            {
+                Health health = other.GetComponent<Health>();
+                health.Damage();
+                print("Ow!");
+            }
         }
     }
 }

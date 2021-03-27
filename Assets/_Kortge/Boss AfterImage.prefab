@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1972840856702020560}
   - component: {fileID: 4610618650033501294}
+  - component: {fileID: 8735895245216581812}
+  - component: {fileID: 4913033975967557662}
   m_Layer: 0
   m_Name: Boss AfterImage
   m_TagString: Untagged
@@ -45,6 +47,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 0
+--- !u!114 &8735895245216581812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187196710097230008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aaf1c55a3fbee14ab68b86eed02213d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 1
+--- !u!65 &4913033975967557662
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187196710097230008}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7449349621448751736
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,7 +83,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4351928712571679579}
   - component: {fileID: 3340227079598319210}
-  - component: {fileID: 8869306182382447646}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: PlayerDamage
@@ -128,16 +155,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &8869306182382447646
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449349621448751736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.25, z: 1}
-  m_Center: {x: 0, y: -0.125, z: 0}
