@@ -151,17 +151,23 @@ namespace Kortge
                 public override State Update()
                 {
                     cooldownTime -= Time.deltaTime;
-                    if (boss.hit) return new States.Hit();
+                    if (boss.hit)
+                    {
+                        boss.hit = false;
+                        return new States.Hit();
+                    }
                     if (cooldownTime <= 0) return new States.Teleport();
                     return null;
                 }
                 public override void OnStart(Boss boss)
                 {
+                    boss.health.vulnerable = true;
                     cooldownTime = boss.reactionTime * 2;
                     base.OnStart(boss);
                 }
                 public override void OnEnd()
                 {
+                    boss.health.vulnerable = false;
                     boss.animator.SetTrigger("Beam Finish");
 
                 }
@@ -169,36 +175,20 @@ namespace Kortge
 
             public class Hit : State
             {
-                float hitTime;
-                bool transparent = false;
+                float hitTime = 0.2f;
                 public override State Update()
                 {
                     hitTime -= Time.deltaTime;
-                    if (transparent)
-                    {
-                        boss.sprite.color = new Color(0.2f, 0.2f, 0.2f, 1);
-                        transparent = false;
-                    }
-                    else
-                    {
-                        boss.sprite.color = Color.clear;
-                        transparent = true;
-                    }
-                    if (hitTime <= 0) {
-                        boss.sprite.color = new Color(0.2f, 0.2f, 0.2f, 1);
-                        return new States.Teleport();
-                    }
+                    if (hitTime <= 0) return new States.Teleport();
                     return null;
                 }
 
                 public override void OnStart(Boss boss)
                 {
                     boss.animator.SetTrigger("Beam Finish");
-                    boss.hit = false;
                     hitTime = boss.reactionTime;
                     //boss.rigidBody.AddForce(boss.transform.position - boss.player.position, ForceMode2D.Impulse);
                     //boss.collider2d.enabled = false;
-                    base.OnStart(boss);
                 }
 
                 public override void OnEnd()

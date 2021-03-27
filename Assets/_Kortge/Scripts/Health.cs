@@ -7,10 +7,11 @@ namespace Kortge
     {
         public int health;
         private SpriteRenderer sprite;
-        private float invulnerabilityTime = 0.25f;
-        public bool invulnerable;
+        private float invulnerabilityTime = 0.2f;
+        public bool postHit;
         private bool transparent;
         private Color color;
+        public bool vulnerable;
         // Start is called before the first frame update
         void Start()
         {
@@ -22,7 +23,7 @@ namespace Kortge
         void Update()
         {
             if (health <= 0) Destroy(gameObject);
-            if (invulnerable)
+            if (postHit)
             {
                 invulnerabilityTime -= Time.deltaTime;
                 if (transparent)
@@ -38,19 +39,21 @@ namespace Kortge
                 if (invulnerabilityTime <= 0)
                 {
                     sprite.color = color;
-                    invulnerabilityTime = 0.25f;
-                    invulnerable = false;
+                    invulnerabilityTime = 0.2f;
+                    postHit = false;
                 }
+                print(invulnerabilityTime);
             }
         }
 
         public void Damage()
         {
-            if (!invulnerable)
+            if (!postHit && vulnerable)
             {
                 health--;
-                invulnerable = true;
-                print("Ow!");
+                postHit = true;
+                Boss boss = GetComponent<Boss>();
+                if (boss != null) boss.hit = true;
             }
         }
     }

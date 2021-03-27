@@ -11,6 +11,8 @@ namespace Kortge
         public Projectile prefabProjectile;
         private Animator animator;
         public bool stabbing;
+        public int roses = 0;
+        public Projectile beamPrefab;
 
         // Start is called before the first frame update
         void Start()
@@ -23,7 +25,16 @@ namespace Kortge
         void Update()
         {
             AimAtMouse();
-            if (Input.GetButtonDown("Fire1") && !stabbing) animator.SetTrigger("Stab");
+            if (Input.GetButtonDown("Fire1") && !stabbing)
+            {
+                animator.SetTrigger("Stab");
+                if (roses > 0)
+                {
+                    Projectile beam = Instantiate(beamPrefab, transform.position + transform.forward, transform.rotation);
+                    beam.InitBullet(transform.forward * 20);
+                    roses--;
+                }
+            }
         }
 
         private void AimAtMouse()
@@ -46,7 +57,7 @@ namespace Kortge
 
                 angle /= Mathf.PI;
                 angle *= 180; // Converts from radians to half-circles to degrees.
-                transform.eulerAngles = new Vector3(-90, 0, angle);
+                transform.eulerAngles = new Vector3(0, angle, 0);
             }
         }
     }

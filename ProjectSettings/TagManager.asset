@@ -8,6 +8,7 @@ TagManager:
   - Pick Up
   - Wall
   - PlayerDamage
+  - Boss
   layers:
   - Default
   - TransparentFX
