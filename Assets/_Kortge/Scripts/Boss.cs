@@ -87,16 +87,17 @@ namespace Kortge
 
             public class Attack : State
             {
-                float beamTime;
+                float beamTime = 1;
                 float shotDelay;
                 float shotTime;
                 public override State Update()
                 {
                     beamTime -= Time.deltaTime;
+                    shotTime -= Time.deltaTime;
                     if (beamTime <= 0) return new States.Thrust();
                     if (shotTime <= 0)
                     {
-                        boss.Beam((boss.burst / 2) + 5);
+                        boss.Beam(5 + (6-boss.health.health));
                         shotTime = shotDelay;
                     }
                     else shotTime -= Time.deltaTime;
@@ -105,8 +106,7 @@ namespace Kortge
 
                 public override void OnStart(Boss boss)
                 {
-                    beamTime = boss.reactionTime;
-                    shotDelay = boss.reactionTime/boss.burst;
+                    shotDelay = 1f/(12f*(6-boss.health.health));
                     shotTime = shotDelay;
                     base.OnStart(boss);
                 }
@@ -117,7 +117,7 @@ namespace Kortge
                 List<AfterImage> images = new List<AfterImage>();
                 public override State Update()
                 {
-                    boss.controller.SimpleMove(boss.transform.forward * ((boss.burst/2)+5));
+                    boss.controller.SimpleMove(boss.transform.forward * ((6-boss.health.health) * 4));
                     AfterImage();
                     if (boss.colliding) return new States.Cooldown();
                     return null;
@@ -126,7 +126,7 @@ namespace Kortge
                 private void AfterImage()
                 {
                     AfterImage newImage = Instantiate(boss.afterImage, boss.transform.position, boss.transform.rotation);
-                    newImage.destroyTime = 2f / boss.health.health;
+                    newImage.destroyTime = 1f / boss.health.health;
                     images.Add(newImage);
                 }
 
@@ -169,7 +169,7 @@ namespace Kortge
 
             public class Hit : State
             {
-                float hitTime = 1f;
+                float hitTime;
                 bool transparent = false;
                 public override State Update()
                 {
@@ -195,6 +195,7 @@ namespace Kortge
                 {
                     boss.animator.SetTrigger("Beam Finish");
                     boss.hit = false;
+                    hitTime = boss.reactionTime;
                     //boss.rigidBody.AddForce(boss.transform.position - boss.player.position, ForceMode2D.Impulse);
                     //boss.collider2d.enabled = false;
                     base.OnStart(boss);
@@ -218,7 +219,6 @@ namespace Kortge
         public Projectile beamPrefab;
         private float reactionTime;
         private Health health;
-        private int burst;
         private SpriteRenderer sprite;
         public bool hit = false;
         private Animator animator;
@@ -235,8 +235,7 @@ namespace Kortge
             sprite = GetComponentInChildren<SpriteRenderer>();
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
-            reactionTime = 0.2f + (0.02f * health.health);
-            burst = 10 - health.health + 1;
+            reactionTime = 1f;
         }
 
         // Update is called once per frame
@@ -251,11 +250,11 @@ namespace Kortge
 
             if(focused)LookAtPlayer();
 
-            //if (timerSpawnBullt <= 0)
+            reactionTime = health.health * 0.2f;
 
-            reactionTime = 0.2f + (0.02f * health.health);
-            burst = 10 - health.health + 1;
-            print(state);
+            //if (timerSpawnBullt <= 0)
+            print(Time.deltaTime);
+            print(1f / (6f - health.health));
         }
 
         void SwitchState(States.State newState)

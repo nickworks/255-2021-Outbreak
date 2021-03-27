@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 4627091560078129140}
   - component: {fileID: 2098068454063534138}
   - component: {fileID: 3106936378358330303}
-  - component: {fileID: 6832385793825912117}
-  - component: {fileID: 7856749095539885580}
+  - component: {fileID: -8307412019747631228}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3543821870981401941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,31 +95,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367e6c60dcc9a774190eee5ac7f16f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6832385793825912117
-MonoBehaviour:
+--- !u!135 &-8307412019747631228
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3543821870981401941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aaf1c55a3fbee14ab68b86eed02213d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!58 &7856749095539885580
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3543821870981401941}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
