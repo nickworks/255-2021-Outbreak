@@ -1,44 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Health : MonoBehaviour
+namespace Kortge
 {
-    public int health;
-    private SpriteRenderer sprite;
-    private float invulnerabilityTime = 0.25f;
-    private bool transparent;
-    private Color color;
-    // Start is called before the first frame update
-    void Start()
+    public class Health : MonoBehaviour
     {
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        color = sprite.color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (health <= 0) Destroy(gameObject);
-    }
-
-    public void Damage()
-    {
-        health--;
-        invulnerabilityTime -= Time.deltaTime;
-        if (transparent)
+        public int health;
+        private SpriteRenderer sprite;
+        private float invulnerabilityTime = 0.25f;
+        public bool invulnerable;
+        private bool transparent;
+        private Color color;
+        // Start is called before the first frame update
+        void Start()
         {
-            sprite.color = color;
-            transparent = false;
+            sprite = GetComponentInChildren<SpriteRenderer>();
+            color = sprite.color;
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            sprite.color = Color.clear;
-            transparent = true;
+            if (health <= 0) Destroy(gameObject);
+            if (invulnerable)
+            {
+                invulnerabilityTime -= Time.deltaTime;
+                if (transparent)
+                {
+                    sprite.color = color;
+                    transparent = false;
+                }
+                else
+                {
+                    sprite.color = Color.clear;
+                    transparent = true;
+                }
+                if (invulnerabilityTime <= 0)
+                {
+                    sprite.color = color;
+                    invulnerabilityTime = 0.25f;
+                    invulnerable = false;
+                }
+            }
         }
-        if (invulnerabilityTime <= 0)
+
+        public void Damage()
         {
-            sprite.color = color;
+            if (!invulnerable)
+            {
+                health--;
+                invulnerable = true;
+                print("Ow!");
+            }
         }
     }
 }

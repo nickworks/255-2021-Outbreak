@@ -1,28 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerDamage : MonoBehaviour
+namespace Kortge
 {
-    public bool player;
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerDamage : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (player && other.CompareTag("Player"))
+        public bool player;
+        // Start is called before the first frame update
+        void Start()
         {
-            Health health = other.GetComponent<Health>();
-            health.Damage();
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (player && other.CompareTag("Player"))
+            {
+                Health health = other.GetComponent<Health>();
+                health.Damage();
+            }
         }
     }
 }

@@ -25,7 +25,6 @@ namespace Kortge
             {
                 Health health = other.GetComponent<Health>();
                 health.Damage();
-                print("Ow!");
             }
         }
     }

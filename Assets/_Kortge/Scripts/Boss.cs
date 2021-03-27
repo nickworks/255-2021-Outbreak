@@ -253,8 +253,6 @@ namespace Kortge
             reactionTime = health.health * 0.2f;
 
             //if (timerSpawnBullt <= 0)
-            print(Time.deltaTime);
-            print(1f / (6f - health.health));
         }
 
         void SwitchState(States.State newState)
@@ -282,14 +280,18 @@ namespace Kortge
 
         void LookAtPlayer()
         {
-            Vector3 vectorToHitPos = player.position - transform.position;
+            if (player != null)
+            {
+                Vector3 vectorToHitPos = player.position - transform.position;
 
-            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
 
-            angle /= Mathf.PI;
-            angle *= 180; // Converts from radians to half-circles to degrees.
+                angle /= Mathf.PI;
+                angle *= 180; // Converts from radians to half-circles to degrees.
 
-            transform.eulerAngles = new Vector3(0, angle, 0);
+                transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+            else return;
         }
 
         void Beam(float speed)
