@@ -180,7 +180,7 @@ namespace Kortge
                 public override void OnStart(Boss boss)
                 {
                     boss.health.vulnerable = true;
-                    cooldownTime = boss.reactionTime * 2;
+                    cooldownTime = boss.reactionTime;
                     base.OnStart(boss);
                 }
                 public override void OnEnd()
@@ -225,7 +225,7 @@ namespace Kortge
         public ParticleSystem smokeIn;
         public Transform player;
         public Projectile beamPrefab;
-        private float reactionTime;
+        public float reactionTime;
         private Health health;
         public bool hit = false;
         private Animator animator;

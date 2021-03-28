@@ -66,7 +66,6 @@ namespace Kortge
                     invulnerabilityTime = 0.2f;
                     postHit = false;
                 }
-                print(invulnerabilityTime);
             }
         }
 
