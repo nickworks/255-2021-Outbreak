@@ -40,65 +40,66 @@ namespace Kortge
                     beam.InitBullet(transform.forward * 20);
                     roses--;
                 }
-                switch (roses)
-                {
-                    case 6:
-                        sword6.SetActive(false);
-                        sword5.SetActive(true);
-                        sword4.SetActive(true);
-                        sword3.SetActive(true);
-                        sword2.SetActive(true);
-                        sword1.SetActive(true);
-                        break;
-                    case 5:
-                        sword6.SetActive(false);
-                        sword5.SetActive(true);
-                        sword4.SetActive(true);
-                        sword3.SetActive(true);
-                        sword2.SetActive(true);
-                        sword1.SetActive(true);
-                        break;
-                    case 4:
-                        sword6.SetActive(false);
-                        sword5.SetActive(false);
-                        sword4.SetActive(true);
-                        sword3.SetActive(true);
-                        sword2.SetActive(true);
-                        sword1.SetActive(true);
-                        break;
-                    case 3:
-                        sword6.SetActive(false);
-                        sword5.SetActive(false);
-                        sword4.SetActive(false);
-                        sword3.SetActive(true);
-                        sword2.SetActive(true);
-                        sword1.SetActive(true);
-                        break;
-                    case 2:
-                        sword6.SetActive(false);
-                        sword5.SetActive(false);
-                        sword4.SetActive(false);
-                        sword3.SetActive(false);
-                        sword2.SetActive(true);
-                        sword1.SetActive(true);
-                        break;
-                    case 1:
-                        sword6.SetActive(false);
-                        sword5.SetActive(false);
-                        sword4.SetActive(false);
-                        sword3.SetActive(false);
-                        sword2.SetActive(false);
-                        sword1.SetActive(true);
-                        break;
-                    case 0:
-                        sword6.SetActive(false);
-                        sword5.SetActive(false);
-                        sword4.SetActive(false);
-                        sword3.SetActive(false);
-                        sword2.SetActive(false);
-                        sword1.SetActive(false);
-                        break;
-                }
+                
+            }
+            switch (roses)
+            {
+                case 6:
+                    sword6.SetActive(false);
+                    sword5.SetActive(true);
+                    sword4.SetActive(true);
+                    sword3.SetActive(true);
+                    sword2.SetActive(true);
+                    sword1.SetActive(true);
+                    break;
+                case 5:
+                    sword6.SetActive(false);
+                    sword5.SetActive(true);
+                    sword4.SetActive(true);
+                    sword3.SetActive(true);
+                    sword2.SetActive(true);
+                    sword1.SetActive(true);
+                    break;
+                case 4:
+                    sword6.SetActive(false);
+                    sword5.SetActive(false);
+                    sword4.SetActive(true);
+                    sword3.SetActive(true);
+                    sword2.SetActive(true);
+                    sword1.SetActive(true);
+                    break;
+                case 3:
+                    sword6.SetActive(false);
+                    sword5.SetActive(false);
+                    sword4.SetActive(false);
+                    sword3.SetActive(true);
+                    sword2.SetActive(true);
+                    sword1.SetActive(true);
+                    break;
+                case 2:
+                    sword6.SetActive(false);
+                    sword5.SetActive(false);
+                    sword4.SetActive(false);
+                    sword3.SetActive(false);
+                    sword2.SetActive(true);
+                    sword1.SetActive(true);
+                    break;
+                case 1:
+                    sword6.SetActive(false);
+                    sword5.SetActive(false);
+                    sword4.SetActive(false);
+                    sword3.SetActive(false);
+                    sword2.SetActive(false);
+                    sword1.SetActive(true);
+                    break;
+                case 0:
+                    sword6.SetActive(false);
+                    sword5.SetActive(false);
+                    sword4.SetActive(false);
+                    sword3.SetActive(false);
+                    sword2.SetActive(false);
+                    sword1.SetActive(false);
+                    break;
             }
         }
 

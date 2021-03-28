@@ -9,7 +9,6 @@ namespace Kortge
         public Maiden[] maidens = new Maiden[4];
         public Boss boss;
         public PlayerAiming player;
-        private float delay = 1;
 
         // Start is called before the first frame update
         void Start()
@@ -27,15 +26,12 @@ namespace Kortge
                 if (!maiden.roseThrown) maidenIndexes.Add(maidenIndex);
                 maidenIndex++;
             }
-            if (maidenIndexes.Count >0 && player.roses < 6) delay -= Time.deltaTime;
-            if (delay <= 0)
+            if (boss.maidenCue && maidenIndexes.Count > 0 && player.roses < 6)
             {
                 Maiden maiden = maidens[maidenIndexes[Random.Range(0, maidenIndexes.Count - 1)]];
                 maiden.ThrowRose();
-                delay = boss.reactionTime;
-                print(maiden);
             }
-
+            boss.maidenCue = false;
         }
     }
 }

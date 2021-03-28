@@ -150,6 +150,7 @@ namespace Kortge
 
                 public override void OnEnd()
                 {
+                    boss.maidenCue = true;
                     foreach (AfterImage image in images)
                     {
                         if(image != null)Destroy(image.gameObject);
@@ -235,6 +236,7 @@ namespace Kortge
         private CharacterController controller;
         public AfterImage afterImage;
         private bool earlyTeleport = false;
+        public bool maidenCue = false;
 
         // Start is called before the first frame update
         void Start()
