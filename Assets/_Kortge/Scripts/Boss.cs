@@ -160,6 +160,7 @@ namespace Kortge
             public class Cooldown : State
             {
                 float cooldownTime;
+                float distance = 3;
                 public override State Update()
                 {
                     cooldownTime -= Time.deltaTime;
@@ -169,7 +170,11 @@ namespace Kortge
                         boss.hit = false;
                         return new States.Hit();
                     }
-                    if (cooldownTime <= 0) return new States.Teleport();
+                    if (boss.earlyTeleport)
+                    {
+                        distance = Vector3.Distance(boss.player.position, boss.transform.position);
+                    }
+                    if (cooldownTime <= 0 || distance < 2) return new States.Teleport();
                     return null;
                 }
                 public override void OnStart(Boss boss)
@@ -229,6 +234,7 @@ namespace Kortge
         private bool focused = true;
         private CharacterController controller;
         public AfterImage afterImage;
+        private bool earlyTeleport = false;
 
         // Start is called before the first frame update
         void Start()
@@ -253,6 +259,8 @@ namespace Kortge
 
             reactionTime = health.health * 0.2f;
 
+            if (health.health <= 3) earlyTeleport = true;
+
             //if (timerSpawnBullt <= 0)
         }
 
@@ -275,7 +283,7 @@ namespace Kortge
 
         void SmokeIn()
         {
-            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f));
+            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up/2);
             Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
         }
 

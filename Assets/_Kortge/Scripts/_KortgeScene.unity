@@ -1483,12 +1483,12 @@ MonoBehaviour:
   roses: 0
   beamPrefab: {fileID: 298363504514433853, guid: d764bab14dd312342aaa793bf5f8061a,
     type: 3}
-  sword1: {fileID: 0}
-  sword2: {fileID: 0}
-  sword3: {fileID: 0}
-  sword4: {fileID: 0}
-  sword5: {fileID: 0}
-  sword6: {fileID: 0}
+  sword1: {fileID: 209960576}
+  sword2: {fileID: 1115203431}
+  sword3: {fileID: 552516220}
+  sword4: {fileID: 1321456040}
+  sword5: {fileID: 1146158372}
+  sword6: {fileID: 881617014}
 --- !u!4 &709258063
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,7 +1497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709258061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 649498350}
@@ -1532,11 +1532,11 @@ MonoBehaviour:
   health: 5
   postHit: 0
   vulnerable: 1
-  rose1: {fileID: 0}
-  rose2: {fileID: 0}
-  rose3: {fileID: 0}
-  rose4: {fileID: 0}
-  rose5: {fileID: 0}
+  rose1: {fileID: 604852354}
+  rose2: {fileID: 2045088310}
+  rose3: {fileID: 694912320}
+  rose4: {fileID: 452330311}
+  rose5: {fileID: 776863225}
 --- !u!143 &709258066
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2308,7 +2308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167876377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 548675936}
@@ -2330,11 +2330,11 @@ MonoBehaviour:
   health: 5
   postHit: 0
   vulnerable: 0
-  rose1: {fileID: 0}
-  rose2: {fileID: 0}
-  rose3: {fileID: 0}
-  rose4: {fileID: 0}
-  rose5: {fileID: 0}
+  rose1: {fileID: 538643805}
+  rose2: {fileID: 714439510}
+  rose3: {fileID: 1725011525}
+  rose4: {fileID: 1202860711}
+  rose5: {fileID: 1591300038}
 --- !u!143 &1167876381
 CharacterController:
   m_ObjectHideFlags: 0
