@@ -9,6 +9,7 @@ namespace Kortge
         public Maiden[] maidens = new Maiden[4];
         public Boss boss;
         public PlayerAiming player;
+        private float delay = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -19,17 +20,13 @@ namespace Kortge
         // Update is called once per frame
         void Update()
         {
-            int maidenIndex = 0;
-            List<int> maidenIndexes = new List<int>();
-            foreach (Maiden maiden in maidens)
+            delay -= Time.deltaTime;
+            if (delay < 0) delay = 0;
+            if ((boss.dead && delay == 0)|| (boss.maidenCue && !player.projectionReady))
             {
-                if (!maiden.roseThrown) maidenIndexes.Add(maidenIndex);
-                maidenIndex++;
-            }
-            if (boss.maidenCue && maidenIndexes.Count > 0 && player.roses < 6)
-            {
-                Maiden maiden = maidens[maidenIndexes[Random.Range(0, maidenIndexes.Count - 1)]];
+                Maiden maiden = maidens[Random.Range(0,3)];
                 maiden.ThrowRose();
+                delay = 1;
             }
             boss.maidenCue = false;
         }

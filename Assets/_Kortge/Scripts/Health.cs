@@ -17,6 +17,7 @@ namespace Kortge
         public GameObject rose3;
         public GameObject rose4;
         public GameObject rose5;
+        public ParticleSystem particles;
 
         // Start is called before the first frame update
         void Start()
@@ -44,10 +45,9 @@ namespace Kortge
                     break;
                 case 0:
                     rose1.SetActive(false);
-                    Destroy(gameObject);
                     break;
             }
-            if (postHit)
+            if (postHit && health > 0)
             {
                 invulnerabilityTime -= Time.deltaTime;
                 if (transparent)
@@ -66,6 +66,11 @@ namespace Kortge
                     invulnerabilityTime = 0.2f;
                     postHit = false;
                 }
+            }
+            if (health <= 0)
+            {
+                Instantiate(particles, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
         }
 

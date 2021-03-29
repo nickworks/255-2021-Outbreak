@@ -144,13 +144,13 @@ namespace Kortge
 
                 public override void OnStart(Boss boss)
                 {
+                    boss.maidenCue = true;
                     boss.focused = false;
                     base.OnStart(boss);
                 }
 
                 public override void OnEnd()
                 {
-                    boss.maidenCue = true;
                     foreach (AfterImage image in images)
                     {
                         if(image != null)Destroy(image.gameObject);
@@ -218,6 +218,10 @@ namespace Kortge
 
             public class Death : State
             {
+                public override void OnStart(Boss boss)
+                {
+                    boss.dead = true;
+                }
             }
         }
 
@@ -237,6 +241,7 @@ namespace Kortge
         public AfterImage afterImage;
         private bool earlyTeleport = false;
         public bool maidenCue = false;
+        public bool dead;
 
         // Start is called before the first frame update
         void Start()
