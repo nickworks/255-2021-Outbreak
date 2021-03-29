@@ -39,12 +39,12 @@ namespace Szczesniak {
                 public override State Update() {
 
                     // transitions: 
-                    if (boss.CanSeeThing(boss.attackTarget, true))
+                    if (boss.CanSeeThing(boss.attackTarget, true, boss.viewingDistance))
                         return new States.Pursuing();
 
                     // Patroling
                     idleTime -= Time.deltaTime;
-                    if (!boss.CanSeeThing(boss.attackTarget, true) && idleTime <= 0)
+                    if (!boss.CanSeeThing(boss.attackTarget, true, boss.viewingDistance) && idleTime <= 0)
                         return new States.Patrolling(true);
 
                     return null;
@@ -55,10 +55,10 @@ namespace Szczesniak {
                 public override State Update() {
                     // behavior:
                     boss.MoveTowardTarget();
-                    boss.MachineGun();
-
-                    if (!boss.CanSeeThing(boss.attackTarget, true))
+ 
+                    if (!boss.CanSeeThing(boss.attackTarget, true, boss.viewingDistance))
                         return new States.Idle(boss.timeToStopIdle);
+
 
                     return null;
                 }
@@ -84,7 +84,7 @@ namespace Szczesniak {
                     if (!boss.nav.pathPending && boss.nav.remainingDistance <= 2f)
                         return new States.Idle(boss.timeToStopIdle);
 
-                    if (boss.CanSeeThing(boss.attackTarget, false))
+                    if (boss.CanSeeThing(boss.attackTarget, false, boss.viewingDistance))
                         return new States.Pursuing();
 
                     return null;
@@ -96,19 +96,7 @@ namespace Szczesniak {
             }
 
             public class Stunned : State {
-
-            }
-
-            public class SpawnMinions : State {
-
-            }
-
-            public class MiniGunAttack : State {
                 
-            }
-
-            public class HomingMissleAttack : State {
-
             }
 
         }
@@ -127,15 +115,8 @@ namespace Szczesniak {
         public float viewingDistance = 10;
         public float viewingAngle = 35;
         public float stoppingDistance = 25;
+        public float shootingRange = 15;
         private float timeToStopIdle = 5;
-
-        public Projectile prefabMachineGunBullets;
-
-        public Transform leftMuzzle;
-        public Transform rightMuzzle;
-
-        public float roundPerSec = 20;
-        private float bulletAmountTime = 0;
 
         void Start() {
             nav = GetComponent<NavMeshAgent>();
@@ -147,8 +128,6 @@ namespace Szczesniak {
             //if (state == null) state = 
 
             if (state != null) SwitchState(state.Update());
-
-            if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime;
 
             print(state);
         }
@@ -166,14 +145,14 @@ namespace Szczesniak {
             state.OnStart(this);
         }
 
-        private bool CanSeeThing(Transform thing, bool patrolVision) {
+        private bool CanSeeThing(Transform thing, bool patrolVision, float shootingAndLooking) {
 
             if (!thing) return false; // uh... error
 
             Vector3 vToThing = thing.position - transform.position;
 
             // check distance
-            if (vToThing.sqrMagnitude > viewingDistance * viewingDistance) {
+            if (vToThing.sqrMagnitude > shootingAndLooking * shootingAndLooking) {
                 if (patrolVision) StopNavMovement();
                 return false; // Too far away to see...
             }
@@ -181,7 +160,7 @@ namespace Szczesniak {
             // check direction
             if (Vector3.Angle(transform.forward, vToThing) > viewingAngle) return false; // out of vision "cone"
 
-            if (vToThing.sqrMagnitude < viewingDistance * (viewingDistance - stoppingDistance)) {
+            if (vToThing.sqrMagnitude < shootingAndLooking * (shootingAndLooking - stoppingDistance)) {
                 StopNavMovement();
             } else
                 ContinueNavMovement();
@@ -206,18 +185,6 @@ namespace Szczesniak {
             nav.destination = patrolPoints[pointPatrolling].position;
             pointPatrolling = (pointPatrolling + 1) % patrolPoints.Length;
 
-        }
-
-        void MachineGun() {
-            if (bulletAmountTime > 0) return;
-
-            Projectile leftBullets = Instantiate(prefabMachineGunBullets, leftMuzzle.position, Quaternion.identity);
-            leftBullets.InitBullet(transform.forward * 30);
-
-            Projectile RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, Quaternion.identity);
-            RightBullets.InitBullet(transform.forward * 30);
-
-            bulletAmountTime = 1 / roundPerSec;
         }
     }
 }
