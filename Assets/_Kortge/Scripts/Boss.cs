@@ -173,22 +173,23 @@ namespace Kortge
                     }
                     if (boss.earlyTeleport)
                     {
-                        distance = Vector3.Distance(boss.player.position, boss.transform.position);
+                        if(boss.player != null)distance = Vector3.Distance(boss.player.position, boss.transform.position);
                     }
                     if (cooldownTime <= 0 || distance < 2) return new States.Teleport();
                     return null;
                 }
                 public override void OnStart(Boss boss)
                 {
+                    boss.sweat.Play();
                     boss.health.vulnerable = true;
                     cooldownTime = boss.reactionTime;
                     base.OnStart(boss);
                 }
                 public override void OnEnd()
                 {
+                    boss.sweat.Stop();
                     boss.health.vulnerable = false;
                     boss.animator.SetTrigger("Beam Finish");
-
                 }
             }
 
@@ -242,6 +243,7 @@ namespace Kortge
         private bool earlyTeleport = false;
         public bool maidenCue = false;
         public bool dead;
+        private ParticleSystem sweat;
 
         // Start is called before the first frame update
         void Start()
@@ -250,6 +252,7 @@ namespace Kortge
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
             reactionTime = 1f;
+            sweat = GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame

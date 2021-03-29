@@ -18,12 +18,14 @@ namespace Kortge
         public GameObject rose4;
         public GameObject rose5;
         public ParticleSystem particles;
+        private ParticleSystem blood;
 
         // Start is called before the first frame update
         void Start()
         {
             sprite = GetComponentInChildren<SpriteRenderer>();
             color = sprite.color;
+            blood = GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame
@@ -82,6 +84,7 @@ namespace Kortge
                 postHit = true;
                 Boss boss = GetComponent<Boss>();
                 if (boss != null) boss.hit = true;
+                blood.Play();
             }
         }
     }
