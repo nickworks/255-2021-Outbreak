@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Moves an object in one direction until its time has expired.
+/// </summary>
 namespace Kortge{
     public class Projectile : MonoBehaviour
     {
@@ -20,15 +22,18 @@ namespace Kortge{
         /// </summary>
         private float age = 0;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
+        /// <summary>
+        /// Sets the velocity of the projectile.
+        /// </summary>
+        /// <param name="vel"></param>
         public void InitBullet(Vector3 vel)
         {
             velocity = vel;
         }
 
+        /// <summary>
+        /// Moves the object and destroys it if enough time has passed.
+        /// </summary>
         // Update is called once per frame
         void Update()
         {

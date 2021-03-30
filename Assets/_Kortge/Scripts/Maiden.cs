@@ -4,21 +4,22 @@ using UnityEngine;
 
 namespace Kortge
 {
+    /// <summary>
+    /// Throws a rose power-up when signaled to.
+    /// </summary>
     public class Maiden : MonoBehaviour
     {
-        public Rigidbody rosePrefab;
+        /// <summary>
+        /// The rose that was thrown.
+        /// </summary>
         private Rigidbody thrownRose;
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
-
+        /// <summary>
+        /// The prefab representing the rose.
+        /// </summary>
+        public Rigidbody rosePrefab;
+        /// <summary>
+        /// Instantiates a rose and launches it into the arena.
+        /// </summary>
         public void ThrowRose()
         {
             thrownRose = Instantiate(rosePrefab, transform.position + (transform.right * Random.Range(-4, 4)), transform.rotation);

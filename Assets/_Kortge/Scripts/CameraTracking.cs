@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace Kortge
 {
+    /// <summary>
+    /// Keeps the camera at the designated location.
+    /// </summary>
     public class CameraTracking : MonoBehaviour
     {
         public Transform target;
 
-        // Update is called once per frame
+        /// <summary>
+        /// Runs every time the physics engine ticks to go to where its current target is at.
+        /// </summary>
         void Update()
         {
             if (target)

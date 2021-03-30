@@ -6,14 +6,12 @@ namespace Kortge
 {
     public class ForegroundRaycaster : MonoBehaviour
     {
-        Camera cam;
         CameraTracking camTracker;
         public Transform hiddenThing;
 
         // Start is called before the first frame update
         void Start()
         {
-            cam = GetComponent<Camera>();
             camTracker = GetComponentInParent<CameraTracking>();
         }
 
@@ -40,9 +38,6 @@ namespace Kortge
                 if(thingWeHit != camTracker.target)
                 {
                     var renderer = thingWeHit.GetComponent<MeshRenderer>();
-                    //renderer.material.color = new Color(1, 1, 1, .5);
-
-                    //hiddenThing = renderer;
                 }
             }
         }

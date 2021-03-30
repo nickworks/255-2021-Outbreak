@@ -4,31 +4,47 @@ using UnityEngine;
 
 namespace Kortge
 {
+    /// <summary>
+    /// The parent object of the maidens, used to ensure that only one rose is thrown at a time.
+    /// </summary>
     public class Maidens : MonoBehaviour
     {
-        public Maiden[] maidens = new Maiden[4];
+        /// <summary>
+        /// Once the boss has been defeated, it represents how long the maidens will wait before throwing another rose.
+        /// </summary>
+        private float delay =0.2f;
+        /// <summary>
+        /// Checks this to see if it is sending out a signal to throw a rose.
+        /// </summary>
         public Boss boss;
-        public PlayerAiming player;
-        private float delay = 0;
+        /// <summary>
+        /// All of the maidens that this script signals to throw a rose.
+        /// </summary>
+        public Maiden[] maidens = new Maiden[4];
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
+        /// <summary>
+        /// Checks if the boss is dead so that it can throw roses endlessly.
+        /// </summary>
         // Update is called once per frame
         void Update()
         {
-            delay -= Time.deltaTime;
-            if (delay < 0) delay = 0;
-            if ((boss.dead && delay == 0)|| (boss.maidenCue && !player.projectionReady))
+            if (boss.dead)
             {
-                Maiden maiden = maidens[Random.Range(0,3)];
-                maiden.ThrowRose();
-                delay = 1;
+                delay -= Time.deltaTime;
+                if (delay <= 0)
+                {
+                    ThrowRose();
+                    delay = 0.2f;
+                }
             }
-            boss.maidenCue = false;
+        }
+        /// <summary>
+        /// Signals one of the four maidens to throw a rose.
+        /// </summary>
+        public void ThrowRose()
+        {
+            Maiden maiden = maidens[Random.Range(0, 3)];
+            maiden.ThrowRose();
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Kortge
 {
+    /// <summary>
+    /// Contains information for the zone to display on the main menu.
+    /// </summary>
     public class Zone : MonoBehaviour
     {
         static public ZoneInfo info = new ZoneInfo()

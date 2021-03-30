@@ -6575,11 +6575,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629545416}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 665725410}
+  m_Father: {fileID: 634850646}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &629545420
@@ -6614,6 +6614,51 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &634850645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634850646}
+  - component: {fileID: 634850647}
+  m_Layer: 0
+  m_Name: CameraRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &634850646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634850645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 629545419}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &634850647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634850645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d82203ae20846145bfee87e8b5f626c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 634850646}
 --- !u!1 &649498345
 GameObject:
   m_ObjectHideFlags: 0
@@ -6718,51 +6763,6 @@ Transform:
   m_Father: {fileID: 709258063}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &665725409
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 665725410}
-  - component: {fileID: 665725411}
-  m_Layer: 0
-  m_Name: Camera Rig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &665725410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665725409}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 629545419}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &665725411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665725409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d82203ae20846145bfee87e8b5f626c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!1 &688394640
 GameObject:
   m_ObjectHideFlags: 0
@@ -7000,7 +7000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fe2c05a3a05e2479192a142c4cf03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
 --- !u!114 &709258065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7013,17 +7012,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30db796ffa2485d4c873b03b9dabafad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
   postHit: 0
   vulnerable: 1
-  rose1: {fileID: 604852354}
-  rose2: {fileID: 2045088310}
-  rose3: {fileID: 694912320}
-  rose4: {fileID: 452330311}
-  rose5: {fileID: 776863225}
+  health: 5
+  roses:
+  - {fileID: 604852354}
+  - {fileID: 2045088310}
+  - {fileID: 694912320}
+  - {fileID: 452330311}
+  - {fileID: 776863225}
+  blood: {fileID: 1889691046}
   particles: {fileID: 8487691909560656572, guid: 1a13082588bba9d43bee722265205d29,
     type: 3}
-  blood: {fileID: 1889691046}
 --- !u!143 &709258066
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7206,13 +7206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b516119538796449033d0a681f33ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boss: {fileID: 1167876378}
   maidens:
   - {fileID: 471014204}
   - {fileID: 381793077}
   - {fileID: 730689739}
   - {fileID: 864121820}
-  boss: {fileID: 1167876378}
-  player: {fileID: 709258062}
 --- !u!1 &751201083
 GameObject:
   m_ObjectHideFlags: 0
@@ -8042,20 +8041,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b707fff11da11745b45137f6bd1a59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokeOut: {fileID: 7888557201410464071, guid: 37825ab66c06003428d1b4edc4fbae5a,
-    type: 3}
-  smokeIn: {fileID: 2275834777602517221, guid: df492f1f3a3cd0e4ab96d28733c53fa8, type: 3}
-  player: {fileID: 709258063}
-  beamPrefab: {fileID: 481320795391949891, guid: 8264dbcd0ea76824798ad867495ae5b1,
-    type: 3}
-  reactionTime: 0
+  dead: 0
   hit: 0
-  laser: {fileID: 3794313891195390074, guid: 0b729a2c354c6cd40996ed06ea647abd, type: 3}
+  reactionTime: 0
   afterImage: {fileID: 4610618650033501294, guid: 3f38a9296054dd14e8fbabcf6fbe4eae,
     type: 3}
-  maidenCue: 0
-  dead: 0
+  laser: {fileID: 3794313891195390074, guid: 0b729a2c354c6cd40996ed06ea647abd, type: 3}
+  maidens: {fileID: 745067160}
+  smokeIn: {fileID: 2275834777602517221, guid: df492f1f3a3cd0e4ab96d28733c53fa8, type: 3}
+  smokeOut: {fileID: 7888557201410464071, guid: 37825ab66c06003428d1b4edc4fbae5a,
+    type: 3}
   sweat: {fileID: 1407456373}
+  beamPrefab: {fileID: 481320795391949891, guid: 8264dbcd0ea76824798ad867495ae5b1,
+    type: 3}
+  player: {fileID: 709258063}
 --- !u!4 &1167876379
 Transform:
   m_ObjectHideFlags: 0
@@ -8085,17 +8084,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30db796ffa2485d4c873b03b9dabafad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
   postHit: 0
   vulnerable: 0
-  rose1: {fileID: 538643805}
-  rose2: {fileID: 714439510}
-  rose3: {fileID: 1725011525}
-  rose4: {fileID: 1202860711}
-  rose5: {fileID: 1591300038}
+  health: 5
+  roses:
+  - {fileID: 538643805}
+  - {fileID: 714439510}
+  - {fileID: 1725011525}
+  - {fileID: 1202860711}
+  - {fileID: 1591300038}
+  blood: {fileID: 553518302}
   particles: {fileID: 7944618965802591458, guid: fd30ab7219db7e14a866a32917eab07a,
     type: 3}
-  blood: {fileID: 553518302}
 --- !u!143 &1167876381
 CharacterController:
   m_ObjectHideFlags: 0
