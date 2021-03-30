@@ -16,6 +16,7 @@ namespace Kortge
         public Projectile beamPrefab;
         public RawImage sword;
         private float blueness = 0;
+        public ParticleSystem particles;
 
         // Start is called before the first frame update
         void Start()
@@ -74,6 +75,7 @@ namespace Kortge
             {
                 projectionReady = true;
                 Destroy(hit.gameObject);
+                particles.Play();
             }
 
         }

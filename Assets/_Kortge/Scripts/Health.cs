@@ -18,7 +18,7 @@ namespace Kortge
         public GameObject rose4;
         public GameObject rose5;
         public ParticleSystem particles;
-        private ParticleSystem blood;
+        public ParticleSystem blood;
 
         // Start is called before the first frame update
         void Start()

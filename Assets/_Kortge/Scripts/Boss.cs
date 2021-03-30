@@ -243,7 +243,7 @@ namespace Kortge
         private bool earlyTeleport = false;
         public bool maidenCue = false;
         public bool dead;
-        private ParticleSystem sweat;
+        public ParticleSystem sweat;
 
         // Start is called before the first frame update
         void Start()
@@ -252,7 +252,6 @@ namespace Kortge
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
             reactionTime = 1f;
-            sweat = GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame
