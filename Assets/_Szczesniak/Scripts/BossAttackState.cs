@@ -28,7 +28,9 @@ namespace Szczesniak {
 
             public class Idle : State {
                 public override State Update() {
-                    if (bossAttack.CanSeeThing(bossAttack.player)) return new States.MiniGunAttack();
+                    if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.MiniGunAttack();
+                    if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.missleDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missleDistance - 5))
+                        return new States.HomingMissleAttack();
 
                     return null;
                 }
@@ -46,7 +48,7 @@ namespace Szczesniak {
                     bossAttack.TurnTowardsTarget();
 
                     // transition
-                    if (!bossAttack.CanSeeThing(bossAttack.player)) return new States.Idle();
+                    if (!bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.Idle();
 
                     return null;
                 }
@@ -54,6 +56,12 @@ namespace Szczesniak {
 
             public class HomingMissleAttack : State {
 
+                public override State Update() {
+                    // behavior:
+                    bossAttack.Missles();
+
+                    return new States.Idle();
+                }
             }
         }
 
@@ -63,6 +71,10 @@ namespace Szczesniak {
 
         public Transform leftMuzzle;
         public Transform rightMuzzle;
+
+        public Transform missle1;
+        public Transform missle2;
+        public float missleDistance = 25;
 
         public float roundPerSec = 20;
         private float bulletAmountTime = 0;
@@ -154,14 +166,20 @@ namespace Szczesniak {
             bulletAmountTime = 1 / roundPerSec;
         }
 
-        private bool CanSeeThing(Transform thing) {
+        void Missles() {
+            MissleScript startMissle = GetComponentInChildren<MissleScript>();
+            if (startMissle)
+                startMissle.timeToLaunch = true;
+        }
+
+        private bool CanSeeThing(Transform thing, float viewingDis) {
 
             if (!thing) return false; // uh... error
 
             Vector3 vToThing = thing.position - transform.position;
 
             // check distance
-            if (vToThing.sqrMagnitude > viewingDistance * viewingDistance) {
+            if (vToThing.sqrMagnitude > viewingDis * viewingDis) {
                 return false; // Too far away to see...
             }
 
