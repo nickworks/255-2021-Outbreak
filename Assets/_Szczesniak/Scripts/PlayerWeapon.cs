@@ -108,6 +108,8 @@ namespace Szczesniak {
 
         public float reloadTime = 0;
 
+        public GameObject muzzle;
+
         void Start() {
 
         }
@@ -141,7 +143,7 @@ namespace Szczesniak {
             if (timerSpawnBullet > 0) return; // we need to wait longer...
             if (roundsInClip <= 0) return; // no ammo
 
-            Projectile p = Instantiate(prefabProjectile, transform.position, Quaternion.identity);
+            Projectile p = Instantiate(prefabProjectile, muzzle.transform.position, Quaternion.identity);
             p.InitBullet(transform.forward * 30);
 
             roundsInClip--;

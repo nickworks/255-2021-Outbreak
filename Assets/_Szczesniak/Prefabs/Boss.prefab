@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 5033730304190295620}
   - component: {fileID: 5033730304190295621}
   - component: {fileID: 5033730304190295616}
+  - component: {fileID: 694380009}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -644,6 +645,19 @@ NavMeshAgent:
   m_BaseOffset: 0.16
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &694380009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5033730304190295642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823a3972648677b4f9951e92f2a1b7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 400
 --- !u!1 &5033730304867721513
 GameObject:
   m_ObjectHideFlags: 0
