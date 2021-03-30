@@ -6,16 +6,11 @@ namespace Kortge
 {
     public class Zone : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        static public ZoneInfo info = new ZoneInfo()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+            zoneName = "The Duel of the Phantoms",
+            creator = "Tyler Kortge",
+            sceneFile = "_Kortge Scene"
+        };
     }
 }
