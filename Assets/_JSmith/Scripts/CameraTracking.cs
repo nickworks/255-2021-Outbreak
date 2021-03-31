@@ -9,11 +9,18 @@ namespace _JSmith
 
         public Transform target;
 
-        void Update()
+        void LateUpdate()
         {
             if (target)
             {
-                transform.position = target.position;
+                //transform.position = target.position;
+                //transform.position += (target.position - transform.position) * .05f;
+                //transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime) * .05f;
+
+                //framereate independent slide
+                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+
+                transform.position = Vector3.Lerp(transform.position, target.position, p);
             }
         }
     }
