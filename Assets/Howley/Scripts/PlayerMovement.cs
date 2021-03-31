@@ -19,6 +19,8 @@ namespace Howley
 
         public Vector3 dashDirection;
 
+        public float dashSpeed = 100;
+
         public float dashDuration = 0.25f;
 
         /// <summary>
@@ -49,12 +51,14 @@ namespace Howley
                     // Transition to other states
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
                     //else if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButton("Fire2"))
+                    if (Input.GetButtonDown("Fire2"))
                     {
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Vertical");
-                        dashDirection = new Vector3(h, 0, v);
+                        float h = Input.GetAxisRaw("Horizontal"); // Gives -1, 0, or 1
+                        float v = Input.GetAxisRaw("Vertical"); // Gives -1, 0, or 1
+                        dashDirection = new Vector3(h, 0, v).normalized; //returns a normalized version of this vector.
+                        //dashDirection.Normalize();
+                        dashTimer = .15f;
 
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
                     }
@@ -93,7 +97,7 @@ namespace Howley
 
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 100);
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
 
         private void MovePlayer(float mult = 1)
@@ -105,7 +109,9 @@ namespace Howley
 
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
+
         }
     }
 }
