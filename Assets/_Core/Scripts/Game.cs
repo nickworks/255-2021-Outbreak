@@ -44,6 +44,18 @@ namespace Outbreak {
              * Namespace.Zone.info
              */
             Pattison.Zone.info,
+            _JSmith.Zone.info,
+            Kortge.Zone.info,
+            Szczesniak.Zone.info,
+            //Velting.Zone.info,
+            ASmith.Zone.info,
+            Foster.Zone.info,
+            // Geib.Zone.info,
+            Hodgkins.Zone.info,
+            //Hopkins.Zone.info,
+            Howley.Zone.info,
+            Jelsomeno.Zone.info,
+            //Miller.Zone.info
 
         };
         public static List<ZoneInfo> zones { get { return _zones; } }
