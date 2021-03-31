@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Jelsomeno
@@ -49,9 +50,15 @@ namespace Jelsomeno
 
         private States.State state;
 
+        private NavMeshAgent nav;
+
+        public Transform attackTarget;
+
         void Start()
         {
+            nav = GetComponent<NavMeshAgent>();
 
+            //if(attackTarget != null) nav.SetDestination(attackTarget.position);
         }
 
 
@@ -61,6 +68,8 @@ namespace Jelsomeno
             if (state == null) SwitchState(new States.Idle());
 
             if (state != null) SwitchState(state.Update());
+
+            if (attackTarget != null) nav.SetDestination(attackTarget.position);
 
         }
         
