@@ -21,11 +21,10 @@ namespace Szczesniak {
 
         public bool timeToLaunch = false;
 
-        private Rigidbody rigidMissle;
+        public ParticleSystem missleParticles;
 
         private void Start() {
             target = GameObject.FindGameObjectWithTag("Player").transform;
-            rigidMissle = GetComponent<Rigidbody>();
         }
 
         void Update() {
@@ -79,7 +78,13 @@ namespace Szczesniak {
         }
 
         private void OnTriggerEnter(Collider other) {
-            //Destroy(gameObject);
+            HealthScript healthOfThing = other.GetComponent<HealthScript>();
+            if (healthOfThing) {
+                healthOfThing.DamageTaken(damageAmt);
+            }
+
+            Instantiate(missleParticles, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 }

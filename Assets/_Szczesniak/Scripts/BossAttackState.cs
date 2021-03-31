@@ -29,9 +29,9 @@ namespace Szczesniak {
             public class Idle : State {
                 public override State Update() {
                     if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.MiniGunAttack();
-                    if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.missleDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missleDistance - 5))
+                    if (bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5)) {
                         return new States.HomingMissleAttack();
-
+                    }
                     return null;
                 }
 
@@ -72,12 +72,18 @@ namespace Szczesniak {
         public Transform leftMuzzle;
         public Transform rightMuzzle;
 
-        public Transform missle1;
-        public Transform missle2;
-        public float missleDistance = 25;
+        public Transform missile1;
+        public Transform missile2;
+        public float missileDistance = 25;
+        public Transform missilePos1;
+        public Transform missilePos2;
+
 
         public float roundPerSec = 20;
         private float bulletAmountTime = 0;
+
+        public float missleRespawnTime = 5;
+        bool misslesSpawned = true;
 
         public float viewingAngle = 90;
         public float viewingDistance = 20;
@@ -106,6 +112,7 @@ namespace Szczesniak {
         /// </summary>
         public bool lockRotationZ;
 
+        
         void Start() {
             // Getting components
             startingRotation = transform.localRotation;
@@ -118,6 +125,18 @@ namespace Szczesniak {
             if (state != null) SwitchState(state.Update());
 
             if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime;
+
+            if (missleRespawnTime > 0) {
+                missleRespawnTime -= Time.deltaTime;
+            }
+
+            if (missleRespawnTime <= 0) {
+                Transform missle1Pos = Instantiate(missile1, missilePos1.position, missilePos1.rotation);
+                missle1Pos.parent = missilePos1;
+                Transform missle2Pos = Instantiate(missile2, missilePos2.position, missilePos2.rotation);
+                missle2Pos.parent = missilePos2;
+                missleRespawnTime = 5;
+            }
         }
 
         void SwitchState(States.State newState) {
