@@ -1942,6 +1942,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1607653272}
+    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
+        type: 3}
+      propertyPath: viewingAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
+        type: 3}
+      propertyPath: reloadingTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5033730304190295617, guid: 62f512221ea5efe469431914ea5ce877,
         type: 3}
       propertyPath: m_RootOrder

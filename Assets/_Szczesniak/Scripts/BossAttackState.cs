@@ -28,7 +28,8 @@ namespace Szczesniak {
 
             public class Idle : State {
                 public override State Update() {
-                    if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.MiniGunAttack();
+                    if (bossAttack.bulletAmountInClip > 0 && bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) 
+                        return new States.MiniGunAttack();
 
                     if (bossAttack.misslesSpawned && bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5)) {
                         return new States.HomingMissleAttack();
@@ -44,14 +45,40 @@ namespace Szczesniak {
 
             public class MiniGunAttack : State {
                 public override State Update() {
-                    // behavior
+                    // behaviour
                     bossAttack.MachineGun();
                     bossAttack.TurnTowardsTarget();
 
                     // transition
                     if (!bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.Idle();
 
+                    if (bossAttack.bulletAmountInClip <= 0) return new States.Reload(bossAttack.reloadingTime);
+
                     return null;
+                }
+            }
+
+            public class Reload : State {
+
+                float reloadTime = 5;
+
+                public Reload(float reload) {
+                    reloadTime = reload;
+                }
+
+                public override State Update() {
+                    // behaviour
+                    reloadTime -= Time.deltaTime;
+
+                    if (reloadTime <= 0) return new States.Idle();
+
+                    // transition
+
+                    return null;
+                }
+
+                public override void OnEnd() {
+                    bossAttack.bulletAmountInClip = bossAttack.maxRoundsToHave;
                 }
             }
 
@@ -72,6 +99,9 @@ namespace Szczesniak {
         private States.State state;
 
         public Projectile prefabMachineGunBullets;
+        private int bulletAmountInClip = 30;
+        public int maxRoundsToHave = 30;
+        public float reloadingTime = 0;
 
         public MissleScript prefabMissile;
 
@@ -196,6 +226,7 @@ namespace Szczesniak {
             Projectile RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, Quaternion.identity);
             RightBullets.InitBullet(transform.forward * 30);
 
+            bulletAmountInClip--;
             bulletAmountTime = 1 / roundPerSec;
         }
 

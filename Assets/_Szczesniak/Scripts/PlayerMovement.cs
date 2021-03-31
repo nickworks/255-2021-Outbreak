@@ -28,7 +28,8 @@ namespace Szczesniak {
 
             public class Idle : State {
                 public override State Update() {
-
+                    // behavior:
+                    player.MoveThePlayer(0);
 
                     // transitions:
                     if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))

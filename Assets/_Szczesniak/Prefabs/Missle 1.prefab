@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2931516087361726459}
   - component: {fileID: 5970418150830851807}
   - component: {fileID: 94874368765460703}
+  - component: {fileID: 733473484935435307}
   m_Layer: 0
   m_Name: Missle 1
   m_TagString: Untagged
@@ -117,3 +118,19 @@ MonoBehaviour:
   timeToLaunch: 0
   missleParticles: {fileID: 7574073457717270115, guid: b52e64e8c00dc9f4e8a6b9bf5aebf566,
     type: 3}
+--- !u!54 &733473484935435307
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282893444077986114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
