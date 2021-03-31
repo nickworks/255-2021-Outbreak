@@ -40,19 +40,58 @@ namespace Szczesniak {
                 Destroy(gameObject);
             }
 
+            RayCastCheck();
+
 
             // euler physics intergration:
             transform.position += velocity * Time.deltaTime;
+        }
+
+        private void RayCastCheck() {
+            // make a Ray:
+            Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
+
+            // draw the ray:
+            Debug.DrawRay(ray.origin, ray.direction);
+
+            // Check for collision:
+            if (Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude)) {
+                // measuring the moveable distance
+                if (hit.transform.tag == "Wall") {
+
+                    Vector3 normal = hit.normal;
+                    normal.y = 0; // no vertical bouncing
+
+
+                    Vector3 random = Random.onUnitSphere;
+                    random.y = 0;
+
+                    // blend the normal with the random:
+                    normal += random * .5f;
+
+                    normal.Normalize(); // make unit
+
+                    float alignment = Vector3.Dot(velocity, normal);
+                    Vector3 reflection = velocity - 2 * alignment * normal;
+
+
+
+                    velocity = reflection;
+
+                    transform.position = hit.point;
+                }
+            }
+
+
         }
 
         private void OnTriggerEnter(Collider other) {
             HealthScript healthOfThing = other.GetComponent<HealthScript>();
             if (healthOfThing) {
                 healthOfThing.DamageTaken(damageAmt);
+                Destroy(this.gameObject);
+                Instantiate(bulletParticles, this.transform.position, Quaternion.identity);
             }
-
-            Instantiate(bulletParticles, this.transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
         }
     }
 }

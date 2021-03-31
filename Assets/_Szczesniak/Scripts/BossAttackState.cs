@@ -29,12 +29,13 @@ namespace Szczesniak {
             public class Idle : State {
                 public override State Update() {
                     if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.MiniGunAttack();
-                    if (bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5)) {
+
+                    if (bossAttack.misslesSpawned) {
                         return new States.HomingMissleAttack();
                     }
                     return null;
                 }
-
+                //  && bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5
             }
 
             public class SpawnMinions : State {
@@ -59,6 +60,9 @@ namespace Szczesniak {
                 public override State Update() {
                     // behavior:
                     bossAttack.Missles();
+                    bossAttack.Missles();
+
+                    bossAttack.misslesSpawned = false;
 
                     return new States.Idle();
                 }
@@ -69,11 +73,13 @@ namespace Szczesniak {
 
         public Projectile prefabMachineGunBullets;
 
+        public MissleScript prefabMissile;
+
         public Transform leftMuzzle;
         public Transform rightMuzzle;
 
-        public Transform missile1;
-        public Transform missile2;
+        public MissleScript missile1;
+        public MissleScript missile2;
         public float missileDistance = 25;
         public Transform missilePos1;
         public Transform missilePos2;
@@ -112,7 +118,7 @@ namespace Szczesniak {
         /// </summary>
         public bool lockRotationZ;
 
-        
+
         void Start() {
             // Getting components
             startingRotation = transform.localRotation;
@@ -126,16 +132,20 @@ namespace Szczesniak {
 
             if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime;
 
+            print(misslesSpawned);
+            print(missleRespawnTime);
+
             if (missleRespawnTime > 0) {
                 missleRespawnTime -= Time.deltaTime;
             }
 
-            if (missleRespawnTime <= 0) {
-                Transform missle1Pos = Instantiate(missile1, missilePos1.position, missilePos1.rotation);
-                missle1Pos.parent = missilePos1;
-                Transform missle2Pos = Instantiate(missile2, missilePos2.position, missilePos2.rotation);
-                missle2Pos.parent = missilePos2;
+            if (missleRespawnTime <= 0 && !misslesSpawned) {
+                missile1 = Instantiate(prefabMissile, missilePos1.position, missilePos1.rotation);
+                missile1.transform.parent = missilePos1;
+                missile2 = Instantiate(prefabMissile, missilePos2.position, missilePos2.rotation);
+                missile2.transform.parent = missilePos2;
                 missleRespawnTime = 5;
+                misslesSpawned = true;
             }
         }
 
@@ -186,9 +196,12 @@ namespace Szczesniak {
         }
 
         void Missles() {
-            MissleScript startMissle = GetComponentInChildren<MissleScript>();
-            if (startMissle)
-                startMissle.timeToLaunch = true;
+            if (missile1) {
+                missile1.timeToLaunch = true;
+            }
+            if (missile2) {
+                missile2.timeToLaunch = true;
+            }
         }
 
         private bool CanSeeThing(Transform thing, float viewingDis) {
