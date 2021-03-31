@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Powerup
   - Pick Up
+  - Wall
+  - PlayerDamage
+  - Boss
+  - Rose
   - Sword
   - MainPlayer
   layers:
