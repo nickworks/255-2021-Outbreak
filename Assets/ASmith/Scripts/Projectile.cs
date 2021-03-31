@@ -12,7 +12,7 @@ namespace ASmith {
         /// <summary>
         /// How long the projectile should live, in seconds
         /// </summary>
-        private float lifespan = 3;
+        private float lifespan = 5;
 
         /// <summary>
         /// How long the projectile has been alive, in seconds
@@ -32,10 +32,72 @@ namespace ASmith {
                 Destroy(gameObject);
             }
 
+            RaycastCheck();
+
             // euler physics integration
             transform.position += velocity * Time.deltaTime;
 
 
         }
+
+        private void RaycastCheck()
+        {
+            Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
+
+            Debug.DrawRay(ray.origin, ray.direction);
+
+            if(Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude))
+            {
+                if (hit.transform.tag == "Wall")
+                {
+                    print("hit a wall");
+
+                    Vector3 normal = hit.normal;
+                    normal.y = 0; // no vertical bouncing
+
+                    Vector3 random = Random.onUnitSphere;
+                    random.y = 0;
+
+                    // blend the normal with the random:
+                    normal += random * .3f;
+
+                    normal.Normalize(); // makes unit vector
+
+                    float alignment = Vector3.Dot(velocity, normal);
+                    Vector3 reflection = velocity - 2 * alignment * normal;
+
+                    reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
+
+                    velocity = reflection;
+                    transform.position = hit.point;
+                }
+            }
+        }
+
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if(other.tag == "Wall")
+        //    {
+        //        print("hit a wall");
+
+        //        Vector3 normal = (transform.position - other.transform.position);
+        //        normal.y = 0; // no vertical bouncing
+
+        //        Vector3 random = Random.onUnitSphere;
+        //        random.y = 0; 
+
+        //        // blend the normal with the random:
+        //        normal += random * .5f;
+
+        //        normal.Normalize(); // makes unit vector
+
+        //        float alignment = Vector3.Dot(velocity, normal);
+        //        Vector3 reflection = velocity - 2 * alignment * normal;
+
+        //        reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
+
+        //        velocity = reflection;
+        //    }
+        //}
     }
 }
