@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Szczesniak {
 
@@ -47,15 +48,15 @@ namespace Szczesniak {
 
             }
 
-            public class Attack1 : State {
+            public class MeleeAttack : State {
 
             }
 
-            public class Attack2 : State {
+            public class DashAttack : State {
 
             }
 
-            public class Attack3 : State {
+            public class SelfDestruct : State {
 
             }
 
@@ -65,8 +66,17 @@ namespace Szczesniak {
 
         private States.State state;
 
-        void Start() {
+        private NavMeshAgent nav;
 
+        public Transform attackTarget;
+
+        public float viewingDistance = 10;
+        public float viewingAngle = 35;
+
+        void Start() {
+            nav = GetComponent<NavMeshAgent>();
+
+            
         }
 
         void Update() {
@@ -76,6 +86,12 @@ namespace Szczesniak {
 
             if (state != null) SwitchState(state.Update());
 
+            if (CanSeeThing(attackTarget))
+                MoveTowardTarget();
+        }
+
+        void MoveTowardTarget() {
+            if (attackTarget) nav.SetDestination(attackTarget.position);
         }
 
         void SwitchState(States.State newState) {
@@ -84,6 +100,28 @@ namespace Szczesniak {
             if (state != null) state.OnEnd(); // tell previous state it is done
             state = newState; // swap states
             state.OnStart(this);
+        }
+
+        /// <summary>
+        /// Calculation for turret to see targets
+        /// </summary>
+        /// <param name="thing"></param>
+        /// <returns></returns>
+        private bool CanSeeThing(Transform thing) {
+
+            if (!thing) return false; // uh... error
+
+            Vector3 vToThing = thing.position - transform.position;
+
+            // check distance
+            if (vToThing.sqrMagnitude > viewingDistance * viewingDistance) return false; // Too far away to see...
+
+            // check direction
+            if (Vector3.Angle(transform.forward, vToThing) > viewingAngle) return false; // out of vision "cone"
+
+            // TODO: Check occulusion
+
+            return true;
         }
     }
 }

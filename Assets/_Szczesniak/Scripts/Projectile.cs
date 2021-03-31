@@ -21,6 +21,10 @@ namespace Szczesniak {
         /// </summary>
         private float age = 0;
 
+        public float damageAmt = 10;
+
+        public ParticleSystem bulletParticles;
+
         void Start() {
 
         }
@@ -39,6 +43,16 @@ namespace Szczesniak {
 
             // euler physics intergration:
             transform.position += velocity * Time.deltaTime;
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            HealthScript healthOfThing = other.GetComponent<HealthScript>();
+            if (healthOfThing) {
+                healthOfThing.DamageTaken(damageAmt);
+            }
+
+            Instantiate(bulletParticles, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 }

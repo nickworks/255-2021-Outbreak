@@ -7,6 +7,7 @@ TagManager:
   - Powerup
   - Pick Up
   - Sword
+  - MainPlayer
   layers:
   - Default
   - TransparentFX
