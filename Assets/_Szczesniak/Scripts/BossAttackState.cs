@@ -30,12 +30,12 @@ namespace Szczesniak {
                 public override State Update() {
                     if (bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.MiniGunAttack();
 
-                    if (bossAttack.misslesSpawned) {
+                    if (bossAttack.misslesSpawned && bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5)) {
                         return new States.HomingMissleAttack();
                     }
                     return null;
                 }
-                //  && bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5
+                
             }
 
             public class SpawnMinions : State {
@@ -133,20 +133,24 @@ namespace Szczesniak {
             if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime;
 
             print(misslesSpawned);
-            print(missleRespawnTime);
 
-            if (missleRespawnTime > 0) {
+            if (missleRespawnTime > 0 && !misslesSpawned) {
                 missleRespawnTime -= Time.deltaTime;
             }
 
-            if (missleRespawnTime <= 0 && !misslesSpawned) {
+            if (missleRespawnTime <= 0) {
                 missile1 = Instantiate(prefabMissile, missilePos1.position, missilePos1.rotation);
                 missile1.transform.parent = missilePos1;
                 missile2 = Instantiate(prefabMissile, missilePos2.position, missilePos2.rotation);
                 missile2.transform.parent = missilePos2;
-                missleRespawnTime = 5;
+                missleRespawnTime = 10;
                 misslesSpawned = true;
             }
+
+            // missile spawn it TRUE
+            // FALSE when fired
+            // Begins count down
+            // When count down is at 0, spawns missle and ready to fire
         }
 
         void SwitchState(States.State newState) {

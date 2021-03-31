@@ -407,12 +407,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &300434932 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6734095234538413469, guid: 62f512221ea5efe469431914ea5ce877,
-    type: 3}
-  m_PrefabInstance: {fileID: 5033730305216750133}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &400405775
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,12 +631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24595dd08f129a84783b8e0d0850b801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &651924772 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6188577837785490062, guid: 62f512221ea5efe469431914ea5ce877,
-    type: 3}
-  m_PrefabInstance: {fileID: 5033730305216750133}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &684671628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,55 +1942,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1607653272}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missle1
-      value: 
-      objectReference: {fileID: 6364011410234348667, guid: f81ccde9d3c9edc439da80feadf9330e,
-        type: 3}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missle2
-      value: 
-      objectReference: {fileID: 6364011410234348667, guid: f81ccde9d3c9edc439da80feadf9330e,
-        type: 3}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missile1
-      value: 
-      objectReference: {fileID: 6364011410234348667, guid: f81ccde9d3c9edc439da80feadf9330e,
-        type: 3}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missile2
-      value: 
-      objectReference: {fileID: 6364011410234348667, guid: f81ccde9d3c9edc439da80feadf9330e,
-        type: 3}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: misslePos1
-      value: 
-      objectReference: {fileID: 651924772}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: misslePos2
-      value: 
-      objectReference: {fileID: 300434932}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missilePos1
-      value: 
-      objectReference: {fileID: 651924772}
-    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: missilePos2
-      value: 
-      objectReference: {fileID: 300434932}
-    - target: {fileID: 5033730304190295616, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.71
-      objectReference: {fileID: 0}
     - target: {fileID: 5033730304190295617, guid: 62f512221ea5efe469431914ea5ce877,
         type: 3}
       propertyPath: m_RootOrder
