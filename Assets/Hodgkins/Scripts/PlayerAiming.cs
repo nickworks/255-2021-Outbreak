@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Hodgkins
 
         public Transform debugObject;
 
+        private bool isAimingWithMouse = true;
 
         void Start()
         {
@@ -20,8 +22,43 @@ namespace Hodgkins
         // Update is called once per frame
         void Update()
         {
-            AimAtMouse();
+            if (Outbreak.Game.isPaused) return;
             
+            AutoDetectInput();
+            
+            if(isAimingWithMouse) AimAtMouse();
+
+            else AimWithController();
+            
+        }
+
+        void AutoDetectInput()
+        {
+            if (Input.GetAxisRaw("Mouse X") !=0 || Input.GetAxisRaw("Mouse Y") != 0)
+            {
+                isAimingWithMouse = true;
+            }
+
+            if (Input.GetAxisRaw("Aim Horizontal") != 0 || Input.GetAxisRaw("Aim Vertical") != 0)
+            {
+                isAimingWithMouse = false;
+            }
+        }
+
+        private void AimWithController()
+        {
+            float h = Input.GetAxis("Aim Horizontal");
+            float v = Input.GetAxis("Aim Vertical");
+
+            float magSq = h * h + v * v;
+            float threshold = 0.5f;
+            if (magSq < threshold * threshold) return;
+
+            float angle = Mathf.Atan2(h, v);
+
+            angle *= Mathf.Rad2Deg; // convert to degrees // sub for ' 180 / mathf.pi
+
+            transform.eulerAngles = new Vector3(0, angle, 0);
         }
 
         private void AimAtMouse()
