@@ -28,14 +28,77 @@ namespace Howley
             }
 
             //////////////////////// Children of State
-            public class Idle : State { }
-            public class Persuing : State { }
-            public class Patrolling : State { }
-            public class Stunned : State { }
-            public class Death : State { }
-            public class Attack1 : State { }
-            public class Attack2 : State { }
-            public class Attack3 : State { }
+            public class Idle : State {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Persuing : State 
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Patrolling : State
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Stunned : State 
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Death : State
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Attack1 : State
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Attack2 : State 
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Attack3 : State 
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
         }
 
         private States.State state;
