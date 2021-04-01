@@ -114,7 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369f249fc7adf2a4e9c5a8deb0305637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTarget: {fileID: 0}
+  attackTarget: {fileID: 1059291133949205257, guid: b3e2c43327e2b89489201e9fbdc1f15c,
+    type: 3}
   viewingDistance: 10
   viewingAngle: 180
 --- !u!195 &3992645349359143200

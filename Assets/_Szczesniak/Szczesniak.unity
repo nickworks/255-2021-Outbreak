@@ -1432,6 +1432,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1607653272}
+--- !u!114 &1606454484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 694380009, guid: 62f512221ea5efe469431914ea5ce877,
+    type: 3}
+  m_PrefabInstance: {fileID: 5033730305216750133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823a3972648677b4f9951e92f2a1b7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1607653272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1059291133949205257, guid: b3e2c43327e2b89489201e9fbdc1f15c,
@@ -1939,9 +1951,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
         type: 3}
+      propertyPath: minion
+      value: 
+      objectReference: {fileID: 3992645349359143205, guid: d85040d7551314047b4eb9f5a1c41e99,
+        type: 3}
+    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1607653272}
+    - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
+        type: 3}
+      propertyPath: healthAmt
+      value: 
+      objectReference: {fileID: 1606454484}
     - target: {fileID: 4427221570783618435, guid: 62f512221ea5efe469431914ea5ce877,
         type: 3}
       propertyPath: viewingAngle

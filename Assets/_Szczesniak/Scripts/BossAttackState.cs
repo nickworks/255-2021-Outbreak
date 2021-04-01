@@ -27,13 +27,24 @@ namespace Szczesniak {
             ///
 
             public class Idle : State {
+
+                float nextPhaseOfHealth = 50;
+
                 public override State Update() {
+                    if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
+                        bossAttack.minionSpawnPhasesFromHealth -= nextPhaseOfHealth;
+                        print("Trying to Spawn");
+                        return new States.SpawnMinions();
+                    }
+
                     if (bossAttack.bulletAmountInClip > 0 && bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) 
                         return new States.MiniGunAttack();
 
                     if (bossAttack.misslesSpawned && bossAttack.misslesSpawned && bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance) && !bossAttack.CanSeeThing(bossAttack.player, bossAttack.missileDistance - 5)) {
                         return new States.HomingMissleAttack();
                     }
+
+
                     return null;
                 }
                 
@@ -41,6 +52,11 @@ namespace Szczesniak {
 
             public class SpawnMinions : State {
 
+                public override State Update() {
+                    bossAttack.MinionSpawning();
+
+                    return new States.Idle();
+                }
             }
 
             public class MiniGunAttack : State {
@@ -120,6 +136,10 @@ namespace Szczesniak {
 
         public float missleRespawnTime = 5;
         bool misslesSpawned = true;
+        public HealthScript healthAmt;
+        private float minionSpawnPhasesFromHealth = 150;
+
+        public EnemyBasicController minion; 
 
         public float viewingAngle = 90;
         public float viewingDistance = 20;
@@ -152,6 +172,7 @@ namespace Szczesniak {
         void Start() {
             // Getting components
             startingRotation = transform.localRotation;
+            healthAmt = GetComponentInParent<HealthScript>();
         }
 
         private void Update() {
@@ -164,6 +185,15 @@ namespace Szczesniak {
 
             print(misslesSpawned);
 
+            MissleSpawning();
+
+            // missile spawn it TRUE
+            // FALSE when fired
+            // Begins count down
+            // When count down is at 0, spawns missle and ready to fire
+        }
+
+        private void MissleSpawning() {
             if (missleRespawnTime > 0 && !misslesSpawned) {
                 missleRespawnTime -= Time.deltaTime;
             }
@@ -176,11 +206,6 @@ namespace Szczesniak {
                 missleRespawnTime = 10;
                 misslesSpawned = true;
             }
-
-            // missile spawn it TRUE
-            // FALSE when fired
-            // Begins count down
-            // When count down is at 0, spawns missle and ready to fire
         }
 
         void SwitchState(States.State newState) {
@@ -237,6 +262,11 @@ namespace Szczesniak {
             if (missile2) {
                 missile2.timeToLaunch = true;
             }
+        }
+
+        void MinionSpawning() {
+            print("spawned");
+            EnemyBasicController enemySpawnOnBoss = Instantiate(minion, transform.position - new Vector3(-5,0,0), transform.rotation);
         }
 
         private bool CanSeeThing(Transform thing, float viewingDis) {

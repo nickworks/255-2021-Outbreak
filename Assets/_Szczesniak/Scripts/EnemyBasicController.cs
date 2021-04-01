@@ -68,14 +68,14 @@ namespace Szczesniak {
 
         private NavMeshAgent nav;
 
-        public Transform attackTarget;
+        public GameObject attackTarget;
 
         public float viewingDistance = 10;
         public float viewingAngle = 35;
 
         void Start() {
             nav = GetComponent<NavMeshAgent>();
-
+            attackTarget = GameObject.FindGameObjectWithTag("Player");
             
         }
 
@@ -91,7 +91,7 @@ namespace Szczesniak {
         }
 
         void MoveTowardTarget() {
-            if (attackTarget) nav.SetDestination(attackTarget.position);
+            if (attackTarget) nav.SetDestination(attackTarget.transform.position);
         }
 
         void SwitchState(States.State newState) {
@@ -107,11 +107,11 @@ namespace Szczesniak {
         /// </summary>
         /// <param name="thing"></param>
         /// <returns></returns>
-        private bool CanSeeThing(Transform thing) {
+        private bool CanSeeThing(GameObject thing) {
 
             if (!thing) return false; // uh... error
 
-            Vector3 vToThing = thing.position - transform.position;
+            Vector3 vToThing = thing.transform.position - transform.position;
 
             // check distance
             if (vToThing.sqrMagnitude > viewingDistance * viewingDistance) return false; // Too far away to see...
