@@ -9,7 +9,7 @@ public class Results : MonoBehaviour
     /// <summary>
     /// Determines if either the boss or the player are dead.
     /// </summary>
-    private bool gameover = false;
+    private bool gameOver = false;
     /// <summary>
     /// Determines if the player killed the boss.
     /// </summary>
@@ -23,7 +23,7 @@ public class Results : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (gameover)
+        if (gameOver)
         {
             endTime -= Time.deltaTime;
             if(endTime <= 0)
@@ -45,6 +45,6 @@ public class Results : MonoBehaviour
         if (bossKilled) endTime = 20;
         else endTime = 1;
         victory = bossKilled;
-        gameover = true;
+        gameOver = true;
     }
 }

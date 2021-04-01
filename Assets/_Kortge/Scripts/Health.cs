@@ -6,29 +6,29 @@ namespace Kortge
     public class Health : MonoBehaviour
     {
         /// <summary>
-        /// When the character become invulnerable and its sprite starts blinking repeatedly.
-        /// </summary>
-        public bool postHit;
-        /// <summary>
         /// When the character's sprite becomes invisible.
         /// </summary>
         private bool transparent;
-        /// <summary>
-        /// For the boss, when it is able to be attacked. The player is always vulnerable.
-        /// </summary>
-        public bool vulnerable;
         /// <summary>
         /// How much time is left until post hit invulnerability has ended.
         /// </summary>
         private float postHitTime = 1;
         /// <summary>
-        /// How many hits this character can take before dying.
-        /// </summary>
-        public int health;
-        /// <summary>
         /// The initial tint of the character sprite.
         /// </summary>
         private Color color;
+        /// <summary>
+        /// When the character become invulnerable and its sprite starts blinking repeatedly.
+        /// </summary>
+        public bool postHit;
+        /// <summary>
+        /// For the boss, when it is able to be attacked. The player is always vulnerable.
+        /// </summary>
+        public bool vulnerable;
+        /// <summary>
+        /// How many hits this character can take before dying.
+        /// </summary>
+        public int health;
         /// <summary>
         /// The UI elements used to represent the player's health.
         /// </summary>
@@ -41,6 +41,9 @@ namespace Kortge
         /// A particle system that is played when the character is killed.
         /// </summary>
         public ParticleSystem particles;
+        /// <summary>
+        /// The decides where to take the player when this character dies.
+        /// </summary>
         public Results results;
         /// <summary>
         /// The sprite user to represent the player character.
@@ -75,6 +78,22 @@ namespace Kortge
             }
         }
 
+        /// <summary>
+        /// Deactivates a rose on the health bar for every hit taken.
+        /// </summary>
+        private void UpdateHealthBar()
+        {
+            int roseIndex = 0;
+            foreach (GameObject rose in roses)
+            {
+                roseIndex++;
+                if (roseIndex > health) rose.SetActive(false);
+            }
+        }
+
+        /// <summary>
+        /// Destroys this character and sends the player to the next scene.
+        /// </summary>
         private void Death()
         {
             Instantiate(particles, transform.position, transform.rotation);
@@ -105,18 +124,6 @@ namespace Kortge
                 sprite.color = color;
                 postHitTime = 1;
                 postHit = false;
-            }
-        }
-        /// <summary>
-        /// Deactivates a rose on the health bar for every hit taken.
-        /// </summary>
-        private void UpdateHealthBar()
-        {
-            int roseIndex = 0;
-            foreach (GameObject rose in roses)
-            {
-                roseIndex++;
-                if (roseIndex > health) rose.SetActive(false);
             }
         }
         /// <summary>

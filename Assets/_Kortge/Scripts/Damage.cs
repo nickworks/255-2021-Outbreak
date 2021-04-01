@@ -12,7 +12,7 @@ namespace Kortge
         /// <summary>
         /// Damages the player if true or the boss if false.
         /// </summary>
-        public bool player;
+        public bool targetIsPlayer;
         /// <summary>
         /// When collision occurs, this script checks if it is the player or the boss.
         /// If it is, then it reduces its health by one.
@@ -20,10 +20,11 @@ namespace Kortge
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
-            if ((player && other.CompareTag("Player"))||(!player && other.CompareTag("Boss")))
+            if ((targetIsPlayer && other.CompareTag("Player"))||(!targetIsPlayer && other.CompareTag("Boss")))
             {
                 Health health = other.GetComponent<Health>();
                 health.Damage();
+                print(gameObject + "" + health);
             }
         }
     }

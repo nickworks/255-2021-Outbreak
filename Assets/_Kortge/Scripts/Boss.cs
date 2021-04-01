@@ -262,18 +262,14 @@ namespace Kortge
                     stateTime -= Time.deltaTime;
                     if (boss.hit)
                     {
-                        return Hit();
+                        if (boss.health.health <= 0) return new States.Death();
+                        boss.hit = false;
+                        return new States.PostHitInvulnerability();
                     }
                     if (stateTime <= 0) return new States.Teleport();
                     return null;
                 }
 
-                private State Hit()
-                {
-                    if (boss.health.health <= 0) return new States.Death();
-                    boss.hit = false;
-                    return new States.PostHitInvulnerability();
-                }
                 /// <summary>
                 /// Makes the boss vulnerable to attack for a length of time depending on how much health is left while setting the boss reference.
                 /// </summary>
@@ -399,7 +395,7 @@ namespace Kortge
         /// <summary>
         /// The prefab used to represent projectiles shot out.
         /// </summary>
-        public Projectile astralProjectionPrefab;
+        public Projectile projectionPrefab;
         /// <summary>
         /// The character the boss focuses on.
         /// </summary>
@@ -444,7 +440,7 @@ namespace Kortge
         /// Changes the state to something different.
         /// </summary>
         /// <param name="newState"></param>
-        void SwitchState(States.State newState)
+        private void SwitchState(States.State newState)
         {
             if (newState == null) return;
 
@@ -455,25 +451,9 @@ namespace Kortge
             state.OnStart(this);
         }
         /// <summary>
-        /// Teleports the boss above the camera with a smoke effect.
-        /// </summary>
-        void SmokeOut()
-        {
-            Instantiate(smokeOut, transform.position, new Quaternion(0,0,0,0));
-            transform.position = Vector3.up * (20);
-        }
-        /// <summary>
-        /// Teleports the boss to a random location within the arena with a smoke effet.
-        /// </summary>
-        void SmokeIn()
-        {
-            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up/2);
-            Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
-        }
-        /// <summary>
         /// Keeps the boss facing the direction the player is in.
         /// </summary>
-        void LookAtPlayer()
+        private void LookAtPlayer()
         {
             if (player != null)
             {
@@ -489,12 +469,28 @@ namespace Kortge
             else return;
         }
         /// <summary>
+        /// Teleports the boss above the camera with a smoke effect.
+        /// </summary>
+        private void SmokeOut()
+        {
+            Instantiate(smokeOut, transform.position, new Quaternion(0,0,0,0));
+            transform.position = Vector3.up * (20);
+        }
+        /// <summary>
+        /// Teleports the boss to a random location within the arena with a smoke effet.
+        /// </summary>
+        private void SmokeIn()
+        {
+            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up/2);
+            Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
+        }
+        /// <summary>
         /// Fires an astral projection in the direction of the player.
         /// </summary>
         /// <param name="speed"></param>
-        void AstralProjection(float speed)
+        private void AstralProjection(float speed)
         {
-            Projectile projection = Instantiate(astralProjectionPrefab, transform.position + transform.forward, transform.rotation);
+            Projectile projection = Instantiate(projectionPrefab, transform.position + transform.forward, transform.rotation);
             projection.InitBullet(transform.forward * speed);
         }
         /// <summary>
