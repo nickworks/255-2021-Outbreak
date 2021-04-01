@@ -17,6 +17,8 @@ namespace Szczesniak {
         public void DamageTaken(float damage) {
             health -= damage;
 
+            print(health);
+
             if (health <= 0) {
                 Destroy(this.gameObject);
             }

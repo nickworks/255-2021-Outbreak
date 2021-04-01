@@ -27,13 +27,9 @@ namespace Szczesniak {
             ///
 
             public class Idle : State {
-
-                float nextPhaseOfHealth = 50;
-
                 public override State Update() {
                     if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
-                        bossAttack.minionSpawnPhasesFromHealth -= nextPhaseOfHealth;
-                        print("Trying to Spawn");
+                        bossAttack.minionSpawnPhasesFromHealth -= bossAttack.nextPhaseOfHealth;
                         return new States.SpawnMinions();
                     }
 
@@ -66,6 +62,11 @@ namespace Szczesniak {
                     bossAttack.TurnTowardsTarget();
 
                     // transition
+                    if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
+                        bossAttack.minionSpawnPhasesFromHealth -= bossAttack.nextPhaseOfHealth;
+                        return new States.SpawnMinions();
+                    }
+
                     if (!bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.Idle();
 
                     if (bossAttack.bulletAmountInClip <= 0) return new States.Reload(bossAttack.reloadingTime);
@@ -86,10 +87,16 @@ namespace Szczesniak {
                     // behaviour
                     reloadTime -= Time.deltaTime;
 
-                    if (reloadTime <= 0) return new States.Idle();
 
                     // transition
 
+                    if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
+                        bossAttack.minionSpawnPhasesFromHealth -= bossAttack.nextPhaseOfHealth;
+                        return new States.SpawnMinions();
+                    }
+
+                    if (reloadTime <= 0) return new States.Idle();
+              
                     return null;
                 }
 
@@ -138,6 +145,7 @@ namespace Szczesniak {
         bool misslesSpawned = true;
         public HealthScript healthAmt;
         private float minionSpawnPhasesFromHealth = 150;
+        private float nextPhaseOfHealth = 50;
 
         public EnemyBasicController minion; 
 
@@ -265,8 +273,9 @@ namespace Szczesniak {
         }
 
         void MinionSpawning() {
-            print("spawned");
-            EnemyBasicController enemySpawnOnBoss = Instantiate(minion, transform.position - new Vector3(-5,0,0), transform.rotation);
+            for (int i = 0; i < 5; i++) {
+                EnemyBasicController enemySpawnOnBoss = Instantiate(minion, transform.position - new Vector3(Random.Range(1.0f, 4.0f), 0, Random.Range(1.0f, 4.0f)), transform.rotation);
+            }
         }
 
         private bool CanSeeThing(Transform thing, float viewingDis) {

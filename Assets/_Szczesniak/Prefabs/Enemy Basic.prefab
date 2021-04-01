@@ -118,6 +118,8 @@ MonoBehaviour:
     type: 3}
   viewingDistance: 10
   viewingAngle: 180
+  dashTimer: 5
+  dashDuration: 0.5
 --- !u!195 &3992645349359143200
 NavMeshAgent:
   m_ObjectHideFlags: 0

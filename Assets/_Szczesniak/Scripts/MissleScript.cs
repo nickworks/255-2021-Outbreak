@@ -34,9 +34,9 @@ namespace Szczesniak {
 
             age += Time.deltaTime;
 
-            //if (age > life) {
-                //Destroy(gameObject);
-            //}
+            if (age > life) {
+                Destroy(gameObject);
+            }
 
             transform.parent = null;
 

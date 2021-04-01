@@ -29,10 +29,34 @@ namespace Szczesniak {
             //////////////////////////// Child Classes: 
             
             public class Idle : State {
+                public override State Update() {
+                    // Behaviour:
 
+                    // Transitions:
+                    if (enemy.CanSeeThing(enemy.attackTarget, enemy.viewingDistance))
+                        return new States.Pursuing();
+
+                    return null;
+                }
             }
 
             public class Pursuing : State {
+
+                public override State Update() {
+                    // Behaviour:
+                    enemy.MoveTowardTarget();
+
+
+                    // Transition:
+                    enemy.dashTimer -= Time.deltaTime;
+                    if (enemy.CanSeeThing(enemy.attackTarget, enemy.targetDistanceToDash) && enemy.dashTimer <= 0) {
+                        enemy.dashTimer = 5;
+                        return new States.DashAttack();
+                    }
+
+                    return null;
+                }
+
 
             }
 
@@ -54,6 +78,19 @@ namespace Szczesniak {
 
             public class DashAttack : State {
 
+                public override State Update() {
+                    // Behaviour:
+                    enemy.DashAttack();
+
+                    // Transition:
+                    enemy.dashDuration -= Time.deltaTime;
+                    if (enemy.dashDuration <= 0) {
+                        enemy.dashDuration = .5f;
+                        return new States.Idle();
+                    }
+
+                    return null;
+                }
             }
 
             public class SelfDestruct : State {
@@ -73,6 +110,12 @@ namespace Szczesniak {
         public float viewingDistance = 10;
         public float viewingAngle = 35;
 
+        public float dashTimer = 5;
+        public float dashDuration = .5f;
+        public float targetDistanceToDash = 6;
+
+
+
         void Start() {
             nav = GetComponent<NavMeshAgent>();
             attackTarget = GameObject.FindGameObjectWithTag("Player");
@@ -86,8 +129,7 @@ namespace Szczesniak {
 
             if (state != null) SwitchState(state.Update());
 
-            if (CanSeeThing(attackTarget))
-                MoveTowardTarget();
+
         }
 
         void MoveTowardTarget() {
@@ -102,12 +144,19 @@ namespace Szczesniak {
             state.OnStart(this);
         }
 
+        void DashAttack() {
+            Vector3 dash = transform.forward * 20;
+
+            transform.position += dash * Time.deltaTime;
+
+        }
+
         /// <summary>
         /// Calculation for turret to see targets
         /// </summary>
         /// <param name="thing"></param>
         /// <returns></returns>
-        private bool CanSeeThing(GameObject thing) {
+        private bool CanSeeThing(GameObject thing, float viewingDistance) {
 
             if (!thing) return false; // uh... error
 
@@ -122,6 +171,13 @@ namespace Szczesniak {
             // TODO: Check occulusion
 
             return true;
+        }
+
+        private void OnTriggerEnter(Collider collision) {
+            HealthScript healthOfPlayer = collision.GetComponent<HealthScript>();
+            if (collision.gameObject.tag == "Player" && healthOfPlayer) {
+                healthOfPlayer.DamageTaken(5);
+            }
         }
     }
 }
