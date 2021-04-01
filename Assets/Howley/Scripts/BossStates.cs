@@ -32,43 +32,109 @@ namespace Howley
 
             public class Idle : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Persuing : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class ClimbWall : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Stunned : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Death : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Attack1 : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Attack2 : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
             public class Attack3 : State
             {
-
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
+            }
+            public class Attack4 : State
+            {
+                public override State Update()
+                {
+                    // Behavior:
+                    // Transitions:
+                    return null;
+                }
             }
         }
 
+        // Hold reference to the list of states
         private States.State state;
+
+        // Set pawn to CharacterController
+        private CharacterController pawn;
+
+        // Reference the target to move towards
+        public Transform attackTarget;
+
+        /// <summary>
+        /// This variable is how quickly the boss will move through the environment
+        /// </summary>
+        public float moveSpeed = 4;
+
+        public Vector3 stepLength = Vector3.one;
+
+        public Vector3 moveDir { get; private set; }
 
         void Start()
         {
-
+            // Set pawn to get the CharacterController Component
+            pawn = GetComponent<CharacterController>();
         }
 
 
