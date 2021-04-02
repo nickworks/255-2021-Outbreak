@@ -78,7 +78,7 @@ namespace Szczesniak {
 
                 public override State Update() {
 
-                    Destroy(enemy.gameObject, Random.Range(3, 50));
+                    Destroy(enemy.gameObject, enemy.timeLeftToDestroy);
 
                     return null;
                 }
@@ -133,7 +133,7 @@ namespace Szczesniak {
 
         GameObject bossObject;
         private HealthScript bossHealth;
-
+        int timeLeftToDestroy = 0;
 
 
         void Start() {
@@ -141,6 +141,7 @@ namespace Szczesniak {
             attackTarget = GameObject.FindGameObjectWithTag("Player");
             bossObject = GameObject.FindGameObjectWithTag("Boss");
             bossHealth = bossObject.GetComponent<HealthScript>();
+            timeLeftToDestroy = Random.Range(5, 15);
         }
 
         void Update() {
