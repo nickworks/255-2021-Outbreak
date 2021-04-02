@@ -30,6 +30,10 @@ namespace Kortge
         /// </summary>
         public int health;
         /// <summary>
+        /// Controls the sound effects made by this object.
+        /// </summary>
+        public AudioManager audioManager;
+        /// <summary>
         /// The UI elements used to represent the player's health.
         /// </summary>
         public GameObject[] roses = new GameObject[5];
@@ -135,8 +139,18 @@ namespace Kortge
             {
                 health--;
                 postHit = true;
+                audioManager.Play("Audience Gasp");
+                audioManager.Play("Damage");
                 Boss boss = GetComponent<Boss>();
-                if (boss != null) boss.hit = true;
+                if (boss != null)
+                {
+                    audioManager.Play("Boss Damage");
+                    boss.hit = true;
+                }
+                else
+                {
+                    audioManager.Play("Player Damage");
+                }
                 blood.Play();
             }
         }

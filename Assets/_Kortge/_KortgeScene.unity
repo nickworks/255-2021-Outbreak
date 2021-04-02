@@ -6527,6 +6527,8 @@ GameObject:
   - component: {fileID: 629545418}
   - component: {fileID: 629545417}
   - component: {fileID: 629545420}
+  - component: {fileID: 629545422}
+  - component: {fileID: 629545421}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6631,6 +6633,190 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!82 &629545421
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629545416}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2fbc990505b580145a2833ffa902614c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &629545422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629545416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d97037e152749479f030c0ad0df629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Whoosh
+    clip: {fileID: 8300000, guid: b9b8cb300a3ae1c4d886746a288f2e4b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: UFO Landing
+    clip: {fileID: 8300000, guid: 55be0cf851cdc1349b51a9197e7ead6c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Charge
+    clip: {fileID: 8300000, guid: c13ab3e975a28db41b8a37bfbe285b2c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Player Damage
+    clip: {fileID: 8300000, guid: 232eb07fa7fc32e4b87e810d42a56b74, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Applause
+    clip: {fileID: 8300000, guid: 2d04dea450965d34d9ed227e7b5db222, type: 3}
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
+  - name: Boss Astral Projections
+    clip: {fileID: 8300000, guid: c372529056a25cd4f823aa05ccfd1afb, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Player Astral Projection
+    clip: {fileID: 8300000, guid: bc4c0fad719eb9440b447fd0070c6b56, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sword Swing
+    clip: {fileID: 8300000, guid: c59b2207f589b424e9fd1eb82909cda3, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Audience Gasp
+    clip: {fileID: 8300000, guid: b3edfb59116b01a429763696b32ad548, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Power Up
+    clip: {fileID: 8300000, guid: 2863db6a0024f774487dc6c0b11704a1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: 663ab369e24b9e64d9e528e0bfd2a4b2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Boss Damage
+    clip: {fileID: 8300000, guid: 5f6775c75918e87499794f18602b6370, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Music
+    clip: {fileID: 8300000, guid: 2fbc990505b580145a2833ffa902614c, type: 3}
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sword Stuck
+    clip: {fileID: 8300000, guid: d57baac3aafd4a74eb678fc773b8988d, type: 3}
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
+  - name: Crowd Cheer
+    clip: {fileID: 8300000, guid: a1de222539e4b29458484a45cbe08ef5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &634850645
 GameObject:
   m_ObjectHideFlags: 0
@@ -6676,6 +6862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82203ae20846145bfee87e8b5f626c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 629545422}
   target: {fileID: 634850646}
 --- !u!114 &634850648
 MonoBehaviour:
@@ -6689,6 +6876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a9c8f3fe6264049bcc6981f658ab0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 629545422}
 --- !u!1 &649498345
 GameObject:
   m_ObjectHideFlags: 0
@@ -7011,6 +7199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stabbing: 0
   projectionReady: 0
+  audioManager: {fileID: 629545422}
   particles: {fileID: 1637025483}
   projectionPrefab: {fileID: 298363504514433853, guid: d764bab14dd312342aaa793bf5f8061a,
     type: 3}
@@ -7060,6 +7249,7 @@ MonoBehaviour:
   postHit: 0
   vulnerable: 1
   health: 5
+  audioManager: {fileID: 629545422}
   roses:
   - {fileID: 604852354}
   - {fileID: 2045088310}
@@ -8109,6 +8299,7 @@ MonoBehaviour:
   stateTime: 0
   afterImage: {fileID: 4610618650033501294, guid: 3f38a9296054dd14e8fbabcf6fbe4eae,
     type: 3}
+  audioManager: {fileID: 629545422}
   maidens: {fileID: 745067160}
   smokeIn: {fileID: 2275834777602517221, guid: df492f1f3a3cd0e4ab96d28733c53fa8, type: 3}
   smokeOut: {fileID: 7888557201410464071, guid: 37825ab66c06003428d1b4edc4fbae5a,
@@ -8149,6 +8340,7 @@ MonoBehaviour:
   postHit: 0
   vulnerable: 0
   health: 5
+  audioManager: {fileID: 629545422}
   roses:
   - {fileID: 538643805}
   - {fileID: 714439510}

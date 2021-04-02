@@ -34,6 +34,7 @@ namespace Kortge
         /// Shows if the player has picked up a rose and is ready to launch a projectile.
         /// </summary>
         public bool projectionReady = false;
+        public AudioManager audioManager;
         /// <summary>
         /// An effect that plays when the player picks up a rose.
         /// </summary>
@@ -138,11 +139,13 @@ namespace Kortge
         private void Stab()
         {
             animator.SetTrigger("Stab");
+            audioManager.Play("Whoosh");
             if (projectionReady)
             {
                 Projectile projection = Instantiate(projectionPrefab, transform.position + transform.forward, transform.rotation);
                 projection.InitBullet(transform.forward * 20);
                 projectionReady = false;
+                audioManager.Play("Player Astral Projection");
             }
         }
         /// <summary>
@@ -166,6 +169,7 @@ namespace Kortge
                 projectionReady = true;
                 Destroy(hit.gameObject);
                 particles.Play();
+                audioManager.Play("Power Up");
             }
         }
     }

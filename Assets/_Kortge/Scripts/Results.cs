@@ -18,6 +18,7 @@ public class Results : MonoBehaviour
     /// Determines how long the animation will be allowed to be played out before exiting the zone.
     /// </summary>
     private float endTime;
+    public AudioManager audioManager;
     /// <summary>
     /// Leaves the player in the zone for a period of time depending on who was killed and either sends them to the next level if victorious or sends them to the game over screen if they failed.
     /// </summary>
@@ -42,7 +43,11 @@ public class Results : MonoBehaviour
     /// <param name="bossKilled"></param>
     public void ResultsIn(bool bossKilled)
     {
-        if (bossKilled) endTime = 20;
+        if (bossKilled)
+        {
+            endTime = 20;
+            audioManager.Play("Crowd Cheer");
+        }
         else endTime = 1;
         victory = bossKilled;
         gameOver = true;

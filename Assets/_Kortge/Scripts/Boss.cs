@@ -197,14 +197,22 @@ namespace Kortge
                     return null;
                 }
                 /// <summary>
-                /// Sets up the shot delay based on the boss's current health while getting a reference to the boss.
+                /// Sets up the shot delay based on the boss's current health while getting a reference to the boss. Also starts playing a sound effect for the fire.
                 /// </summary>
                 /// <param name="boss"></param>
                 public override void OnStart(Boss boss)
                 {
                     shotDelay = 1f/(12f*(6-boss.health.health));
                     shotTime = shotDelay;
+                    boss.audioManager.Play("Boss Astral Projections");
                     base.OnStart(boss);
+                }
+                /// <summary>
+                /// Stops the sound effect since astral projections are not longer being fired.
+                /// </summary>
+                public override void OnEnd()
+                {
+                    boss.audioManager.Stop("Boss Astral Projections");
                 }
             }
             /// <summary>
@@ -240,6 +248,7 @@ namespace Kortge
                 {
                     boss.maidens.ThrowRose();
                     boss.focused = false;
+                    boss.audioManager.Play("Charge");
                     base.OnStart(boss);
                 }
             }
@@ -279,6 +288,7 @@ namespace Kortge
                     boss.sweat.Play();
                     boss.health.vulnerable = true;
                     stateTime = boss.stateTime;
+                    boss.audioManager.Play("Sword Stuck");
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -376,6 +386,10 @@ namespace Kortge
         /// A damaging clone of the boss left behind while dashing.
         /// </summary>
         public AfterImage afterImage;
+        /// <summary>
+        /// Controls the sound effects made by this object.
+        /// </summary>
+        public AudioManager audioManager;
         /// <summary>
         /// The object the boss singals to throw roses while charging.
         /// </summary>
