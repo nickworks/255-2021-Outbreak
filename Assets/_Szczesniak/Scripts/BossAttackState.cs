@@ -130,7 +130,7 @@ namespace Szczesniak {
 
         private States.State state;
 
-        public Projectile prefabMachineGunBullets;
+        public EnemyProjectiles prefabMachineGunBullets;
         private int bulletAmountInClip = 30;
         public int maxRoundsToHave = 30;
         public float reloadingTime = 0;
@@ -266,10 +266,10 @@ namespace Szczesniak {
         void MachineGun() {
             if (bulletAmountTime > 0) return;
 
-            Projectile leftBullets = Instantiate(prefabMachineGunBullets, leftMuzzle.position, Quaternion.identity);
+            EnemyProjectiles leftBullets = Instantiate(prefabMachineGunBullets, leftMuzzle.position, Quaternion.identity);
             leftBullets.InitBullet(transform.forward * 30);
 
-            Projectile RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, Quaternion.identity);
+            EnemyProjectiles RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, Quaternion.identity);
             RightBullets.InitBullet(transform.forward * 30);
 
             bulletAmountInClip--;

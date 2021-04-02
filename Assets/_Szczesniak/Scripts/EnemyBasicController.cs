@@ -33,6 +33,11 @@ namespace Szczesniak {
                     // Behaviour:
 
                     // Transitions:
+                    if (enemy.bossHealth.health <= 0) {
+                        enemy.nav.enabled = false;
+                        return new States.Death();
+                    }
+
                     if (enemy.CanSeeThing(enemy.attackTarget, enemy.viewingDistance))
                         return new States.Pursuing();
 
@@ -48,6 +53,11 @@ namespace Szczesniak {
 
 
                     // Transition:
+                    if (enemy.bossHealth.health <= 0) {
+                        enemy.nav.enabled = false;
+                        return new States.Death();
+                    }
+
                     enemy.dashTimer -= Time.deltaTime;
                     if (enemy.CanSeeThing(enemy.attackTarget, enemy.targetDistanceToDash) && enemy.dashTimer <= 0) {
                         enemy.dashTimer = 5;
@@ -65,6 +75,13 @@ namespace Szczesniak {
             }
 
             public class Death : State {
+
+                public override State Update() {
+
+                    Destroy(enemy.gameObject, Random.Range(3, 50));
+
+                    return null;
+                }
 
             }
 
@@ -114,12 +131,16 @@ namespace Szczesniak {
         public float dashDuration = .5f;
         public float targetDistanceToDash = 6;
 
+        GameObject bossObject;
+        private HealthScript bossHealth;
+
 
 
         void Start() {
             nav = GetComponent<NavMeshAgent>();
             attackTarget = GameObject.FindGameObjectWithTag("Player");
-            
+            bossObject = GameObject.FindGameObjectWithTag("Boss");
+            bossHealth = bossObject.GetComponent<HealthScript>();
         }
 
         void Update() {

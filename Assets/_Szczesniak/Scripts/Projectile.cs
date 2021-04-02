@@ -25,10 +25,6 @@ namespace Szczesniak {
 
         public ParticleSystem bulletParticles;
 
-        void Start() {
-
-        }
-
         public void InitBullet(Vector3 vel) {
             velocity = vel;
         }

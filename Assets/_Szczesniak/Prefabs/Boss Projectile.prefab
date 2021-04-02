@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8834195501739852989}
   - component: {fileID: 2608607261672821959}
   - component: {fileID: 8528264401421267475}
-  - component: {fileID: 8583240119884183109}
   - component: {fileID: 327137607787382066}
+  - component: {fileID: 8478579673320663095}
   m_Layer: 0
   m_Name: Boss Projectile
   m_TagString: Untagged
@@ -97,21 +97,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8583240119884183109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3558759461874447811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2510a00d286d821478591adf7fee1483, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmt: 10
-  bulletParticles: {fileID: 6082193486656702712, guid: 34c74e0a31d98c34ca67f4a271cf22f9,
-    type: 3}
 --- !u!54 &327137607787382066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,3 +113,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &8478579673320663095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558759461874447811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6bf8425f7f1534fa0d6abfd449e5df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmt: 10
+  bulletParticles: {fileID: 6082193486656702712, guid: 34c74e0a31d98c34ca67f4a271cf22f9,
+    type: 3}
