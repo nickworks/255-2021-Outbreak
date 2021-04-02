@@ -18,6 +18,9 @@ public class Results : MonoBehaviour
     /// Determines how long the animation will be allowed to be played out before exiting the zone.
     /// </summary>
     private float endTime;
+    /// <summary>
+    /// Controls the sound effects made by this object.
+    /// </summary>
     public AudioManager audioManager;
     /// <summary>
     /// Leaves the player in the zone for a period of time depending on who was killed and either sends them to the next level if victorious or sends them to the game over screen if they failed.

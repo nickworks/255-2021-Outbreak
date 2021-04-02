@@ -113,6 +113,7 @@ namespace Kortge
                 {
                     boss.SmokeOut();
                     stateTime = boss.stateTime;
+                    boss.sprite.color = Color.red;
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -259,6 +260,10 @@ namespace Kortge
             public class Stun : State
             {
                 /// <summary>
+                /// Controls how dark the sprite is.
+                /// </summary>
+                float darkness;
+                /// <summary>
                 /// How much more time this state will remain active for.
                 /// </summary>
                 float stateTime;
@@ -272,9 +277,13 @@ namespace Kortge
                     if (boss.hit)
                     {
                         if (boss.health.health <= 0) return new States.Death();
+                        darkness = 1;
                         boss.hit = false;
                         return new States.PostHitInvulnerability();
                     }
+                    else darkness += Time.deltaTime * 5;
+                    Mathf.Clamp(darkness, 0, 1);
+                    boss.sprite.color = Color.Lerp(Color.red, Color.black, darkness);
                     if (stateTime <= 0) return new States.Teleport();
                     return null;
                 }
@@ -367,6 +376,10 @@ namespace Kortge
         /// </summary>
         private Health health;
         /// <summary>
+        /// The sprite used to represent this character.
+        /// </summary>
+        private SpriteRenderer sprite;
+        /// <summary>
         /// The current behavior of the boss.
         /// </summary>
         private States.State state;
@@ -423,6 +436,7 @@ namespace Kortge
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
             health = GetComponent<Health>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
             stateTime = 1f;
         }
 

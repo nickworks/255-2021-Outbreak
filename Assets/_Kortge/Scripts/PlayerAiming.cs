@@ -34,6 +34,9 @@ namespace Kortge
         /// Shows if the player has picked up a rose and is ready to launch a projectile.
         /// </summary>
         public bool projectionReady = false;
+        /// <summary>
+        /// Controls the sound effects made by this object.
+        /// </summary>
         public AudioManager audioManager;
         /// <summary>
         /// An effect that plays when the player picks up a rose.
