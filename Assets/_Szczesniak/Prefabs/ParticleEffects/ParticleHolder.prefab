@@ -14588,6 +14588,11 @@ PrefabInstance:
       propertyPath: InitialModule.startSpeed.minScalar
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5625569593728623149, guid: b02f62a87ad323e4a8164c994d9ceac4,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7718787945791014383, guid: b02f62a87ad323e4a8164c994d9ceac4,
         type: 3}
       propertyPath: m_RootOrder
