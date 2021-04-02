@@ -31,14 +31,19 @@ namespace Szczesniak {
             public class Idle : State {
 
                 float idleTime = 5;
+                float health = 0;
 
                 public Idle(float time) {
                     idleTime = time;
+                    
                 }
 
                 public override State Update() {
 
                     // transitions: 
+                    if (boss.health.health <= 0)
+                        return new States.Death();
+
                     if (boss.CanSeeThing(boss.attackTarget, true, boss.viewingDistance))
                         return new States.Pursuing();
 
@@ -55,7 +60,11 @@ namespace Szczesniak {
                 public override State Update() {
                     // behavior:
                     boss.MoveTowardTarget();
- 
+
+                    // Transition:
+                    if (boss.health.health <= 0)
+                        return new States.Death();
+
                     if (!boss.CanSeeThing(boss.attackTarget, true, boss.viewingDistance))
                         return new States.Idle(boss.timeToStopIdle);
 
@@ -81,6 +90,9 @@ namespace Szczesniak {
                     }
 
                     // transition:
+                    if (boss.health.health <= 0)
+                        return new States.Death();
+
                     if (!boss.nav.pathPending && boss.nav.remainingDistance <= 2f)
                         return new States.Idle(boss.timeToStopIdle);
 
@@ -92,6 +104,12 @@ namespace Szczesniak {
             }
 
             public class Death : State {
+                public override State Update() {
+                    // Behavior:
+                    boss.DeathEffect();
+                    
+                    return new States.Stunned();
+                }
 
             }
 
@@ -118,8 +136,14 @@ namespace Szczesniak {
         public float shootingRange = 15;
         private float timeToStopIdle = 5;
 
+        private HealthScript health;
+        public ParticleSystem deathParticleSystem;
+
+        public CameraTracking cameraSwitching;
+
         void Start() {
             nav = GetComponent<NavMeshAgent>();
+            health = GetComponent<HealthScript>();
         }
 
         void Update() {
@@ -185,6 +209,15 @@ namespace Szczesniak {
             nav.destination = patrolPoints[pointPatrolling].position;
             pointPatrolling = (pointPatrolling + 1) % patrolPoints.Length;
 
+        }
+
+        void DeathEffect() {
+            nav.enabled = false;
+            if (cameraSwitching) {
+                cameraSwitching.target = this.transform;
+                cameraSwitching.smoothTransition = .3f;
+            }
+            ParticleSystem sparks = Instantiate(deathParticleSystem, transform.position, Quaternion.identity);
         }
     }
 }

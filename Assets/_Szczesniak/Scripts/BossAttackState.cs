@@ -28,6 +28,12 @@ namespace Szczesniak {
 
             public class Idle : State {
                 public override State Update() {
+                    // Behaviour:
+
+                    // Transitions:
+                    if (bossAttack.healthAmt.health <= 0)
+                        return null;
+
                     if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
                         bossAttack.minionSpawnPhasesFromHealth -= bossAttack.nextPhaseOfHealth;
                         return new States.SpawnMinions();
@@ -62,6 +68,9 @@ namespace Szczesniak {
                     bossAttack.TurnTowardsTarget();
 
                     // transition
+                    if (bossAttack.healthAmt.health <= 0)
+                        return new States.Idle();
+
                     if (bossAttack.healthAmt.health <= bossAttack.minionSpawnPhasesFromHealth) {
                         bossAttack.minionSpawnPhasesFromHealth -= bossAttack.nextPhaseOfHealth;
                         return new States.SpawnMinions();
@@ -184,6 +193,10 @@ namespace Szczesniak {
         }
 
         private void Update() {
+
+            // Makes the script not run if boss health is 0 or below:
+            if (healthAmt.health <= 0)
+                return;
 
             if (state == null) SwitchState(new States.Idle());
 

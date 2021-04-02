@@ -20,7 +20,7 @@ namespace Szczesniak {
             print(health);
 
             if (health <= 0) {
-                Destroy(this.gameObject);
+                Destroy(this.gameObject, 3);
             }
         }
     }

@@ -242,8 +242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b7f1470ffc8d34abd3580d99812c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabMachineGunBullets: {fileID: 8583240119884183109, guid: 0f55c2bf01f4a3c488d2b226cfc786b0,
+  prefabMachineGunBullets: {fileID: 8583240119884183109, guid: 3c53d2d1657533643a4d990dab45564c,
     type: 3}
+  maxRoundsToHave: 30
+  reloadingTime: 5
   prefabMissile: {fileID: 94874368765460703, guid: f81ccde9d3c9edc439da80feadf9330e,
     type: 3}
   leftMuzzle: {fileID: 2543680746053356592}
@@ -255,7 +257,9 @@ MonoBehaviour:
   missilePos2: {fileID: 6734095234538413469}
   roundPerSec: 10
   missleRespawnTime: 5
-  viewingAngle: 90
+  healthAmt: {fileID: 694380009}
+  minion: {fileID: 3992645349359143205, guid: d85040d7551314047b4eb9f5a1c41e99, type: 3}
+  viewingAngle: 180
   viewingDistance: 20
   player: {fileID: 0}
   lockRotationX: 1
@@ -746,6 +750,9 @@ MonoBehaviour:
   viewingAngle: 180
   stoppingDistance: 18
   shootingRange: 12
+  deathParticleSystem: {fileID: 6265031000430969328, guid: 322927ab7b9d32649a7dc3fa5b34e8be,
+    type: 3}
+  cameraSwitching: {fileID: 0}
 --- !u!195 &5033730304190295616
 NavMeshAgent:
   m_ObjectHideFlags: 0

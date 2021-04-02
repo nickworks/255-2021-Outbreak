@@ -6,6 +6,7 @@ namespace Szczesniak {
     public class CameraTracking : MonoBehaviour {
 
         public Transform target;
+        [HideInInspector] public float smoothTransition = .01f;
 
         /// <summary>
         /// Runs everytime the physics engine ticks.
@@ -22,7 +23,7 @@ namespace Szczesniak {
 
                 // framerate independent slide:
 
-                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+                float p = 1 - Mathf.Pow(smoothTransition, Time.deltaTime);
                 transform.position = Vector3.Lerp(transform.position, target.position, p);
             }
 
