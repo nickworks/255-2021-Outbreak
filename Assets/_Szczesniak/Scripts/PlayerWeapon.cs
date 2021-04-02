@@ -70,7 +70,7 @@ namespace Szczesniak {
                 }
 
                 public override State Update() {
-                    
+
                     timeLeft -= Time.deltaTime;
 
                     if (timeLeft <= 0) return new States.Regular();
@@ -78,8 +78,7 @@ namespace Szczesniak {
                     return null;
                 }
 
-                public override void OnEnd()
-                {
+                public override void OnEnd() {
                     weapon.roundsInClip = weapon.maxRoundsInClip;
                 }
 
@@ -93,8 +92,8 @@ namespace Szczesniak {
 
         public Projectile prefabProjectile;
         private States.State state;
-        public int maxRoundsInClip = 8;
-        private int roundsInClip = 8;
+        public int maxRoundsInClip = 20;
+        [HideInInspector] public int roundsInClip = 20;
         
         /// <summary>
         /// How many bullets to spawn per second. We use this to calcalute the timing between bullets.
@@ -111,7 +110,7 @@ namespace Szczesniak {
         public GameObject muzzle;
 
         void Start() {
-
+            roundsInClip = maxRoundsInClip;
         }
 
         void Update() {
