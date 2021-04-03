@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319646400697744973}
-  m_LocalRotation: {x: -0.66446304, y: -0.24184471, z: -0.24184471, w: 0.66446304}
+  m_LocalRotation: {x: -0.66446304, y: -0.24184473, z: -0.24184473, w: 0.66446304}
   m_LocalPosition: {x: 2.1643505, y: -1.9500008, z: -50.713478}
   m_LocalScale: {x: 0.31567, y: 0.31567, z: 0.31567}
   m_Children:
   - {fileID: 4508236394018245744}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -40}
 --- !u!198 &7700845847274589503
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -3811,9 +3811,9 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
-    ratio: 0
-    light: {fileID: 0}
+    enabled: 1
+    ratio: 1
+    light: {fileID: 8116669158016122710, guid: af5c5794c3bc27740a4c3ee4e81f357e, type: 3}
     randomDistribution: 1
     color: 1
     range: 1
@@ -3821,7 +3821,7 @@ ParticleSystem:
     rangeCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 7.86
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3874,7 +3874,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 3.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3924,7 +3924,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    maxLights: 20
+    maxLights: 27
   TrailModule:
     enabled: 0
     mode: 0
