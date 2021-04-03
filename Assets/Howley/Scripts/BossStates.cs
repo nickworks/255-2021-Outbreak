@@ -19,7 +19,7 @@ namespace Howley
 
                 virtual public void OnStart(BossStates boss)
                 {
-                    this.boss = boss;
+                    this.boss = boss;        
                 }
 
                 virtual public void OnEnd()
@@ -35,7 +35,9 @@ namespace Howley
                 public override State Update()
                 {
                     // Behavior:
+                    // TODO: Make Idle animation
                     // Transitions:
+                    if (boss.canSeePlayer) boss.SwitchState(new States.Persuing());
                     return null;
                 }
             }
@@ -44,7 +46,9 @@ namespace Howley
                 public override State Update()
                 {
                     // Behavior:
+                    boss.MoveTheBoss();
                     // Transitions:
+                    if (!boss.canSeePlayer) boss.SwitchState(new States.Idle());
                     return null;
                 }
             }
@@ -122,14 +126,25 @@ namespace Howley
         // Reference the target to move towards
         public Transform attackTarget;
 
+        private Vector3 vToPlayer;
+
+        private float moveSpeed = 5;
+
         /// <summary>
-        /// This variable is how quickly the boss will move through the environment
+        /// How far can the boss see
         /// </summary>
-        public float moveSpeed = 4;
+        public float visDis = 10;
 
-        public Vector3 stepLength = Vector3.one;
+        /// <summary>
+        /// The ange at which the boss can see 
+        /// </summary>
+        public float visCone = 160;
 
-        public Vector3 moveDir { get; private set; }
+        /// <summary>
+        /// Depending on the vision distance, and cone.
+        /// </summary>
+        private bool canSeePlayer = false;
+
 
         void Start()
         {
@@ -159,6 +174,21 @@ namespace Howley
 
             // Call the new state's on start function
             state.OnStart(this);
+        }
+
+        void MoveTheBoss()
+        {
+            if (attackTarget)
+            {
+                vToPlayer = attackTarget.transform.position - transform.position;
+
+                if (vToPlayer.sqrMagnitude > visDis * visDis) canSeePlayer = false;
+                if (Vector3.Angle(transform.forward, vToPlayer) > visCone) canSeePlayer = false;
+
+                if (vToPlayer.sqrMagnitude < visDis * visDis && Vector3.Angle(transform.forward, vToPlayer) < visCone) canSeePlayer = true;
+
+                if (canSeePlayer) pawn.SimpleMove(vToPlayer * moveSpeed);              
+            }
         }
     }
 }
