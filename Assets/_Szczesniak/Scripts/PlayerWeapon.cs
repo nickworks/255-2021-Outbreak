@@ -30,6 +30,8 @@ namespace Szczesniak {
                     // behavior:
 
                     // transitions:
+                    if (Input.GetButtonDown("Fire2")) return new States.SpecialRocketLauncher();
+
                     if (Input.GetButton("Fire1")) {
 
                         // if no ammo, go to cooldown:
@@ -84,6 +86,15 @@ namespace Szczesniak {
 
             }
 
+            public class SpecialRocketLauncher : State {
+                public override State Update() {
+
+                    weapon.SpawnRocket();
+
+                    return new States.Regular();
+                }
+            }
+
         }
 
         // encapsulate
@@ -94,6 +105,10 @@ namespace Szczesniak {
         private States.State state;
         public int maxRoundsInClip = 20;
         [HideInInspector] public int roundsInClip = 20;
+
+        public RocketMechanic rocketPrefab;
+        private float rocketTimer = 0;
+        public float maxTimeForRocket = 8;
         
         /// <summary>
         /// How many bullets to spawn per second. We use this to calcalute the timing between bullets.
@@ -147,6 +162,12 @@ namespace Szczesniak {
 
             roundsInClip--;
             timerSpawnBullet = 1 / roundsPerSecond;
+        }
+
+        void SpawnRocket() {
+            if (rocketTimer > 0) return;
+
+            RocketMechanic rocket = Instantiate(rocketPrefab, muzzle.transform.position, transform.rotation);
         }
     }
 }

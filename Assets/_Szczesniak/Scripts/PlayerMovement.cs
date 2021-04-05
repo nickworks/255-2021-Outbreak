@@ -48,7 +48,7 @@ namespace Szczesniak {
 
                     if (Input.GetButton("Fire3")) return new States.Sprinting();
 
-                    if (Input.GetButtonDown("Fire2")) // transition to dashing
+                    if (Input.GetKeyDown("space")) // transition to dashing
                         return new States.Dashing();
 
                     if (!Input.GetKey("w") && !Input.GetKey("a") && !Input.GetKey("s") && !Input.GetKey("d"))
@@ -85,21 +85,6 @@ namespace Szczesniak {
                 public override void OnEnd() {
                     player.dashTimer = .15f;
                 }
-
-            }
-
-            public class AssualtRife : State {
-
-            }
-            public class RifleReload : State {
-
-            }
-
-            public class Rockets : State {
-
-            }
-
-            public class Artilary : State {
 
             }
 
