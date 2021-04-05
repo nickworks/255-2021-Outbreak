@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7120223559993433954}
   - component: {fileID: 7574073457717270115}
   - component: {fileID: 1716078705739518892}
-  - component: {fileID: 73386867767773434}
+  - component: {fileID: 3141206681999074595}
   m_Layer: 0
   m_Name: MissleVFX
   m_TagString: Untagged
@@ -4806,7 +4806,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &73386867767773434
+--- !u!114 &3141206681999074595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4815,6 +4815,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5314481784481826647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e7333e6d299c614db08bc1007d42e39, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ecc5cfbe32933948a9a5f0eafe81242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

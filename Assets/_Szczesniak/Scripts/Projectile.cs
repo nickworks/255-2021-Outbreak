@@ -85,8 +85,8 @@ namespace Szczesniak {
             HealthScript healthOfThing = other.GetComponent<HealthScript>();
             if (healthOfThing) {
                 healthOfThing.DamageTaken(damageAmt);
-                Destroy(this.gameObject);
                 Instantiate(bulletParticles, this.transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
             }
         }
     }
