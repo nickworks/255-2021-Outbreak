@@ -30,7 +30,9 @@ namespace Szczesniak {
                     // behavior:
 
                     // transitions:
-                    if (Input.GetButtonDown("Fire2")) return new States.SpecialRocketLauncher();
+                    if (Input.GetButtonDown("Fire2")) {
+                        if (weapon.rocketTimer <= 0) return new States.SpecialRocketLauncher();
+                    }
 
                     if (Input.GetButton("Fire1")) {
 
@@ -107,9 +109,9 @@ namespace Szczesniak {
         [HideInInspector] public int roundsInClip = 20;
 
         public RocketMechanic rocketPrefab;
-        private float rocketTimer = 0;
+        [HideInInspector] public float rocketTimer = 0;
         public float maxTimeForRocket = 8;
-        
+
         /// <summary>
         /// How many bullets to spawn per second. We use this to calcalute the timing between bullets.
         /// </summary>
@@ -131,6 +133,8 @@ namespace Szczesniak {
         void Update() {
            
             if (timerSpawnBullet > 0) timerSpawnBullet -= Time.deltaTime;
+
+            if (rocketTimer > 0) rocketTimer -= Time.deltaTime;
 
             if (state == null) SwitchState(new States.Regular());
 
@@ -166,6 +170,7 @@ namespace Szczesniak {
 
         void SpawnRocket() {
             if (rocketTimer > 0) return;
+            rocketTimer = maxTimeForRocket;
 
             RocketMechanic rocket = Instantiate(rocketPrefab, muzzle.transform.position, transform.rotation);
         }

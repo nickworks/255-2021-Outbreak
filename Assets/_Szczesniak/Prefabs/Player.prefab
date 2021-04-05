@@ -179,7 +179,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabProjectile: {fileID: 8583240119884183109, guid: 0f55c2bf01f4a3c488d2b226cfc786b0,
     type: 3}
-  maxRoundsInClip: 15
+  maxRoundsInClip: 20
+  roundsInClip: 20
+  rocketPrefab: {fileID: 7257508732478251527, guid: c3bb04f844a304c4a8a7837cfc237777,
+    type: 3}
+  maxTimeForRocket: 1
   roundsPerSecond: 13
   reloadTime: 1
   muzzle: {fileID: 735006570}

@@ -31,7 +31,6 @@ namespace Szczesniak {
             public class Idle : State {
 
                 float idleTime = 5;
-                float health = 0;
 
                 public Idle(float time) {
                     idleTime = time;

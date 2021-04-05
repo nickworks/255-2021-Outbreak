@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Szczesniak {
-    public class DestroyParticle : MonoBehaviour {
-
+    public class DestroyAfterSpawned : MonoBehaviour {
 
         void Start() {
             Destroy(this.gameObject, 3);
         }
-
-
     }
 }

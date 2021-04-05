@@ -48,7 +48,7 @@ namespace Szczesniak {
 
                     if (Input.GetButton("Fire3")) return new States.Sprinting();
 
-                    if (Input.GetKeyDown("space")) // transition to dashing
+                    if (Input.GetKeyDown("space") && player.dashTimeToUseAgain <= 0) // transition to dashing
                         return new States.Dashing();
 
                     if (!Input.GetKey("w") && !Input.GetKey("a") && !Input.GetKey("s") && !Input.GetKey("d"))
@@ -113,7 +113,10 @@ namespace Szczesniak {
         /// <summary>
         /// This stores how many seconds are left:
         /// </summary>
-        private float dashTimer = 0;
+        private float dashTimer = .15f;
+
+        [HideInInspector] public float dashTimeToUseAgain = 0;
+        public float dashTimerToUseAgainSetter = 2f;
 
         void Start() {
             pawn = GetComponent<CharacterController>();
@@ -125,6 +128,8 @@ namespace Szczesniak {
             if (state == null) SwitchingStates(new States.Idle());
 
             if (state != null) SwitchingStates(state.Update());
+
+            if (dashTimeToUseAgain > 0) dashTimeToUseAgain -= Time.deltaTime;
         }
 
         private void SwitchingStates(States.State newState) {
@@ -163,6 +168,8 @@ namespace Szczesniak {
                 dashDirection.Normalize();
             
             pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
+
+            dashTimeToUseAgain = dashTimerToUseAgainSetter;
         }
     }
 }
