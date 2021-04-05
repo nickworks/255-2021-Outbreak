@@ -47,6 +47,7 @@ namespace Szczesniak {
             if (rocketToDelete)
                 Destroy(rocketToDelete.gameObject);
             smokeTrail.loop = false;
+            rocketsCollider.enabled = false;
         }
 
         void SplashDamageCheck() {
