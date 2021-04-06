@@ -12,7 +12,7 @@ namespace ASmith {
         /// <summary>
         /// How long the projectile should live, in seconds
         /// </summary>
-        private float lifespan = 5;
+        private float lifespan = 3;
 
         /// <summary>
         /// How long the projectile has been alive, in seconds
