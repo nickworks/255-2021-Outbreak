@@ -52,6 +52,7 @@ namespace Howley
                     // Transitions:
                     if (!boss.canSeePlayer) boss.SwitchState(new States.Idle());
                     if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.attackDis * boss.attackDis) boss.SwitchState(new States.Attack1());
+                    if (!boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.visDis * boss.visDis) boss.SwitchState(new States.Attack2());
                     return null;
                 }
             }
@@ -91,6 +92,12 @@ namespace Howley
                     // Behavior:
                     boss.DoAttack1();
                     // Transitions:
+                    if (boss.attackTimer >= 1) 
+                    {
+                        boss.attackTimer = 0;
+                        boss.SwitchState(new States.Idle());
+                    }
+
                     return null;
                 }
             }
@@ -101,6 +108,11 @@ namespace Howley
                     // Behavior:
                     boss.DoAttack2();
                     // Transitions:
+                    if (boss.attack2Timer >= 1)
+                    {
+                        boss.attack2Timer = 0;
+                        boss.SwitchState(new States.Idle());
+                    }
                     return null;
                 }
             }
@@ -142,7 +154,7 @@ namespace Howley
         /// <summary>
         /// Reference the Boss's torso bone in the inspector
         /// </summary>
-        public Transform TorsoBone;
+        public Transform torsoBone;
 
         /// <summary>
         /// Reference the boss's left shoulder in the inspector
@@ -178,12 +190,21 @@ namespace Howley
         /// </summary>
         public float visDis = 10;
 
+        /// <summary>
+        /// How far away the player has to be from the boss for it to attack.
+        /// </summary>
         public float attackDis = 6;
 
         /// <summary>
         /// The ange at which the boss can see 
         /// </summary>
         public float visCone = 160;
+
+        private float attackTimer = 0;
+
+        private float attack2Timer = 0;
+
+        private float attackCooldown = 0;
 
         /// <summary>
         /// Depending on the vision distance, and cone.
@@ -271,11 +292,28 @@ namespace Howley
 
             Quaternion targetLeftArmRot = startingLeftArmRot * Quaternion.Euler(50, 0, 10);
 
-            shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .01f);
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer <= .5f) shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .01f);
+            if (attackTimer >= .51f) shoulderLeft.transform.localRotation = AnimMath.Slide(shoulderLeft.transform.localRotation, Quaternion.identity, .01f);
+
+
         }
         void DoAttack2()
         {
+            Quaternion startingRot = torsoBone.transform.localRotation;
+            Quaternion startingTailRot = tailBone.transform.localRotation;
 
+            Quaternion targetTorsoRot = startingRot * Quaternion.Euler(0, 180, 0);
+            Quaternion targetTailRot = startingTailRot * Quaternion.Euler(0, 45, 0);
+
+            attack2Timer += Time.deltaTime;
+
+            if (attack2Timer >= .25f) targetTailRot = startingTailRot * Quaternion.Euler(0, -90, 0);
+            if (attack2Timer > .5f) targetTorsoRot = Quaternion.identity;
+
+            torsoBone.transform.localRotation = AnimMath.Slide(startingRot, targetTorsoRot, .001f);
+            tailBone.transform.localRotation = AnimMath.Slide(startingTailRot, targetTailRot, .001f);
         }
         void DoAttack3()
         {

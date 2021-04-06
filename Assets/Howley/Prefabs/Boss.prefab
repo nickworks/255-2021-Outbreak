@@ -352,13 +352,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTarget: {fileID: 0}
   neckBone: {fileID: 4112109469135063670}
-  TorsoBone: {fileID: 4112109468098945670}
+  torsoBone: {fileID: 4112109468098945670}
   shoulderLeft: {fileID: 4112109467836114103}
   shoulderRight: {fileID: 4112109467973585556}
   hipLeft: {fileID: 4112109468883894750}
   hipRight: {fileID: 4112109467225005013}
   tailBone: {fileID: 4112109468664070061}
   visDis: 10
+  attackDis: 6
   visCone: 80
 --- !u!23 &4112109467274522216
 MeshRenderer:
