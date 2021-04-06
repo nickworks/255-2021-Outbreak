@@ -195,8 +195,9 @@ namespace Szczesniak {
         private void Update() {
 
             // Makes the script not run if boss health is 0 or below:
-            if (healthAmt.health <= 0)
+            if (healthAmt.health <= 0) {
                 return;
+            }
 
             if (state == null) SwitchState(new States.Idle());
 
