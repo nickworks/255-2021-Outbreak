@@ -58,7 +58,7 @@ namespace ASmith
                 public override State Update()
                 {
                     // behavior:
-                    weapon.SpawnProjectile();
+                    weapon.SpawnGoodBullet();
 
                     // transitions:
                     if (!Input.GetButton("Fire1")) return new States.Regular();
@@ -91,7 +91,7 @@ namespace ASmith
             }
         }
 
-        public Projectile prefabProjectile;
+        public GoodBullet prefabGoodBullet;
         private States.State state;
 
         public int maxRoundsInClip = 10;
@@ -130,12 +130,12 @@ namespace ASmith
             state.OnStart(this);
         }
 
-        void SpawnProjectile()
+        void SpawnGoodBullet()
         {
             if (timerSpawnBullet > 0) return; // need to wait longer
             if (roundsInClip <= 0) return; // no ammo
 
-            Projectile p = Instantiate(prefabProjectile, transform.position, Quaternion.identity);
+            GoodBullet p = Instantiate(prefabGoodBullet, transform.position, Quaternion.identity);
             p.InitBullet(transform.forward * 20);
 
             roundsInClip--;

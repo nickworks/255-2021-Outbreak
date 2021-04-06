@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4841511138969007166}
   - component: {fileID: 6554924335484210291}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: 4-Way Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   barrel2: {fileID: 4221761720951702935}
   barrel3: {fileID: 8417285044614128740}
   barrel4: {fileID: 6565291590687627709}
-  prefabProjectile: {fileID: -7785968224515959306, guid: 4184dcd3ea962bd4f996bbb693ac88e8,
+  prefabGoodBullet: {fileID: -7785968224515959306, guid: 01d25eb84edf95f4cb056890cb90d227,
     type: 3}
   cooldownShoot: 0
   roundsPerSecond: 6

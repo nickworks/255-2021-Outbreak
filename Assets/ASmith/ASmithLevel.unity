@@ -9765,6 +9765,7 @@ GameObject:
   - component: {fileID: 1945763115}
   - component: {fileID: 1945763116}
   - component: {fileID: 1945763117}
+  - component: {fileID: 1945763118}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9894,11 +9895,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb386f1c730dc6344a33848af5cf53b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabProjectile: {fileID: -7785968224515959306, guid: 4184dcd3ea962bd4f996bbb693ac88e8,
+  prefabGoodBullet: {fileID: -7785968224515959306, guid: 4184dcd3ea962bd4f996bbb693ac88e8,
     type: 3}
   maxRoundsInClip: 10
   roundsPerSecond: 5
   reloadTime: 1
+--- !u!114 &1945763118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945763110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d01bbb7a19159446a06be338b85fdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 100
 --- !u!1 &1975255309
 GameObject:
   m_ObjectHideFlags: 0

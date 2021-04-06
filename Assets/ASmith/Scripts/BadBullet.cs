@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ASmith {
-    public class Projectile : MonoBehaviour {
+namespace ASmith
+{
+    public class BadBullet : MonoBehaviour
+    {
         /// <summary>
         /// Current speed and direction the player is moving
         /// </summary>
@@ -18,7 +20,8 @@ namespace ASmith {
         /// How long the projectile has been alive, in seconds
         /// </summary>
         private float age = 0;
-        void Start() {
+        void Start()
+        {
 
         }
 
@@ -30,7 +33,8 @@ namespace ASmith {
         void Update()
         {
             age += Time.deltaTime; // Tracks the age of the bullet
-            if (age > lifespan) { // if age is greater than lifespan....
+            if (age > lifespan)
+            { // if age is greater than lifespan....
                 Destroy(gameObject); // destroy bullet
             }
 
@@ -38,8 +42,6 @@ namespace ASmith {
 
             // euler physics integration
             transform.position += velocity * Time.deltaTime;
-
-
         }
 
         private void RaycastCheck()
@@ -48,7 +50,7 @@ namespace ASmith {
 
             Debug.DrawRay(ray.origin, ray.direction); // draws ray in front of bullet
 
-            if(Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude))
+            if (Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude))
             {
                 if (hit.transform.tag == "Wall") // if ray hits an object with "Wall" tag...
                 {
@@ -73,32 +75,5 @@ namespace ASmith {
                 }
             }
         }
-        /* Original Bullet Bounce Logic
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.tag == "Wall")
-            {
-                print("hit a wall");
-
-                Vector3 normal = (transform.position - other.transform.position);
-                normal.y = 0; // no vertical bouncing
-
-                Vector3 random = Random.onUnitSphere;
-                random.y = 0; 
-
-                // blend the normal with the random:
-                normal += random * .5f;
-
-                normal.Normalize(); // makes unit vector
-
-                float alignment = Vector3.Dot(velocity, normal);
-                Vector3 reflection = velocity - 2 * alignment * normal;
-
-                reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
-
-                velocity = reflection;
-            }
-        }
-        */
     }
 }

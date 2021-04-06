@@ -15,12 +15,12 @@ namespace ASmith
         public Transform barrel4;
 
         /// <summary>
-        /// Holds the information for the projectile used in the turret
+        /// Holds the information for the BadBullet used in the turret
         /// </summary>
-        public Projectile prefabProjectile;
+        public BadBullet prefabBadBullet;
 
         /// <summary>
-        /// Cooldown timer, set in the SpawnProjectile method
+        /// Cooldown timer, set in the SpawnBadBullet method
         /// </summary>
         public float cooldownShoot = 0;
         /// <summary>
@@ -35,17 +35,17 @@ namespace ASmith
                 cooldownShoot -= Time.deltaTime; // counts down the cooldown timer
             }
 
-            SpawnProjectile();
+            SpawnBadBullet();
         }
 
-        private void SpawnProjectile()
+        private void SpawnBadBullet()
         {
             if (cooldownShoot > 0) return; // still on cooldown
 
-            Projectile p1 = Instantiate(prefabProjectile, barrel1.transform.position, barrel1.rotation); // instantiates a bullet on each barrel
-            Projectile p2 = Instantiate(prefabProjectile, barrel2.transform.position, barrel2.rotation); 
-            Projectile p3 = Instantiate(prefabProjectile, barrel3.transform.position, barrel3.rotation); 
-            Projectile p4 = Instantiate(prefabProjectile, barrel4.transform.position, barrel4.rotation); 
+            BadBullet p1 = Instantiate(prefabBadBullet, barrel1.transform.position, barrel1.rotation); // instantiates a bullet on each barrel
+            BadBullet p2 = Instantiate(prefabBadBullet, barrel2.transform.position, barrel2.rotation);
+            BadBullet p3 = Instantiate(prefabBadBullet, barrel3.transform.position, barrel3.rotation);
+            BadBullet p4 = Instantiate(prefabBadBullet, barrel4.transform.position, barrel4.rotation); 
 
             p1.InitBullet(barrel1.transform.forward * 10); // launches the bullet on each barrel forward
             p2.InitBullet(barrel2.transform.forward * 10);
