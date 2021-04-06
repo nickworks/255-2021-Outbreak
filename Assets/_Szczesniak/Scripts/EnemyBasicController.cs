@@ -33,8 +33,8 @@ namespace Szczesniak {
                     // Behaviour:
 
                     // Transitions:
-                    if (enemy.bossHealth.health <= 0) {
-                        enemy.nav.enabled = false;
+                    if (enemy.bossHealth.health <= 0 || enemy.enemyBasicHealth.health <= 0) {
+                        enemy.DeathPhase();
                         return new States.Death();
                     }
 
@@ -53,8 +53,8 @@ namespace Szczesniak {
 
 
                     // Transition:
-                    if (enemy.bossHealth.health <= 0) {
-                        enemy.nav.enabled = false;
+                    if (enemy.bossHealth.health <= 0 || enemy.enemyBasicHealth.health <= 0) {
+                        enemy.DeathPhase();
                         return new States.Death();
                     }
 
@@ -77,8 +77,7 @@ namespace Szczesniak {
             public class Death : State {
 
                 public override State Update() {
-
-                    Destroy(enemy.gameObject, enemy.timeLeftToDestroy);
+                    
 
                     return null;
                 }
@@ -133,7 +132,10 @@ namespace Szczesniak {
 
         GameObject bossObject;
         private HealthScript bossHealth;
+        private HealthScript enemyBasicHealth;
         int timeLeftToDestroy = 0;
+
+        public ParticleSystem enemyExplosion;
 
 
         void Start() {
@@ -141,6 +143,7 @@ namespace Szczesniak {
             attackTarget = GameObject.FindGameObjectWithTag("Player");
             bossObject = GameObject.FindGameObjectWithTag("Boss");
             bossHealth = bossObject.GetComponent<HealthScript>();
+            enemyBasicHealth = GetComponent<HealthScript>();
             timeLeftToDestroy = Random.Range(5, 15);
         }
 
@@ -200,6 +203,13 @@ namespace Szczesniak {
             if (collision.gameObject.tag == "Player" && healthOfPlayer) {
                 healthOfPlayer.DamageTaken(5);
             }
+        }
+
+        void DeathPhase() {
+            Instantiate(enemyExplosion, transform.position, enemyExplosion.transform.rotation);
+            nav.isStopped = true;
+            nav.enabled = false;
+            Destroy(gameObject, timeLeftToDestroy);
         }
     }
 }
