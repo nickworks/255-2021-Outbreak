@@ -46,6 +46,9 @@ namespace ASmith
 
         private NavMeshAgent nav;
 
+        /// <summary>
+        /// Tracks the chosen target for the enemy to attack
+        /// </summary>
         public Transform attackTarget;
 
         void Start()
@@ -55,9 +58,9 @@ namespace ASmith
 
         void Update()
         {
-            if (attackTarget != null) nav.SetDestination(attackTarget.position);
+            if (attackTarget != null) nav.SetDestination(attackTarget.position);  // If there is a target, get target position
 
-            if (state == null) SwitchState(new States.Idle());
+            if (state == null) SwitchState(new States.Idle()); // If no target, become idle
 
             if (state != null) SwitchState(state.Update());
         }

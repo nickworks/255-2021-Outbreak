@@ -8,7 +8,7 @@ namespace ASmith
     {
         new static public ZoneInfo info = new ZoneInfo()
         {
-            zoneName = "Mystic Trials",
+            zoneName = "Triple B's Lair",
             creator = "Antonio Smith",
             sceneFile = "ASmithLevel"
         };

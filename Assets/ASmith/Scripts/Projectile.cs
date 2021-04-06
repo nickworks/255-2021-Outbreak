@@ -22,14 +22,16 @@ namespace ASmith {
 
         }
 
-        public void InitBullet(Vector3 vel) {
+        public void InitBullet(Vector3 vel)
+        {
             velocity = vel;
         }
 
-        void Update() {
-            age += Time.deltaTime;
-            if (age > lifespan) {
-                Destroy(gameObject);
+        void Update()
+        {
+            age += Time.deltaTime; // Tracks the age of the bullet
+            if (age > lifespan) { // if age is greater than lifespan....
+                Destroy(gameObject); // destroy bullet
             }
 
             RaycastCheck();
@@ -42,16 +44,14 @@ namespace ASmith {
 
         private void RaycastCheck()
         {
-            Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
+            Ray ray = new Ray(transform.position, velocity * Time.deltaTime); // creates a ray on bullet instantiation
 
-            Debug.DrawRay(ray.origin, ray.direction);
+            Debug.DrawRay(ray.origin, ray.direction); // draws ray in front of bullet
 
             if(Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude))
             {
-                if (hit.transform.tag == "Wall")
+                if (hit.transform.tag == "Wall") // if ray hits an object with "Wall" tag...
                 {
-                    print("hit a wall");
-
                     Vector3 normal = hit.normal;
                     normal.y = 0; // no vertical bouncing
 
@@ -73,31 +73,32 @@ namespace ASmith {
                 }
             }
         }
+        /* Original Bullet Bounce Logic
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.tag == "Wall")
+            {
+                print("hit a wall");
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if(other.tag == "Wall")
-        //    {
-        //        print("hit a wall");
+                Vector3 normal = (transform.position - other.transform.position);
+                normal.y = 0; // no vertical bouncing
 
-        //        Vector3 normal = (transform.position - other.transform.position);
-        //        normal.y = 0; // no vertical bouncing
+                Vector3 random = Random.onUnitSphere;
+                random.y = 0; 
 
-        //        Vector3 random = Random.onUnitSphere;
-        //        random.y = 0; 
+                // blend the normal with the random:
+                normal += random * .5f;
 
-        //        // blend the normal with the random:
-        //        normal += random * .5f;
+                normal.Normalize(); // makes unit vector
 
-        //        normal.Normalize(); // makes unit vector
+                float alignment = Vector3.Dot(velocity, normal);
+                Vector3 reflection = velocity - 2 * alignment * normal;
 
-        //        float alignment = Vector3.Dot(velocity, normal);
-        //        Vector3 reflection = velocity - 2 * alignment * normal;
+                reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
 
-        //        reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
-
-        //        velocity = reflection;
-        //    }
-        //}
+                velocity = reflection;
+            }
+        }
+        */
     }
 }
