@@ -74,6 +74,9 @@ namespace Howley
 
         private float swingSeconds = 0;
 
+        private float damageCooldown = 0;
+
+        private bool canTakeDamage = false;
 
 
         private void Update()
@@ -84,7 +87,7 @@ namespace Howley
             // Call state.update, if it returns a state, switch to the returned state.
             if (state != null) SwitchState(state.Update());
 
-            print(state);
+            DamageCooldown();
         }
 
         void SwitchState(States.State newState)
@@ -107,6 +110,15 @@ namespace Howley
             swingCooldown -= Time.deltaTime;
         }
 
+        void DamageCooldown()
+        {
+            if (damageCooldown >= 0) canTakeDamage = false;
+
+            damageCooldown -= Time.deltaTime;
+
+            if (damageCooldown <= 0) canTakeDamage = true;
+        }
+
         void SwingSword()
         {
             Quaternion startingRot = sword.transform.rotation;
@@ -117,8 +129,24 @@ namespace Howley
             if (swingSeconds >= .25f) targetRot = sword.transform.rotation * Quaternion.Euler(0, 60, 0);
 
             sword.transform.rotation = AnimMath.Slide(startingRot, targetRot, .0001f);
+
+            damageCooldown = 3;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            BossStates boss = other.GetComponent<BossStates>();
+
+            if (boss)
+            {
+                HealthSystem bossHealth = boss.GetComponent<HealthSystem>();
+                if (bossHealth && canTakeDamage)
+                {
+                    bossHealth.Damage(50);
+                    print(bossHealth);
+                }
+            }
+        }
     }
 }
 

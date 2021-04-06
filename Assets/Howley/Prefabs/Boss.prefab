@@ -295,6 +295,9 @@ GameObject:
   - component: {fileID: 4112109467274522223}
   - component: {fileID: 4112109467274522216}
   - component: {fileID: 4112109467274522217}
+  - component: {fileID: 5062669068481695892}
+  - component: {fileID: 7934824194979802131}
+  - component: {fileID: 7176727011708626869}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -411,6 +414,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 600
+--- !u!65 &5062669068481695892
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112109467274522220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.128044, y: 3.7493045, z: 1.6108749}
+  m_Center: {x: -0.06797314, y: -1.1433362, z: 0.2934953}
+--- !u!65 &7934824194979802131
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112109467274522220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.0072746, y: 2.6732197, z: 2.0245986}
+  m_Center: {x: 0.07270813, y: -1.8105624, z: -6.9236383}
+--- !u!65 &7176727011708626869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112109467274522220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5956125, y: 1.5179698, z: 4.9873695}
+  m_Center: {x: -0.00608778, y: -2.0665016, z: -11.848335}
 --- !u!1 &4112109467304055013
 GameObject:
   m_ObjectHideFlags: 0

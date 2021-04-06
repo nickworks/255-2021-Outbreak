@@ -51,6 +51,7 @@ namespace Howley
                     boss.MoveTheBoss();
                     // Transitions:
                     if (!boss.canSeePlayer) boss.SwitchState(new States.Idle());
+                    if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.attackDis * boss.attackDis) boss.SwitchState(new States.Attack1());
                     return null;
                 }
             }
@@ -177,6 +178,8 @@ namespace Howley
         /// </summary>
         public float visDis = 10;
 
+        public float attackDis = 6;
+
         /// <summary>
         /// The ange at which the boss can see 
         /// </summary>
@@ -264,7 +267,11 @@ namespace Howley
 
         void DoAttack1()
         {
-            
+            Quaternion startingLeftArmRot = shoulderLeft.transform.localRotation;
+
+            Quaternion targetLeftArmRot = startingLeftArmRot * Quaternion.Euler(50, 0, 10);
+
+            shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .01f);
         }
         void DoAttack2()
         {
