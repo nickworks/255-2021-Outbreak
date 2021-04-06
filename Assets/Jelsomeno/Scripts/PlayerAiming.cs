@@ -9,8 +9,9 @@ namespace Jelsomeno
     {
 
         private Camera cam;
-
         public Transform debugObject;
+        //public Transform PartToRotate;
+        //public float turnSpeed = 10;
 
 
         // Start is called before the first frame update
@@ -32,6 +33,7 @@ namespace Jelsomeno
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, transform.position);
 
+
             // does the ray hit the plane?
             if (plane.Raycast(ray, out float dis))
             {
@@ -51,6 +53,11 @@ namespace Jelsomeno
                 transform.eulerAngles = new Vector3(0, angle, 0);
 
             }
+
+            //Vector3 dir = debugObject.position - transform.position;
+            //Quaternion lookRotation = Quaternion.LookRotation(dir);
+            //Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+            //PartToRotate.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
         }
     }
 }

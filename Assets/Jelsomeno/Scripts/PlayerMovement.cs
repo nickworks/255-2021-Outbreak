@@ -126,7 +126,7 @@ namespace Jelsomeno
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
-            Vector3 move = Vector3.right * h + Vector3.forward * v;
+            Vector3 move = Vector3.right * v + Vector3.forward * h;
 
             if (move.sqrMagnitude > 1) move.Normalize();
 

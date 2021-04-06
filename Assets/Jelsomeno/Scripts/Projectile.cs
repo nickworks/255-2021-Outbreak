@@ -39,9 +39,78 @@ namespace Jelsomeno
 
             }
 
+
+            RaycastCheck();
             // euler phyics integration:
             transform.position += velocity * Time.deltaTime;
 
         }
+
+        private void RaycastCheck()
+        {
+            // make a ray
+
+            Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
+
+            // draw the ray:
+            Debug.DrawRay(ray.origin, ray.direction);
+        
+
+            // check for collission:
+            if( Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude))
+            {
+
+               // measuring the movable distance
+               if(hit.transform.tag == "Wall")
+               {
+                    Vector3 normal = hit.normal;
+
+                    normal.y = 0; // stops vertical bounce
+
+                    Vector3 random = Random.onUnitSphere;
+                    random.y = 0;
+
+                    normal += random * .5f;
+
+                    normal.Normalize();
+
+                    float allignment = Vector3.Dot(velocity, normal);
+                    Vector3 reflection = velocity - 2 * allignment * normal;
+
+                    velocity = reflection;
+
+                    transform.position = hit.point;
+
+                }
+
+            }
+
+        }
+
+        /*
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.tag == "Wall")
+            {
+                Vector3 normal = (transform.position - other.transform.position);
+
+                normal.y = 0; // stops vertical bounce
+
+                Vector3 random = Random.onUnitSphere;
+                random.y = 0;
+
+                normal += random * .5f;
+
+                normal.Normalize();
+
+                float allignment = Vector3.Dot(velocity, normal);
+                Vector3 reflection = velocity - 2 * allignment * normal;
+
+                velocity = reflection;
+
+            }
+        }
+        */
+
     }
 }
