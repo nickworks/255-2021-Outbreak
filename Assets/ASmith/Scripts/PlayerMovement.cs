@@ -48,8 +48,6 @@ namespace ASmith
 
         void Update()
         {
-            //print(currentMoveState);
-
             switch (currentMoveState)
             {
                 case MoveState.Regular:

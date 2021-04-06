@@ -20,6 +20,11 @@ namespace ASmith
         /// How long the projectile has been alive, in seconds
         /// </summary>
         private float age = 0;
+
+        /// <summary>
+        /// How much damage each bullet deals
+        /// </summary>
+        private float damageAmount = 10;
         void Start()
         {
 
@@ -42,6 +47,19 @@ namespace ASmith
 
             // euler physics integration
             transform.position += velocity * Time.deltaTime;
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            // TODO: Make bullets only trigger on overlap with player
+                Destroy(gameObject);
+                print("HIT");
+            //PlayerHealth health = GetComponent<PlayerHealth>(); // Gets a reference to the PlayerHealth class for access to the health variable
+
+            //if (health) // if player has health
+            //{
+            //    health.TakeDamage(damageAmount);
+            //}
         }
 
         private void RaycastCheck()

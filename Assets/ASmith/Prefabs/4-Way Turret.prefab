@@ -149,7 +149,7 @@ MonoBehaviour:
   barrel2: {fileID: 4221761720951702935}
   barrel3: {fileID: 8417285044614128740}
   barrel4: {fileID: 6565291590687627709}
-  prefabGoodBullet: {fileID: -7785968224515959306, guid: 01d25eb84edf95f4cb056890cb90d227,
+  prefabBadBullet: {fileID: 1102962687497582138, guid: 01d25eb84edf95f4cb056890cb90d227,
     type: 3}
   cooldownShoot: 0
   roundsPerSecond: 6
@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 8473146497944547028}
   - component: {fileID: 6273565389251023488}
   - component: {fileID: 6189830032530392888}
-  - component: {fileID: 4841721536135995617}
   m_Layer: 0
   m_Name: Turret Barrel 2
   m_TagString: Untagged
@@ -235,20 +234,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4841721536135995617
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3446208613519757843}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3720683466518135470
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +276,6 @@ GameObject:
   - component: {fileID: 2197514261216257412}
   - component: {fileID: 1701627619952919912}
   - component: {fileID: 7263564205626003057}
-  - component: {fileID: 5431106782908023838}
   m_Layer: 0
   m_Name: Turret Barrel 4
   m_TagString: Untagged
@@ -362,20 +346,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5431106782908023838
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3911412070764218983}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &4324401000176893143
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +388,6 @@ GameObject:
   - component: {fileID: 2204370360627839031}
   - component: {fileID: 2468038963239041681}
   - component: {fileID: 8855458379786256873}
-  - component: {fileID: 5326617222535361210}
   m_Layer: 0
   m_Name: Turret Barrel 3
   m_TagString: Untagged
@@ -489,20 +458,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5326617222535361210
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6927950537217718421}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7341371114780590757
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +469,6 @@ GameObject:
   - component: {fileID: 8818481803754666771}
   - component: {fileID: 58974030728000644}
   - component: {fileID: 9099397377477391116}
-  - component: {fileID: 5679253278683048014}
   m_Layer: 0
   m_Name: Turret Head
   m_TagString: Untagged
@@ -585,19 +539,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5679253278683048014
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341371114780590757}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7711001876420292882
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +550,6 @@ GameObject:
   - component: {fileID: 8396525833073766807}
   - component: {fileID: 6333265724117078545}
   - component: {fileID: 4465520189955044565}
-  - component: {fileID: 7401553352649369618}
   m_Layer: 0
   m_Name: Turret Barrel 1
   m_TagString: Untagged
@@ -680,20 +620,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7401553352649369618
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711001876420292882}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &8263343604552432565
 GameObject:
   m_ObjectHideFlags: 0

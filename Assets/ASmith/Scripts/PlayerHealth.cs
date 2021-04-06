@@ -38,6 +38,7 @@ namespace ASmith
             if (cooldownInvulnerability > 0)
             {
                 cooldownInvulnerability -= Time.deltaTime; // if cooldownInvulnerability still has time life, countdown timer
+                print(health);
             }
         }
 
