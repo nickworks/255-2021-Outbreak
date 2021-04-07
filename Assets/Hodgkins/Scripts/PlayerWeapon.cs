@@ -141,6 +141,8 @@ namespace Hodgkins
             roundsInClip--;
             timerSpawnBullet = 1 / roundsPerSecond;
 
+            SoundEffectBoard.PlayShot();
+
         }
     }
 }

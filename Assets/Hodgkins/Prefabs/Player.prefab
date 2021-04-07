@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6476065891116640543}
   - component: {fileID: 6476065891116640536}
   - component: {fileID: 6476065891116640537}
+  - component: {fileID: 4602697329322575607}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -149,6 +150,19 @@ MonoBehaviour:
   maxRoundsInClip: 8
   roundsPerSecond: 5
   reloadTime: 3
+--- !u!114 &4602697329322575607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476065891116640514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee5b8031cb9f474b8c427850326bdf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 100
 --- !u!1 &6476065891871774822
 GameObject:
   m_ObjectHideFlags: 0
