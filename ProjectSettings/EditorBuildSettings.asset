@@ -14,4 +14,43 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Core/Scenes/GameOver.unity
     guid: 57ab8f9b85bd030459953cd5146b7c17
+  - enabled: 1
+    path: Assets/_Velting/Velting.unity
+    guid: 34116571de6d6aa409065f640f8fd476
+  - enabled: 1
+    path: Assets/_JSmith/Scenes/_JSmithLevel.unity
+    guid: 0722b80e4fa6f9f49a04a37342d1fcc4
+  - enabled: 1
+    path: Assets/_Kortge/_KortgeScene.unity
+    guid: 1ecf24eb98833084da558b8288f2d039
+  - enabled: 1
+    path: Assets/ASmith/ASmithLevel.unity
+    guid: dba8eb208595029438a411b71442d8b2
+  - enabled: 1
+    path: Assets/Foster/Scene/Foster_Scene.unity
+    guid: 9343657632743984fa8453440bee6bf8
+  - enabled: 1
+    path: Assets/Geib/GeibLevel.unity
+    guid: d50d2497240230849a1f5ec24e92a739
+  - enabled: 1
+    path: Assets/Hodgkins/HodgkinsLevel.unity
+    guid: 72b628341b5789f4897d373f0692fe69
+  - enabled: 1
+    path: Assets/Howley/HowleyScene.unity
+    guid: 35a5e91cd41618e4886554199c53869d
+  - enabled: 1
+    path: Assets/Jelsomeno/Jelsomeno.unity
+    guid: 0e6c27dd5b1efcc42bea9c09bed43b1e
+  - enabled: 1
+    path: Assets/Miller/MillerLevel.unity
+    guid: ce288c55ef790ce48b0fa7e23e8ab5cd
+  - enabled: 1
+    path: Assets/Pattison/PattisonLevel.unity
+    guid: 873e6c1273fdd50449c9199eec416b71
+  - enabled: 1
+    path: Assets/Hopkins/Scenes/brokenHopkins.unity
+    guid: 65f670699b36b2b4386ba37fbb3c67c5
+  - enabled: 1
+    path: Assets/_Szczesniak/Szczesniak.unity
+    guid: 856f92904f0d1e94e973aee8d94bed83
   m_configObjects: {}
