@@ -36,7 +36,7 @@ namespace ASmith
                     if (Input.GetButton("Fire1"))
                     {
                         // if no ammo, go to cooldown:
-                        if (weapon.roundsInClip <= 0) return new States.Cooldown(weapon.reloadTime);
+                        if (PlayerWeapon.roundsInClip <= 0) return new States.Cooldown(weapon.reloadTime); // Originally weapon.roundsInClip
 
                         // if ammo, go to shooting:
                         return new States.Attacking();
@@ -44,7 +44,7 @@ namespace ASmith
                     if (Input.GetButton("Reload"))
                     {
                         // if clip is full, don't reload:
-                        if (weapon.roundsInClip > 9) return new States.Regular();
+                        if (PlayerWeapon.roundsInClip > 9) return new States.Regular(); // Originally weapon.roundsInClip
 
                         // if clip is not full, reload
                         return new States.Cooldown(weapon.reloadTime);
@@ -86,7 +86,7 @@ namespace ASmith
 
                 public override void OnEnd()
                 {
-                    weapon.roundsInClip = weapon.maxRoundsInClip;
+                    PlayerWeapon.roundsInClip = weapon.maxRoundsInClip; // Originally weapon.roundsInClip
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace ASmith
         private States.State state;
 
         public int maxRoundsInClip = 10;
-        private int roundsInClip = 10;
+        public static int roundsInClip = 10;
 
         /// <summary>
         /// How many bullets to spawn per second
