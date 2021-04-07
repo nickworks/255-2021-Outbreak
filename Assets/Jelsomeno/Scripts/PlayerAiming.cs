@@ -23,7 +23,7 @@ namespace Jelsomeno
         // Update is called once per frame
         void Update()
         {
-            AimAtMouse();
+            AimAtMouse(); // references the AimAtMouse method and runs it once per frame
 
         }
 

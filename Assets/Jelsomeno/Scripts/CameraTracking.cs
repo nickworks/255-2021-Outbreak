@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
-
+    /// <summary>
+    /// this class is connected to camera so that it follows the player in game when it moves 
+    /// </summary>
     public class CameraTracking : MonoBehaviour
     {
 
-        public Transform target;
+        public Transform target;// target it is following 
 
         // Update is called once per frame
         void LateUpdate()
@@ -23,10 +25,6 @@ namespace Jelsomeno
                 float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
 
                 transform.position = Vector3.Lerp(transform.position, target.position, p);
-
-
-
-
 
             }
         }

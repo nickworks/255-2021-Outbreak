@@ -4,20 +4,35 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
-
+    /// <summary>
+    /// players weapon state maching
+    /// </summary>
     public class PlayerWeapon : MonoBehaviour
     {
-
+        /// <summary>
+        /// the state machine class
+        /// </summary>
         static class States
         {
             public class State
             {
+                /// <summary>
+                /// to get access to variables outside 
+                /// </summary>
                 protected PlayerWeapon weapon;
 
+                /// <summary>
+                /// update is setup
+                /// </summary>
+                /// <returns></returns>
                 virtual public State Update()
                 {
                     return null;
                 }
+                /// <summary>
+                /// referencing tghe PlayerWeapon state machine
+                /// </summary>
+                /// <param name="attack"></param>
                 virtual public void OnStart(PlayerWeapon weapon)
                 {
                     this.weapon = weapon;
@@ -27,49 +42,56 @@ namespace Jelsomeno
 
                 }
             }
-
+            /// <summary>
+            /// regular state of player
+            /// </summary>
             public class Regular : State {
                 public override State Update()
                 {
                     //behavior 
 
                     // transitions:
-                    if (Input.GetButton("Fire1"))
+                    
+                    if (Input.GetButton("Fire1"))// left mouse click
                     {
-                        if (weapon.roundsInClip <= 0) return new States.Reload(weapon.reloadTime);
+                        if (weapon.roundsInClip <= 0) return new States.Reload(weapon.reloadTime); // go to attacking state
 
                         return new States.Attacking();
                     }
 
-                    if (Input.GetButton("Reload")) return new States.Reload(weapon.reloadTime);
+                    if (Input.GetButton("Reload")) return new States.Reload(weapon.reloadTime);// go to reload state
 
                     return null;
 
                 }
             }
-
+            /// <summary>
+            /// 
+            /// </summary>
             public class Attacking : State {
                 public override State Update()
                 {
                     // behavior:
 
-                    weapon.SpawnProjectile();
+                    weapon.SpawnProjectile();// spawns bullet projectile
 
                     //transitions:
-                    if (!Input.GetButton("Fire1")) return new States.Regular();
+                    if (!Input.GetButton("Fire1")) return new States.Regular();// return back to regular state
 
                     return null;
                 }
             }
-
+            /// <summary>
+            /// reloads player bullets
+            /// </summary>
             public class Reload : State {
 
 
-                float timeLeft = 3;
+                float timeLeft = 3; // how long the reload takes 
 
                 public Reload(float time)
                 {
-                    timeLeft = time;
+                    timeLeft = time; 
                 }
                 public override State Update()
                 {
@@ -86,10 +108,20 @@ namespace Jelsomeno
             }
         }
 
+        /// <summary>
+        /// refernces the Projectile script
+        /// </summary>
         public Projectile prefabProjectile;
 
+        /// <summary>
+        /// accesses the state machine pattern
+        /// </summary>
+        /// 
         private States.State state;
 
+        /// <summary>
+        /// how many bullets it has before needing to be reloaded 
+        /// </summary>
         private int roundsInClip = 8;
 
         /// <summary>
@@ -102,13 +134,16 @@ namespace Jelsomeno
         /// </summary>
         private float timerSpawnBullet = 0;
 
+        /// <summary>
+        /// how long to reload
+        /// </summary>
         public float reloadTime = 1;
 
         void Update()
         {
             if (timerSpawnBullet > 0) timerSpawnBullet -= Time.deltaTime;
 
-            if (state == null) SwitchState(new States.Regular());
+            if (state == null) SwitchState(new States.Regular()); // go to regular state when no other state is assigned
 
             //call state.update
             //switch to the returned state
@@ -118,28 +153,34 @@ namespace Jelsomeno
             
         }
 
+        /// <summary>
+        /// allows the state machine to switch between different states
+        /// </summary>
+        /// <param name="newState"></param>
         void SwitchState(States.State newState)
         {
-            if (newState == null) return;
+            if (newState == null) return;// do not switch 
 
-            if (state != null) state.OnEnd();
+            if (state != null) state.OnEnd();// when is previous state finished running
 
-            state = newState;
+            state = newState;// change the states
 
             state.OnStart(this);
 
         }
-
+        /// <summary>
+        /// spawns the bullet
+        /// </summary>
         void SpawnProjectile()
         {
 
-            if (timerSpawnBullet > 0) return;
+            if (timerSpawnBullet > 0) return; // rate of fire
             if (roundsInClip <= 0) return; // no ammo
 
-            Projectile p = Instantiate(prefabProjectile, transform.position, Quaternion.identity);
-            p.InitBullet(transform.forward * 20);
+            Projectile p = Instantiate(prefabProjectile, transform.position, Quaternion.identity); // spawn the heavhsot bullets
+            p.InitBullet(transform.forward * 20); // veolocity of projectile 
 
-            roundsInClip--;
+            roundsInClip--;// take a bullet away
             timerSpawnBullet = 1;
 
         }

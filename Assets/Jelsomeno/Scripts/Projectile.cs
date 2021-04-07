@@ -25,7 +25,7 @@ namespace Jelsomeno
         }
         public void InitBullet(Vector3 vel)
         {
-            velocity = vel;
+            velocity = vel;// velocity of the bullet 
         }
 
 
@@ -35,7 +35,7 @@ namespace Jelsomeno
             age += Time.deltaTime;
             if(age > lifespan)
             {
-                Destroy(gameObject);
+                Destroy(gameObject); // destroys the bullet after it lifespan is over 
 
             }
 
