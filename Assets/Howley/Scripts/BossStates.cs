@@ -52,6 +52,7 @@ namespace Howley
                     // Behavior:
                     boss.MoveTheBoss();
                     boss.AttackCooldown();
+                    boss.isAttacking = false;
                     // Transitions:
                     if (!boss.canSeePlayer) boss.SwitchState(new States.Idle());
                     if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.attackDis * boss.attackDis && boss.canAttack) boss.SwitchState(new States.Attack1());
@@ -80,6 +81,7 @@ namespace Howley
                 {
                     // Behavior:
                     boss.Stunned();
+                    boss.isAttacking = false;
                     boss.DamageCooldown();
                     // Transitions:
 
@@ -105,6 +107,7 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack1();
+                    boss.isAttacking = true;
                     boss.attackCooldown = 0;
                     boss.canAttack = false;
                     // Transitions:
@@ -125,6 +128,7 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack2();
+                    boss.isAttacking = true;
                     boss.attackCooldown = 0;
                     boss.canAttack = false;
                     // Transitions:
@@ -144,6 +148,7 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack3();
+                    boss.isAttacking = true;
                     boss.attackCooldown = 0;
                     boss.canAttack = false;
                     // Transitions:
@@ -152,6 +157,7 @@ namespace Howley
                         boss.attack3Timer = 0;
                         boss.SwitchState(new States.Idle());
                     }
+                    
                     if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
@@ -252,6 +258,8 @@ namespace Howley
         private bool canAttack = false;
 
         private bool canTakeDamage = false;
+
+        private bool isAttacking = false;
 
 
         void Start()
@@ -385,6 +393,12 @@ namespace Howley
             Quaternion startingRightArmRot = shoulderRight.transform.localRotation;
 
             Quaternion targetNeckRot = startingNeckRot * Quaternion.Euler(50, 0, 0);
+            Quaternion targetLeftArmRot = startingLeftArmRot * Quaternion.Euler(0, 0, 40);
+            Quaternion targetRightArmRot = startingRightArmRot * Quaternion.Euler(0, 0, 40);
+
+            neckBone.transform.localRotation = AnimMath.Slide(startingNeckRot, targetNeckRot, .003f);
+            shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .001f);
+            shoulderRight.transform.localRotation = AnimMath.Slide(startingRightArmRot, targetRightArmRot, .001f);
 
         }
         void ClimbWall()
@@ -395,14 +409,23 @@ namespace Howley
         {
             PlayerMovement pm = other.GetComponent<PlayerMovement>();
 
-            if (pm)
+            if (isAttacking)
             {
-                HealthSystem playerHealth = pm.GetComponent<HealthSystem>();
-                if (playerHealth && canTakeDamage)
+                if (pm)
                 {
-                    playerHealth.Damage(50);
+                    HealthSystem playerHealth = pm.GetComponent<HealthSystem>();
+                    if (playerHealth && canTakeDamage)
+                    {
+                        playerHealth.Damage(50);
+                    }
                 }
             }
+
+            if (!isAttacking && canTakeDamage)
+            {
+                SwitchState(new States.Stunned());
+            }
+            
         }
         void DamageCooldown()
         {

@@ -143,7 +143,7 @@ namespace Howley
                 if (bossHealth && canTakeDamage)
                 {
                     bossHealth.Damage(50);
-                    print(bossHealth);
+
                 }
             }
         }

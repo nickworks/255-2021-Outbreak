@@ -352,6 +352,7 @@ GameObject:
   - component: {fileID: 4112109467274522216}
   - component: {fileID: 4112109467274522217}
   - component: {fileID: 3565726595824458620}
+  - component: {fileID: 5656952223599604130}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -412,6 +413,7 @@ MonoBehaviour:
   hipLeft: {fileID: 4112109468883894750}
   hipRight: {fileID: 4112109467225005013}
   tailBone: {fileID: 4112109468664070061}
+  prefabProjectile: {fileID: 0}
   visDis: 10
   attackDis: 6
   visCone: 80
@@ -482,6 +484,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.7479682, y: 3.2220466, z: 2.5446835}
   m_Center: {x: 0.087775946, y: -1.1110233, z: -6.7868366}
+--- !u!65 &5656952223599604130
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112109467274522220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.799181, y: 3.8211484, z: 2.757626}
+  m_Center: {x: 3.1464753, y: -1.124109, z: 0.12689424}
 --- !u!1 &4112109467304055013
 GameObject:
   m_ObjectHideFlags: 0
