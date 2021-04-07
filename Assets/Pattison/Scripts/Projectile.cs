@@ -35,9 +35,49 @@ namespace Pattison {
                 Destroy(gameObject);
             }
 
-
+            RaycastCheck();
             // euler physics integration:
             transform.position += velocity * Time.deltaTime;
         }
+
+        private void RaycastCheck() {
+            // make a ray:
+            Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
+
+            // draw the ray:
+            Debug.DrawRay(ray.origin, ray.direction);
+
+            // check for collision:
+            if( Physics.Raycast(ray, out RaycastHit hit, ray.direction.magnitude) ) {
+
+                // measuring the movable distance
+                if(hit.transform.tag == "Wall") {
+
+                    Vector3 normal = hit.normal;
+                    normal.y = 0; // no vertical bouncing!
+
+                    Vector3 random = Random.onUnitSphere;
+                    random.y = 0; // no vertical bouncing!
+
+                    // blend the normal with the random:
+                    //normal += random * .5f;
+
+                    normal.Normalize(); // make a unit vector
+
+                    // find the reflection vector:
+                    float alignment = Vector3.Dot(velocity, normal);
+                    Vector3 reflection = velocity - 2 * alignment * normal;
+
+                    velocity = reflection;
+
+                    transform.position = hit.point;
+                }
+
+            }
+
+
+        }
+
+
     }
 }
