@@ -31,65 +31,57 @@ namespace Jelsomeno
 
             public class Roaming : State
             {
-                /*
+                float roamTime = 7;
+
+                public Roaming(float time)
+                {
+                    roamTime = time;
+                }
+
                 public override State Update()
                 {
-                    
+                    if (boss.PlayerSeen(boss.PlayerTank, true, boss.viewingDis)) return new States.AttackPlayer();
 
 
                     return null;
                 }
-                */
+                
             }
 
-            public class ArmorHealth : State
-            {
-
-            }
-
-            public class HeavyShot : State
+            public class AttackPlayer : State
             {
                 public override State Update()
                 {
-                    boss.HeavyShot();
+                    boss.MoveTowardsPlayer();
+
+                    if (!boss.PlayerSeen(boss.PlayerTank, true, boss.viewingDis)) return new States.Roaming(boss.timeToStop);
 
                     return null;
                 }
-
             }
 
-            public class Reload : State
+            public class Death : State
             {
 
             }
 
-            public class Flamethrower : State
-            {
-
-            }
-
-            public class Bombs : State
-            {
-
-            }
         
         }
 
-        public Projectile HeavyShotBullet;
-        public Transform bulletSpawn;
-        //public Transform PartToRotate;
-        //public string playerTag = "Player";
-        public float range = 40;
-        public float viewingAng = 360;
-        public Transform PlayerTank;
-        public float ReloadTime = 7;
 
-        private float roundsPerSec = 5;
-        private float HeavyShotTimer = 0;
-        private int TotalHeavyShots = 75;
+
         private States.State state;
+
         private NavMeshAgent nav;
-        private Quaternion startingRot;
+
+        public Transform PlayerTank;
+
+        public float viewingDis = 10;
+        public float viewingAng = 35;
+        public float stopDis = 25;
+        public float InRange = 15;
+        private float timeToStop = 5;
+
 
 
 
@@ -98,18 +90,21 @@ namespace Jelsomeno
         {
            nav = GetComponent<NavMeshAgent>();
 
-           startingRot = transform.localRotation;
         }
 
         // Update is called once per frame
         private void Update()
         {
-            if (state == null) SwitchState(new States.Roaming());
+            if (state == null) SwitchState(new States.Roaming(stopDis));
 
             if (state != null) SwitchState(state.Update());
 
-            if(HeavyShotTimer > 0) HeavyShotTimer -= Time.deltaTime;
+            print(state);
 
+        }
+
+        void MoveTowardsPlayer()
+        {
             if (PlayerTank != null) nav.SetDestination(PlayerTank.position);
         }
 
@@ -123,43 +118,43 @@ namespace Jelsomeno
             state.OnStart(this);
         }
 
-        void HeavyShot()
-        {
-            if (ReloadTime > 0) return;
-
-            Projectile heavyShots = Instantiate(HeavyShotBullet, bulletSpawn.position, Quaternion.identity);
-            heavyShots.InitBullet(transform.forward * 20);
-
-            HeavyShotTimer = 1 / roundsPerSec;
-
-
-        }
-
-
-        private bool PlayerSeen(Transform thing, float visibleDis)
+        private bool PlayerSeen(Transform thing, bool vision, float shooting)
         {
             if (!thing) return false; // player is not visible and immmediately returns
 
             Vector3 vToThing = thing.position - transform.position;
 
-            // checking the distance away from player
-            if (vToThing.sqrMagnitude > visibleDis * visibleDis)
+            if (vToThing.sqrMagnitude > shooting * shooting)
             {
+                if (vision) stopMoving();
+
                 return false;
             }
 
-            // checking it surrounding to see if player is withing its vision (360), then if not returning false
-            if (Vector3.Angle(transform.forward, vToThing) > viewingAng) return false; 
+            if (Vector3.Angle(transform.forward, vToThing) > viewingAng) return false;
+
+            if( vToThing.sqrMagnitude < shooting * (shooting - stopDis))
+            {
+                stopMoving();
+            }
+            else
+            {
+                ContinueMovement();
+            }
 
             return true;
         }
 
-        void OnDrawGizmosSelected()
+        void stopMoving()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, range);
+            nav.updatePosition = false;
+            nav.nextPosition = gameObject.transform.position;
         }
 
+        void ContinueMovement()
+        {
+            nav.updatePosition = true;
+        }
     }
 
 }
