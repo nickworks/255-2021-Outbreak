@@ -3,7 +3,11 @@ guid: bf4dc98c06185c043a913ae15fb16229
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - attackTarget: {instanceID: 0}
+  - deathParticleSystem: {fileID: 3836062095602312282, guid: b02f62a87ad323e4a8164c994d9ceac4,
+      type: 3}
+  - cameraSwitching: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
