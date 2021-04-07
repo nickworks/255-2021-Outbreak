@@ -6,47 +6,41 @@ namespace Velting
 {
     public class PlayerAim : MonoBehaviour
     {
-        private Camera cam;
+        public Camera cam;
 
         public Transform debugObject;
 
         private void Start()
         {
-            cam = Camera.main;
+            
         }
         private void Update()
         {
-            AimAtMouse();
-        }
-
-        /// <summary>
-        /// This function aims the player at the mouse.
-        /// </summary>
-        private void AimAtMouse()
-        {
-            // Create a ray and a plane.
+            //make a ray and a plane:
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Plane plane = new Plane(Vector3.up, transform.position); //same as Vector3(0,1,0)
 
-            Plane plane = new Plane(Vector3.up, transform.position);
-
-            // Does the ray hit the plane?
-            if (plane.Raycast(ray, out float dis))
+            //does the ray hit the plane?
+            if(plane.Raycast(ray, out float dis))
             {
-                // How far from the origin of the ray
+                //find where the ray hit the plane:
                 Vector3 hitPos = ray.GetPoint(dis);
-
-                if (debugObject) debugObject.position = hitPos;
+                if(debugObject) debugObject.position = hitPos;
 
                 Vector3 vectorToHitPos = hitPos - transform.position;
 
-                float angleInRad = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
 
-                // Converting radians to degrees
-                angleInRad /= Mathf.PI; // Convert to half circles
-                angleInRad *= 180; // Converts to a full circle/degrees
+                float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
 
-                transform.eulerAngles = new Vector3(0, angleInRad, 0);
+                angle /= Mathf.PI; //convert from "radians" to "half-circles"
+                angle *= 180; //convert from "half-circles" to "degrees"
+
+                transform.eulerAngles = new Vector3(0, angle, 0);
             }
+            
         }
+
+        
+        
     }
 }
