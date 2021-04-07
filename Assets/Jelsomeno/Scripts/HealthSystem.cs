@@ -6,6 +6,7 @@ namespace Jelsomeno
 {
     public class HealthSystem : MonoBehaviour
     {
+  
         public float health { get; private set; }
         public float healthMax = 100;
 
@@ -27,11 +28,13 @@ namespace Jelsomeno
 
         public void Die()
         {
-            //GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-            //Destroy(effectIns, 2f);
 
             Destroy(gameObject);
 
         }
     }
+
 }
+
+
+

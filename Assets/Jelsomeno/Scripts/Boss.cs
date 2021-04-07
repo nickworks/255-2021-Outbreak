@@ -29,11 +29,11 @@ namespace Jelsomeno
             }
 
 
-            public class Roaming : State
+            public class Regular : State
             {
-                float roamTime = 7;
+                float roamTime = 15;
 
-                public Roaming(float time)
+                public Regular(float time)
                 {
                     roamTime = time;
                 }
@@ -48,13 +48,18 @@ namespace Jelsomeno
                 
             }
 
+            public class Roaming : State
+            {
+
+            }
+
             public class AttackPlayer : State
             {
                 public override State Update()
                 {
                     boss.MoveTowardsPlayer();
 
-                    if (!boss.PlayerSeen(boss.PlayerTank, true, boss.viewingDis)) return new States.Roaming(boss.timeToStop);
+                    if (!boss.PlayerSeen(boss.PlayerTank, true, boss.viewingDis)) return new States.Regular(boss.timeToStop);
 
                     return null;
                 }
@@ -95,7 +100,7 @@ namespace Jelsomeno
         // Update is called once per frame
         private void Update()
         {
-            if (state == null) SwitchState(new States.Roaming(stopDis));
+            if (state == null) SwitchState(new States.Regular(stopDis));
 
             if (state != null) SwitchState(state.Update());
 
@@ -133,14 +138,6 @@ namespace Jelsomeno
 
             if (Vector3.Angle(transform.forward, vToThing) > viewingAng) return false;
 
-            if( vToThing.sqrMagnitude < shooting * (shooting - stopDis))
-            {
-                stopMoving();
-            }
-            else
-            {
-                ContinueMovement();
-            }
 
             return true;
         }

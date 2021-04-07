@@ -52,6 +52,22 @@ namespace Jelsomeno
 
             public class Reload : State
             {
+                float timetoReload = 10;
+
+                public Reload(float reload)
+                {
+                    timetoReload = reload;
+                }
+            
+                public override State Update()
+                {
+                   timetoReload -= Time.deltaTime;
+
+                    if (timetoReload <= 0) return new States.Regular();
+
+                    return null;
+                
+                }
 
             }
 
@@ -73,6 +89,7 @@ namespace Jelsomeno
         public Projectile HeavyShotBullet;
         public Transform bulletSpawn;
         public Transform PlayerTank;
+        public GameObject impactEffect;
         public float viewingAng = 360;
         private float viewingDis = 40;
         public float ReloadTime = 7;
@@ -82,13 +99,6 @@ namespace Jelsomeno
         private int TotalHeavyShots = 75;
 
         private Quaternion startingRot;
-
-        public bool lockRotationX;
-
-        public bool lockRotationY;
-
-        public bool lockRotationZ;
-
 
         // Start is called before the first frame update
         void Start()
@@ -117,45 +127,18 @@ namespace Jelsomeno
             state.OnStart(this);
         }
 
-        private void PointAt()
-        {
-            if (PlayerTank)
-            {
-                Vector3 disToTarget = PlayerTank.position - transform.position; // Gets distance
-
-                Quaternion targetRotation = Quaternion.LookRotation(disToTarget, Vector3.up); // Gets target rotation
-
-                Vector3 euler1 = transform.localEulerAngles; // get local angles BEFORE rotation
-                Quaternion prevRot = transform.rotation; // 
-                transform.rotation = targetRotation; // Set Rotation
-                Vector3 euler2 = transform.localEulerAngles; // get local angles AFTER rotation
-
-                if (lockRotationX) euler2.x = euler1.x; //revert x to previous value;
-                if (lockRotationY) euler2.y = euler1.y; //revert y to previous value;
-                if (lockRotationZ) euler2.z = euler1.z; //revert z to previous value;
-
-                transform.rotation = prevRot; // This objects rotation turns into the prevRot
-
-                transform.localRotation = AnimMath.Slide(transform.localRotation, Quaternion.Euler(euler2), .5f); // slides to rotation
-            }
-            else
-            {
-                // figure out bone rotation, no target:
-
-                transform.localRotation = AnimMath.Slide(transform.localRotation, startingRot, .05f);
-            }
-        }
-
         void HeavyShot()
         {
             if (HeavyShotTimer > 0) return;
 
-            Projectile p = Instantiate(HeavyShotBullet, transform.position, Quaternion.identity);
-            p.InitBullet(transform.forward * 20);
+            Projectile HS = Instantiate(HeavyShotBullet, transform.position, Quaternion.identity);
+            HS.InitBullet(transform.forward * 20);
 
+            TotalHeavyShots--;
             HeavyShotTimer = 1 / roundsPerSec;
 
         }
+
 
         private bool PlayerSeen(Transform thing, float visibleDis)
         {
