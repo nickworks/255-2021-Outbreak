@@ -12,8 +12,6 @@ namespace ASmith
             Regular, // 0
             Dashing, // 1
             Sprinting, // 2
-            Sneaking, // 3
-            Shielding, // 4
         }
 
         public float playerSpeed = 10;
@@ -34,13 +32,16 @@ namespace ASmith
         /// </summary>
         public float dashSpeed = 50;
 
+        /// <summary>
+        /// The current amount of health remaining
+        /// on the shield
+        /// </summary>
+
         private CharacterController pawn;
 
         MoveState currentMoveState = MoveState.Regular;
 
-        private Vector3 dashDirection;
-
-        
+        private Vector3 dashDirection;        
 
         void Start()
         {
@@ -49,8 +50,6 @@ namespace ASmith
 
         void Update()
         {
-            //print(currentMoveState);
-
             switch (currentMoveState)
             {
                 case MoveState.Regular:
@@ -91,15 +90,6 @@ namespace ASmith
                     // Transition to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular; // When not holding shift return to regular state
                     //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When holding ctrl go to sneak state
-
-                    break;
-                case MoveState.Sneaking:
-
-                    // Do behavior for this state:
-                    MoveThePlayer(.5f);
-
-                    // Transition to other states:
-                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When not holding ctrl return to regular state
 
                     break;
             }
