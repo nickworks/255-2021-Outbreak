@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Szczesniak {
-    
+    /// <summary>
+    /// This class is used to spawn projectiles that the player shoots
+    /// </summary>
     public class Projectile : MonoBehaviour {
 
         /// <summary>
@@ -21,28 +23,41 @@ namespace Szczesniak {
         /// </summary>
         private float age = 0;
 
+        /// <summary>
+        /// Damage the the projectiles do
+        /// </summary>
         public float damageAmt = 10;
 
+        /// <summary>
+        /// Particle effect when the projectiles hit an object
+        /// </summary>
         public ParticleSystem bulletParticles;
 
+        /// <summary>
+        /// Sets the velocity of the projectile
+        /// </summary>
+        /// <param name="vel"></param>
         public void InitBullet(Vector3 vel) {
-            velocity = vel;
+            velocity = vel; // sets velocity
         }
 
         void Update() {
 
-            age += Time.deltaTime;
-            if (age > lifespan) {
-                Destroy(gameObject);
+            age += Time.deltaTime; // counts the age up
+            if (age > lifespan) { // if age is greater than lifespan
+                Destroy(gameObject); // destroy the projectile
             }
 
-            RayCastCheck();
+            RayCastCheck(); // does ray cast check to bounce off walls
 
 
             // euler physics intergration:
-            transform.position += velocity * Time.deltaTime;
+            transform.position += velocity * Time.deltaTime; //moves projectiles.
         }
 
+        /// <summary>
+        /// Checks object the ray touches to bounce in an angular way
+        /// </summary>
         private void RayCastCheck() {
             // make a Ray:
             Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
@@ -67,6 +82,7 @@ namespace Szczesniak {
 
                     normal.Normalize(); // make unit
 
+                    // causes the reflection
                     float alignment = Vector3.Dot(velocity, normal);
                     Vector3 reflection = velocity - 2 * alignment * normal;
 
@@ -77,16 +93,18 @@ namespace Szczesniak {
                     transform.position = hit.point;
                 }
             }
-
-
         }
 
+        /// <summary>
+        /// When the projectile hits an object
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerEnter(Collider other) {
-            HealthScript healthOfThing = other.GetComponent<HealthScript>();
-            if (healthOfThing) {
-                healthOfThing.DamageTaken(damageAmt);
-                Instantiate(bulletParticles, this.transform.position, Quaternion.identity);
-                Destroy(this.gameObject);
+            HealthScript healthOfThing = other.GetComponent<HealthScript>(); // gets health script of object
+            if (healthOfThing) { // if object has a health script
+                healthOfThing.DamageTaken(damageAmt); // damages object
+                Instantiate(bulletParticles, this.transform.position, Quaternion.identity); // spawns the particle effect
+                Destroy(this.gameObject); // destroys the projectile
             }
         }
     }

@@ -4,45 +4,75 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Szczesniak {
+    /// <summary>
+    /// This class notifies player of UI
+    /// </summary>
     public class UI_InfoElements : MonoBehaviour {
 
+        /// <summary>
+        /// amount of ammo
+        /// </summary>
         public Text ammoAmount;
+        
+        /// <summary>
+        /// ammo capacity
+        /// </summary>
         private int ammoCapacity = 0;
+
+        /// <summary>
+        /// player's rife information
+        /// </summary>
         public PlayerWeapon playerWeaponsInfo;
 
+
+        /// <summary>
+        /// Dash sprite image
+        /// </summary>
         public Image dashImage;
+
+        /// <summary>
+        /// Information if the player dashed or not
+        /// </summary>
         public PlayerMovement playerDashInfo;
 
+        /// <summary>
+        /// Rocket sprite image
+        /// </summary>
         public Image rocketImage;
 
         void Start() {
-            AmmoSetup();
+            AmmoSetup(); // sets up ammo amount
         }
 
         void AmmoSetup() {
-            ammoCapacity = playerWeaponsInfo.maxRoundsInClip;
+            ammoCapacity = playerWeaponsInfo.maxRoundsInClip; // stores ammo capacity's max
         }
 
         void Update() {
+            // ammo informaiton that is displayed on the UI
             ammoAmount.text = playerWeaponsInfo.roundsInClip + " / " + ammoCapacity;
-            
-            RocketFade();
 
-            Color fadeOnDashImage = dashImage.color;
+            RocketFade(); // fades rocket ability if used
 
-            if (playerDashInfo.dashTimeToUseAgain <= 0) fadeOnDashImage.a = 1f;
-            if (playerDashInfo.dashTimeToUseAgain > 0) fadeOnDashImage.a = .5f;
+            DashFade(); // fades dash ability if used
+        }
 
-            dashImage.color = fadeOnDashImage;
+        private void DashFade() {
+            Color fadeOnDashImage = dashImage.color; // declaring color
+
+            if (playerDashInfo.dashTimeToUseAgain <= 0) fadeOnDashImage.a = 1f; // if not used, stays normal color
+            if (playerDashInfo.dashTimeToUseAgain > 0) fadeOnDashImage.a = .5f; // if used, lowers opacity
+
+            dashImage.color = fadeOnDashImage; // sets color
         }
 
         void RocketFade() {
-            Color fadeOnRocketImage = rocketImage.color;
+            Color fadeOnRocketImage = rocketImage.color; // declaring color
 
-            if (playerWeaponsInfo.rocketTimer <= 0) fadeOnRocketImage.a = 1f;
-            if (playerWeaponsInfo.rocketTimer > 0) fadeOnRocketImage.a = .5f;
+            if (playerWeaponsInfo.rocketTimer <= 0) fadeOnRocketImage.a = 1f; // if not used, stays normal color
+            if (playerWeaponsInfo.rocketTimer > 0) fadeOnRocketImage.a = .5f; // if used, lowers opacity
 
-            rocketImage.color = fadeOnRocketImage;
+            rocketImage.color = fadeOnRocketImage; // sets color
         }
     }
 }

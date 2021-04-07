@@ -7,7 +7,18 @@ using UnityEngine;
 /// </summary>
 /// 
 namespace Szczesniak {
+    /// <summary>
+    /// Calculates Lerp and Slide
+    /// </summary>
     public static class AnimMath {
+        /// <summary>
+        /// Calculates the Lerp
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="p"></param>
+        /// <param name="allowExtrapolation"></param>
+        /// <returns></returns>
         public static float Lerp(float min, float max, float p, bool allowExtrapolation = true) {
             if (!allowExtrapolation) {
                 if (p < 0) p = 0;
@@ -42,6 +53,13 @@ namespace Szczesniak {
             return Quaternion.Lerp(min, max, p);
         }
 
+        /// <summary>
+        /// Calculates the slide to have a smooth effect
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="target"></param>
+        /// <param name="percentLeftAfter1Second"></param>
+        /// <returns></returns>
         public static float Slide(float current, float target, float percentLeftAfter1Second) {
             float p = 1 - Mathf.Pow(percentLeftAfter1Second, Time.deltaTime);
             return AnimMath.Lerp(current, target, p);

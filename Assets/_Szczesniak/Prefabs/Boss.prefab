@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 4638415395636932140}
   m_LocalRotation: {x: -0.26117706, y: -0, z: 0.000000059604645, w: 0.96529096}
   m_LocalPosition: {x: 0.726, y: 0.13020414, z: 0.073}
-  m_LocalScale: {x: 0.10515697, y: 0.1255281, z: 0.38193512}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3007867681130028711}
   m_Father: {fileID: 4297160764520410404}
@@ -108,13 +108,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.06
-  m_Radius: 0.42
+  m_Height: 0.65
+  m_Radius: 0.71
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.37, z: 0}
+  m_Center: {x: 0, y: 0.27, z: 0}
 --- !u!114 &5033730304190295621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,10 +134,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  viewingDistance: 20
+  viewingDistance: 40
   viewingAngle: 180
   stoppingDistance: 18
-  shootingRange: 12
+  shootingRange: 40
   deathParticleSystem: {fileID: 6265031000430969328, guid: 322927ab7b9d32649a7dc3fa5b34e8be,
     type: 3}
   cameraSwitching: {fileID: 0}
@@ -175,8 +175,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823a3972648677b4f9951e92f2a1b7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 500
   healthSlider: {fileID: 8499190600848022329}
+--- !u!114 &928010412628377746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275137610722167117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b7f1470ffc8d34abd3580d99812c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabMachineGunBullets: {fileID: 8478579673320663095, guid: 3c53d2d1657533643a4d990dab45564c,
+    type: 3}
+  maxRoundsToHave: 40
+  reloadingTime: 5
+  prefabMissile: {fileID: 94874368765460703, guid: f81ccde9d3c9edc439da80feadf9330e,
+    type: 3}
+  leftMuzzle: {fileID: 8974785865222165891}
+  rightMuzzle: {fileID: 8353147503217679080}
+  missile1: {fileID: 2724793142899536263}
+  missile2: {fileID: 8124100844504287747}
+  missileDistance: 25
+  missilePos1: {fileID: 6188577837785490062}
+  missilePos2: {fileID: 6734095234538413469}
+  roundPerSec: 10
+  missleRespawnTime: 5
+  healthAmt: {fileID: 694380009}
+  minion: {fileID: 3992645349359143205, guid: d85040d7551314047b4eb9f5a1c41e99, type: 3}
+  minionSpawnPoint1: {fileID: 0}
+  minionSpawnPoint2: {fileID: 0}
+  viewingAngle: 180
+  viewingDistance: 20
+  player: {fileID: 0}
+  lockRotationX: 1
+  lockRotationY: 0
+  lockRotationZ: 1
 --- !u!1 &6993240840717882302
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 6993240840717882302}
   m_LocalRotation: {x: -0.26117703, y: 0.00000008940697, z: 0.000000052154064, w: 0.9652909}
   m_LocalPosition: {x: -0.666, y: 0.13020414, z: 0.073}
-  m_LocalScale: {x: 0.10515699, y: 0.12552811, z: 0.38193506}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8993941316923647267}
   m_Father: {fileID: 4297160764520410404}
@@ -238,41 +275,6 @@ Transform:
   m_Father: {fileID: 4297160764520410404}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &928010412628377746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275137610722167117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b7f1470ffc8d34abd3580d99812c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabMachineGunBullets: {fileID: 8478579673320663095, guid: 3c53d2d1657533643a4d990dab45564c,
-    type: 3}
-  maxRoundsToHave: 30
-  reloadingTime: 5
-  prefabMissile: {fileID: 94874368765460703, guid: f81ccde9d3c9edc439da80feadf9330e,
-    type: 3}
-  leftMuzzle: {fileID: 8974785865222165891}
-  rightMuzzle: {fileID: 8353147503217679080}
-  missile1: {fileID: 2724793142899536263}
-  missile2: {fileID: 8124100844504287747}
-  missileDistance: 25
-  missilePos1: {fileID: 6188577837785490062}
-  missilePos2: {fileID: 6734095234538413469}
-  roundPerSec: 10
-  missleRespawnTime: 5
-  healthAmt: {fileID: 694380009}
-  minion: {fileID: 3992645349359143205, guid: d85040d7551314047b4eb9f5a1c41e99, type: 3}
-  viewingAngle: 180
-  viewingDistance: 20
-  player: {fileID: 0}
-  lockRotationX: 1
-  lockRotationY: 0
-  lockRotationZ: 1
 --- !u!1001 &2367638094713555271
 PrefabInstance:
   m_ObjectHideFlags: 0

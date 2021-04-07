@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Szczesniak {
     
     /// <summary>
-    /// This class if for when the player does certain action it will play sound files
+    /// This class if for when the player, minion, and boss does sound effect actions
     /// </summary>
     public class SoundEffectBoard : MonoBehaviour {
 
@@ -15,7 +15,7 @@ namespace Szczesniak {
         public static SoundEffectBoard main;
 
         /// <summary>
-        /// When the player jumps
+        /// When the player shoots
         /// </summary>
         public AudioClip shooting;
 
@@ -25,24 +25,29 @@ namespace Szczesniak {
         public AudioClip soundDie;
 
         /// <summary>
-        /// Sound when the plaeyr picks up coins
+        /// Sound when the player shoots the rocket
         /// </summary>
         public AudioClip rocket;
 
         /// <summary>
-        /// Sound when the player hurts themselve
+        /// Sound when the player hurts themself
         /// </summary>
         public AudioClip playerHurt;
 
         /// <summary>
-        /// Sound when the player overlaps with a boast object
+        /// Sound when the player dashes
         /// </summary>
         public AudioClip soundDash;
 
         /// <summary>
-        /// Sound when the player picks up a power up
+        /// Sound when the boss dies
         /// </summary>
-        public AudioClip winSound;
+        public AudioClip bossDeath;
+
+        /// <summary>
+        /// Sound when the boss is shooting
+        /// </summary>
+        public AudioClip bossShooting;
 
         /// <summary>
         /// Creating audio source to play sounds on
@@ -62,24 +67,23 @@ namespace Szczesniak {
         }
 
         /// <summary>
-        /// Plays when the player jumps at a specific point in the world
+        /// Plays when the player shoots
         /// </summary>
-        /// <param name="pos"></param>
-        public static void PlayJump(Vector3 pos) {
-            AudioSource.PlayClipAtPoint(main.shooting, pos);
-        }
-
-        /// <summary>
-        /// Plays when the player jumps
-        /// </summary>
-        public static void PlayJump2() {
+        public static void PlayerShooting() {
             main.player.PlayOneShot(main.shooting);
         }
 
         /// <summary>
-        /// Plays the coin pickup sound file
+        /// Sound when the boss shoots
         /// </summary>
-        public static void PlayCoinPickup() {
+        public static void BossShooting() {
+            main.player.PlayOneShot(main.bossShooting);
+        }
+
+        /// <summary>
+        /// Plays when the player shoots the rocket
+        /// </summary>
+        public static void RocketMissileSound() {
             main.player.PlayOneShot(main.rocket);
         }
 
@@ -98,17 +102,17 @@ namespace Szczesniak {
         }
 
         /// <summary>
-        /// Plays when the player is overlapping the boast objects
+        /// Plays when the player is dashing
         /// </summary>
-        public static void BoastSound() {
+        public static void DashSound() {
             main.player.PlayOneShot(main.soundDash);
         }
 
         /// <summary>
-        /// Plays when the player picks up the power up items
+        /// Plays when the boss dies
         /// </summary>
-        public static void PowerUpSound() {
-            main.player.PlayOneShot(main.winSound);
+        public static void BossDeathSound() {
+            main.player.PlayOneShot(main.bossDeath);
         }
     }
 }

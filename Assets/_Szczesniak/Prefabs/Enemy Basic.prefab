@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTarget: {fileID: 1059291133949205257, guid: b3e2c43327e2b89489201e9fbdc1f15c,
     type: 3}
-  viewingDistance: 10
+  viewingDistance: 30
   viewingAngle: 180
   dashTimer: 5
   dashDuration: 0.5
