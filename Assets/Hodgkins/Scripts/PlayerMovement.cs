@@ -88,7 +88,7 @@ namespace Hodgkins {
         /// </summary>
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 100);
+            pawn.Move(dashDirection * Time.deltaTime * 80);
         }
         
         private void MoveThePlayer(float mult = 1)
