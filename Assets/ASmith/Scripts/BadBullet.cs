@@ -25,9 +25,12 @@ namespace ASmith
         /// How much damage each bullet deals
         /// </summary>
         private float damageAmount = 10;
+
+        public GameObject player;
+        private CapsuleCollider playerCollider;
         void Start()
         {
-
+            playerCollider = player.GetComponent<CapsuleCollider>();
         }
 
         public void InitBullet(Vector3 vel)
@@ -49,7 +52,7 @@ namespace ASmith
             transform.position += velocity * Time.deltaTime;
         }
 
-        private void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider playerCollider)
         {
             // TODO: Make bullets only trigger on overlap with player
                 Destroy(gameObject);
