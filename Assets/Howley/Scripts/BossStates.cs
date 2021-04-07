@@ -20,7 +20,7 @@ namespace Howley
 
                 virtual public void OnStart(BossStates boss)
                 {
-                    this.boss = boss;        
+                    this.boss = boss;
                 }
 
                 virtual public void OnEnd()
@@ -40,6 +40,8 @@ namespace Howley
                     // TODO: Make Idle animation
                     // Transitions:
                     if (boss.canSeePlayer) boss.SwitchState(new States.Persuing());
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -49,10 +51,14 @@ namespace Howley
                 {
                     // Behavior:
                     boss.MoveTheBoss();
+                    boss.AttackCooldown();
                     // Transitions:
                     if (!boss.canSeePlayer) boss.SwitchState(new States.Idle());
-                    if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.attackDis * boss.attackDis) boss.SwitchState(new States.Attack1());
-                    if (!boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.visDis * boss.visDis) boss.SwitchState(new States.Attack2());
+                    if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude < boss.attackDis * boss.attackDis && boss.canAttack) boss.SwitchState(new States.Attack1());
+                    if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude > boss.attackDis * boss.attackDis && boss.canAttack) boss.SwitchState(new States.Attack2());
+                    if (boss.canSeePlayer && boss.vToPlayer.sqrMagnitude > boss.attackDis * boss.attackDis && boss.canAttack && boss.health.health < 300) boss.SwitchState(new States.Attack3());
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -63,6 +69,8 @@ namespace Howley
                     // Behavior:
                     boss.ClimbWall();
                     // Transitions:
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -72,7 +80,10 @@ namespace Howley
                 {
                     // Behavior:
                     boss.Stunned();
+                    boss.DamageCooldown();
                     // Transitions:
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -81,7 +92,10 @@ namespace Howley
                 public override State Update()
                 {
                     // Behavior:
+
                     // Transitions:
+
+
                     return null;
                 }
             }
@@ -91,12 +105,16 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack1();
+                    boss.attackCooldown = 0;
+                    boss.canAttack = false;
                     // Transitions:
                     if (boss.attackTimer >= 1) 
                     {
                         boss.attackTimer = 0;
                         boss.SwitchState(new States.Idle());
                     }
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
 
                     return null;
                 }
@@ -107,12 +125,16 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack2();
+                    boss.attackCooldown = 0;
+                    boss.canAttack = false;
                     // Transitions:
                     if (boss.attack2Timer >= 1)
                     {
                         boss.attack2Timer = 0;
                         boss.SwitchState(new States.Idle());
                     }
+
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -122,7 +144,15 @@ namespace Howley
                 {
                     // Behavior:
                     boss.DoAttack3();
+                    boss.attackCooldown = 0;
+                    boss.canAttack = false;
                     // Transitions:
+                    if (boss.attack3Timer >= 1)
+                    {
+                        boss.attack3Timer = 0;
+                        boss.SwitchState(new States.Idle());
+                    }
+                    if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
             }
@@ -142,6 +172,8 @@ namespace Howley
 
         // Set pawn to CharacterController
         private CharacterController pawn;
+
+        private HealthSystem health;
 
         // Reference the target to move towards
         public Transform attackTarget;
@@ -181,6 +213,8 @@ namespace Howley
         /// </summary>
         public Transform tailBone;
 
+        public Projectile prefabProjectile;
+
         private Vector3 vToPlayer;
 
         private float moveSpeed = .5f;
@@ -204,18 +238,28 @@ namespace Howley
 
         private float attack2Timer = 0;
 
+        private float attack3Timer = 0;
+
         private float attackCooldown = 0;
+
+        private float damageCooldown = 0;
 
         /// <summary>
         /// Depending on the vision distance, and cone.
         /// </summary>
         private bool canSeePlayer = false;
 
+        private bool canAttack = false;
+
+        private bool canTakeDamage = false;
+
 
         void Start()
         {
             // Set pawn to get the CharacterController Component
             pawn = GetComponent<CharacterController>();
+
+            health = GetComponent<HealthSystem>();
         }
 
 
@@ -258,6 +302,13 @@ namespace Howley
             return false;
         }
 
+        void AttackCooldown()
+        {
+            attackCooldown += Time.deltaTime;
+
+            if (attackCooldown >= 5) canAttack = true;
+        }
+
         void MoveTheBoss()
         {
             if (!attackTarget) return;
@@ -289,19 +340,16 @@ namespace Howley
         void DoAttack1()
         {
             Quaternion startingLeftArmRot = shoulderLeft.transform.localRotation;
-
             Quaternion targetLeftArmRot = startingLeftArmRot * Quaternion.Euler(50, 0, 10);
 
             attackTimer += Time.deltaTime;
 
             if (attackTimer <= .5f) shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .01f);
             if (attackTimer >= .51f) shoulderLeft.transform.localRotation = AnimMath.Slide(shoulderLeft.transform.localRotation, Quaternion.identity, .01f);
-
-
         }
         void DoAttack2()
         {
-            Quaternion startingRot = torsoBone.transform.localRotation;
+            Quaternion startingRot = transform.localRotation;
             Quaternion startingTailRot = tailBone.transform.localRotation;
 
             Quaternion targetTorsoRot = startingRot * Quaternion.Euler(0, 180, 0);
@@ -312,12 +360,23 @@ namespace Howley
             if (attack2Timer >= .25f) targetTailRot = startingTailRot * Quaternion.Euler(0, -90, 0);
             if (attack2Timer > .5f) targetTorsoRot = Quaternion.identity;
 
-            torsoBone.transform.localRotation = AnimMath.Slide(startingRot, targetTorsoRot, .001f);
+            transform.localRotation = AnimMath.Slide(startingRot, targetTorsoRot, .001f);
             tailBone.transform.localRotation = AnimMath.Slide(startingTailRot, targetTailRot, .001f);
         }
         void DoAttack3()
         {
+            Projectile projectile;
+            Quaternion startingNeckRot = neckBone.transform.localRotation;
 
+            attack3Timer += Time.deltaTime;
+
+            if (attack3Timer >= .75f)
+            {
+               projectile = Instantiate(prefabProjectile, neckBone.transform.position, neckBone.rotation);
+            }
+            Quaternion targetNeckRot = startingNeckRot * Quaternion.Euler(60, 0, 0);
+
+            transform.localRotation = AnimMath.Slide(startingNeckRot, targetNeckRot, .005f);
         }       
         void Stunned()
         {
@@ -331,6 +390,27 @@ namespace Howley
         void ClimbWall()
         {
 
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            PlayerMovement pm = other.GetComponent<PlayerMovement>();
+
+            if (pm)
+            {
+                HealthSystem playerHealth = pm.GetComponent<HealthSystem>();
+                if (playerHealth && canTakeDamage)
+                {
+                    playerHealth.Damage(50);
+                }
+            }
+        }
+        void DamageCooldown()
+        {
+            if (damageCooldown >= 0) canTakeDamage = false;
+
+            damageCooldown -= Time.deltaTime;
+
+            if (damageCooldown <= 0) canTakeDamage = true;
         }
     }
 }
