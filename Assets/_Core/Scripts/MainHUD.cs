@@ -22,12 +22,14 @@ namespace Outbreak {
 
         void Start() {
             if (eventSystem == null) eventSystem = GameObject.FindObjectOfType<EventSystem>();
+            imageOfTimer.transform.parent.gameObject.SetActive(Game.main.timePerZone > 0);
         }
         void Update() {
             if (Game.main) {
                 buttonText.text = Game.isPaused ? "Play" : "Pause";
-                imageOfTimer.fillAmount = Game.main.timerUntilWarp / Game.main.timePerZone;
-
+                if (Game.main.timePerZone > 0) {
+                    imageOfTimer.fillAmount = Game.main.timerUntilWarp / Game.main.timePerZone;
+                }
                 nameText.text = Game.main.currentZone.creator;
                 levelText.text = Game.main.currentZone.zoneName;
             }

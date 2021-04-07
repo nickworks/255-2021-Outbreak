@@ -95,9 +95,10 @@ namespace Outbreak {
 
             WarpToQueuedZone();
 
-            timerUntilWarp -= Time.unscaledDeltaTime;
-
-            if (timerUntilWarp < 0) WarpRandom();
+            if (Game.main.timePerZone > 0) {
+                timerUntilWarp -= Time.unscaledDeltaTime;
+                if (timerUntilWarp < 0) WarpRandom();
+            }
         }
 
         private void WarpToQueuedZone() {
