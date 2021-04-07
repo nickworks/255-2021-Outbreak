@@ -9,7 +9,7 @@ public class Results : MonoBehaviour
     /// <summary>
     /// Determines if either the boss or the player are dead.
     /// </summary>
-    private bool gameover = false;
+    private bool gameOver = false;
     /// <summary>
     /// Determines if the player killed the boss.
     /// </summary>
@@ -19,11 +19,15 @@ public class Results : MonoBehaviour
     /// </summary>
     private float endTime;
     /// <summary>
+    /// Controls the sound effects made by this object.
+    /// </summary>
+    public AudioManager audioManager;
+    /// <summary>
     /// Leaves the player in the zone for a period of time depending on who was killed and either sends them to the next level if victorious or sends them to the game over screen if they failed.
     /// </summary>
     private void Update()
     {
-        if (gameover)
+        if (gameOver)
         {
             endTime -= Time.deltaTime;
             if(endTime <= 0)
@@ -42,9 +46,13 @@ public class Results : MonoBehaviour
     /// <param name="bossKilled"></param>
     public void ResultsIn(bool bossKilled)
     {
-        if (bossKilled) endTime = 20;
+        if (bossKilled)
+        {
+            endTime = 20;
+            audioManager.Play("Crowd Cheer");
+        }
         else endTime = 1;
         victory = bossKilled;
-        gameover = true;
+        gameOver = true;
     }
 }

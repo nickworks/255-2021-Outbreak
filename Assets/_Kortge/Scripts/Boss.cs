@@ -113,6 +113,7 @@ namespace Kortge
                 {
                     boss.SmokeOut();
                     stateTime = boss.stateTime;
+                    boss.sprite.color = Color.red;
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -197,14 +198,22 @@ namespace Kortge
                     return null;
                 }
                 /// <summary>
-                /// Sets up the shot delay based on the boss's current health while getting a reference to the boss.
+                /// Sets up the shot delay based on the boss's current health while getting a reference to the boss. Also starts playing a sound effect for the fire.
                 /// </summary>
                 /// <param name="boss"></param>
                 public override void OnStart(Boss boss)
                 {
                     shotDelay = 1f/(12f*(6-boss.health.health));
                     shotTime = shotDelay;
+                    boss.audioManager.Play("Boss Astral Projections");
                     base.OnStart(boss);
+                }
+                /// <summary>
+                /// Stops the sound effect since astral projections are not longer being fired.
+                /// </summary>
+                public override void OnEnd()
+                {
+                    boss.audioManager.Stop("Boss Astral Projections");
                 }
             }
             /// <summary>
@@ -240,6 +249,7 @@ namespace Kortge
                 {
                     boss.maidens.ThrowRose();
                     boss.focused = false;
+                    boss.audioManager.Play("Charge");
                     base.OnStart(boss);
                 }
             }
@@ -249,6 +259,10 @@ namespace Kortge
             /// </summary>
             public class Stun : State
             {
+                /// <summary>
+                /// Controls how dark the sprite is.
+                /// </summary>
+                float darkness;
                 /// <summary>
                 /// How much more time this state will remain active for.
                 /// </summary>
@@ -262,18 +276,18 @@ namespace Kortge
                     stateTime -= Time.deltaTime;
                     if (boss.hit)
                     {
-                        return Hit();
+                        if (boss.health.health <= 0) return new States.Death();
+                        darkness = 1;
+                        boss.hit = false;
+                        return new States.PostHitInvulnerability();
                     }
+                    else darkness += Time.deltaTime * 5;
+                    Mathf.Clamp(darkness, 0, 1);
+                    boss.sprite.color = Color.Lerp(Color.red, Color.black, darkness);
                     if (stateTime <= 0) return new States.Teleport();
                     return null;
                 }
 
-                private State Hit()
-                {
-                    if (boss.health.health <= 0) return new States.Death();
-                    boss.hit = false;
-                    return new States.PostHitInvulnerability();
-                }
                 /// <summary>
                 /// Makes the boss vulnerable to attack for a length of time depending on how much health is left while setting the boss reference.
                 /// </summary>
@@ -283,6 +297,7 @@ namespace Kortge
                     boss.sweat.Play();
                     boss.health.vulnerable = true;
                     stateTime = boss.stateTime;
+                    boss.audioManager.Play("Sword Stuck");
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -361,6 +376,10 @@ namespace Kortge
         /// </summary>
         private Health health;
         /// <summary>
+        /// The sprite used to represent this character.
+        /// </summary>
+        private SpriteRenderer sprite;
+        /// <summary>
         /// The current behavior of the boss.
         /// </summary>
         private States.State state;
@@ -381,6 +400,10 @@ namespace Kortge
         /// </summary>
         public AfterImage afterImage;
         /// <summary>
+        /// Controls the sound effects made by this object.
+        /// </summary>
+        public AudioManager audioManager;
+        /// <summary>
         /// The object the boss singals to throw roses while charging.
         /// </summary>
         public Maidens maidens;
@@ -399,7 +422,7 @@ namespace Kortge
         /// <summary>
         /// The prefab used to represent projectiles shot out.
         /// </summary>
-        public Projectile astralProjectionPrefab;
+        public Projectile projectionPrefab;
         /// <summary>
         /// The character the boss focuses on.
         /// </summary>
@@ -413,6 +436,7 @@ namespace Kortge
             animator = GetComponentInChildren<Animator>();
             controller = GetComponent<CharacterController>();
             health = GetComponent<Health>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
             stateTime = 1f;
         }
 
@@ -444,7 +468,7 @@ namespace Kortge
         /// Changes the state to something different.
         /// </summary>
         /// <param name="newState"></param>
-        void SwitchState(States.State newState)
+        private void SwitchState(States.State newState)
         {
             if (newState == null) return;
 
@@ -455,25 +479,9 @@ namespace Kortge
             state.OnStart(this);
         }
         /// <summary>
-        /// Teleports the boss above the camera with a smoke effect.
-        /// </summary>
-        void SmokeOut()
-        {
-            Instantiate(smokeOut, transform.position, new Quaternion(0,0,0,0));
-            transform.position = Vector3.up * (20);
-        }
-        /// <summary>
-        /// Teleports the boss to a random location within the arena with a smoke effet.
-        /// </summary>
-        void SmokeIn()
-        {
-            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up/2);
-            Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
-        }
-        /// <summary>
         /// Keeps the boss facing the direction the player is in.
         /// </summary>
-        void LookAtPlayer()
+        private void LookAtPlayer()
         {
             if (player != null)
             {
@@ -489,12 +497,28 @@ namespace Kortge
             else return;
         }
         /// <summary>
+        /// Teleports the boss above the camera with a smoke effect.
+        /// </summary>
+        private void SmokeOut()
+        {
+            Instantiate(smokeOut, transform.position, new Quaternion(0,0,0,0));
+            transform.position = Vector3.up * (20);
+        }
+        /// <summary>
+        /// Teleports the boss to a random location within the arena with a smoke effet.
+        /// </summary>
+        private void SmokeIn()
+        {
+            transform.position = (Vector3.right * Random.Range(-9f, 9f)) + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up/2);
+            Instantiate(smokeIn, transform.position, new Quaternion(0, 0, 0, 0));
+        }
+        /// <summary>
         /// Fires an astral projection in the direction of the player.
         /// </summary>
         /// <param name="speed"></param>
-        void AstralProjection(float speed)
+        private void AstralProjection(float speed)
         {
-            Projectile projection = Instantiate(astralProjectionPrefab, transform.position + transform.forward, transform.rotation);
+            Projectile projection = Instantiate(projectionPrefab, transform.position + transform.forward, transform.rotation);
             projection.InitBullet(transform.forward * speed);
         }
         /// <summary>

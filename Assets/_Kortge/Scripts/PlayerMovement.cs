@@ -12,7 +12,7 @@ namespace Kortge
         /// <summary>
         /// The component used to move the character.
         /// </summary>
-        CharacterController controller;
+        private CharacterController controller;
 
         /// <summary>
         /// Gets the controller component.
@@ -22,19 +22,12 @@ namespace Kortge
             controller = GetComponent<CharacterController>();
         }
         /// <summary>
-        /// Moves the player each frame.
+        /// Moves the player horizontally, vertically, or diagonally based on player input.
         /// </summary>
         // Update is called once per frame
         void Update()
         {
             // Behavior for this state:
-            MoveThePlayer();
-        }
-        /// <summary>
-        /// Moves the player horizontally, vertically, or diagonally based on player input.
-        /// </summary>
-        private void MoveThePlayer()
-        {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 

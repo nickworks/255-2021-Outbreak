@@ -13,7 +13,7 @@ namespace Kortge
         {
             zoneName = "The Duel of the Phantoms",
             creator = "Tyler Kortge",
-            sceneFile = "_Kortge Scene"
+            sceneFile = "_KortgeScene"
         };
     }
 }
