@@ -25,22 +25,29 @@ namespace Hopkins
         MoveState currentMoveState = MoveState.Regular;
 
         /// <summary>
-        /// length of dash in seconds
+        /// how long a dash should be in seconds
         /// </summary>
         public float dashDuration = 0.25f;
 
+        /// <summary>
+        /// how many meters/sec to move while dashing
+        /// </summary>
+        public float dashSpeed = 50;
+
         private Vector3 dashDirection;
         /// <summary>
-        /// how long of dash is left
+        /// This stores how many seconds are left in the dash
         /// </summary>
         private float dashTimer = 0;
+
+
 
         void Start()
         {
             pawn = GetComponent<CharacterController>();
         }
 
-        // Update is called 1pf
+        // Update is called once per frame
         void Update()
         {
 
@@ -51,7 +58,7 @@ namespace Hopkins
             {
                 case MoveState.Regular:
 
-                    // do behavior for this state
+                    // do behavior for this state:
 
                     MoveThePlayer(1);
 
@@ -59,13 +66,15 @@ namespace Hopkins
                     if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
 
-                    if (Input.GetButton("Fire2"))
+                    if (Input.GetButtonDown("Fire2"))
                     { // transition to dashing
 
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Vertical");
+                        float h = Input.GetAxisRaw("Horizontal"); // -1 or 0 or 1
+                        float v = Input.GetAxisRaw("Vertical"); // -1 or 0 or 1
                         dashDirection = new Vector3(h, 0, v);
+                        dashDirection.Normalize();
+                        dashTimer = .25f;
 
                         // clamp the length of dashDir to 1:
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
@@ -74,45 +83,45 @@ namespace Hopkins
                     break;
                 case MoveState.Dashing:
 
-                    // do behavior for this state
+                    // do behavior for this state:
                     DashThePlayer();
 
                     dashTimer -= Time.deltaTime;
 
-                    // transitions to other states
+                    // transitions to other states:
                     if (dashTimer <= 0) currentMoveState = MoveState.Regular;
 
                     break;
                 case MoveState.Sprinting:
 
-                    // do behavior for this state
+                    // do behavior for this state:
 
                     MoveThePlayer(2);
 
-                    // transition to other states
+                    // transitions to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
                     if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
 
                     break;
                 case MoveState.Sneaking:
 
-                    // do behavior for this state
+                    // do behavior for this state:
 
                     MoveThePlayer(0.5f);
 
-                    // transitions to other states
-                    if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
+                    // transitions to other states:
+                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
 
                     break;
             }
 
         }
         /// <summary>
-        /// moves player while they are dashing
+        /// This function moves the player while they are dashing.
         /// </summary>
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 100);
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
 
         private void MoveThePlayer(float mult = 1)
@@ -121,9 +130,11 @@ namespace Hopkins
             float v = Input.GetAxis("Vertical");
 
             Vector3 move = Vector3.right * h + Vector3.forward * v;
-            if (move.sqrMagnitude > 1) move.Normalize(); // fix diagonal input vector bug
+            if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diagonal input vectors
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+
+            pawn.SimpleMove(move * playerSpeed * mult);
         }
     }
 }
