@@ -424,10 +424,10 @@ namespace Szczesniak {
         void MachineGun() {
             if (bulletAmountTime > 0) return; // rate of fire manager
 
-            EnemyProjectiles leftBullets = Instantiate(prefabMachineGunBullets, leftMuzzle.position, Quaternion.identity); // spawns bullet
+            EnemyProjectiles leftBullets = Instantiate(prefabMachineGunBullets, leftMuzzle.position, leftMuzzle.transform.rotation); // spawns bullet
             leftBullets.InitBullet(transform.forward * 30); // sets velocity of the projectile
 
-            EnemyProjectiles RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, Quaternion.identity);
+            EnemyProjectiles RightBullets = Instantiate(prefabMachineGunBullets, rightMuzzle.position, rightMuzzle.transform.rotation);
             RightBullets.InitBullet(transform.forward * 30);
 
             SoundEffectBoard.BossShooting(); // plays the boss shooting sound
@@ -446,6 +446,8 @@ namespace Szczesniak {
             if (missile2) { // if missile 2 is true
                 missile2.timeToLaunch = true; // fires the missile
             }
+
+            SoundEffectBoard.RocketMissileSound(); // missile sound
         }
 
         /// <summary>

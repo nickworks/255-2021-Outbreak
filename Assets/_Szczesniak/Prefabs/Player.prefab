@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735006570}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.374, y: 0.449, z: 1.841}
   m_LocalScale: {x: 1, y: 0.40711, z: 0.24771}
   m_Children: []
@@ -136,7 +136,7 @@ MonoBehaviour:
   rocketPrefab: {fileID: 7257508732478251527, guid: c3bb04f844a304c4a8a7837cfc237777,
     type: 3}
   rocketTimer: 0
-  maxTimeForRocket: 1
+  maxTimeForRocket: 8
   roundsPerSecond: 13
   reloadTime: 1
   muzzle: {fileID: 735006570}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823a3972648677b4f9951e92f2a1b7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 1000
   healthSlider: {fileID: 1059291134105137162}
 --- !u!136 &142732644
 CapsuleCollider:

@@ -87,6 +87,7 @@ namespace Szczesniak {
                     // checks to see if the player is in range for a dash attack and if the timer is at 0 
                     if (enemy.CanSeeThing(enemy.attackTarget, enemy.targetDistanceToDash) && enemy.dashTimer <= 0) {
                         enemy.dashTimer = 5; // resets dash timer
+                        SoundEffectBoard.DashSound(); // plays dash sound
                         return new States.DashAttack(); // goes to dash attack state
                     }
 
@@ -237,7 +238,6 @@ namespace Szczesniak {
         /// </summary>
         void DashAttack() {
             Vector3 dash = transform.forward * 20; // gets vector to move forward
-
             transform.position += dash * Time.deltaTime; // moves minion forward at player
 
         }
