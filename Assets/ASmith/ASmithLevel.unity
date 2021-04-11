@@ -579,6 +579,8 @@ MonoBehaviour:
   ammo8: {fileID: 1624404864}
   ammo9: {fileID: 1374878240}
   ammo10: {fileID: 2123913893}
+  ammoCount: {fileID: 1748711716}
+  dashCount: {fileID: 671073566}
 --- !u!1 &88661921
 GameObject:
   m_ObjectHideFlags: 0
@@ -8982,7 +8984,7 @@ GameObject:
   - component: {fileID: 1504904468}
   - component: {fileID: 1504904467}
   m_Layer: 5
-  m_Name: Health_Percentage (2)
+  m_Name: Max Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11118,7 +11120,7 @@ GameObject:
   - component: {fileID: 1748711717}
   - component: {fileID: 1748711716}
   m_Layer: 5
-  m_Name: Health_Percentage (1)
+  m_Name: Current Ammo Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12396,9 +12398,10 @@ GameObject:
   - component: {fileID: 1945763118}
   - component: {fileID: 1945763119}
   - component: {fileID: 1945763120}
+  - component: {fileID: 1945763121}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12499,8 +12502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
-  dashDuration: 0.05
-  dashSpeed: 50
+  dashSpeed: 10
 --- !u!114 &1945763116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12578,6 +12580,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1945763121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945763110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2065c80a1dee7284fbce70fb96751cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wipeCount: {fileID: 42194428}
+  bulletWipes: 3
 --- !u!1 &1975255309
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ namespace ASmith
         /// Health state
         /// The getter is public but the setter is private to prevent other classes from effecting it
         /// </summary>
-        public float health { get; private set; }
+        public static float health { get; private set; }
 
         /// <summary>
         /// Maximum possible health
@@ -36,6 +36,9 @@ namespace ASmith
         /// </summary>
         private float cooldownInvulnerability = 0;
 
+        /// <summary>
+        /// Current amount of health the shield has
+        /// </summary>
         public float currShieldHealth = 30;
 
         /// <summary>
@@ -58,6 +61,9 @@ namespace ASmith
         /// </summary>
         private bool damageTaken = false;
 
+        /// <summary>
+        /// Whether or not the player's shield is active
+        /// </summary>
         private bool shielding = false;
 
         public GameObject Shield;
@@ -86,10 +92,10 @@ namespace ASmith
             {
                 case HealthState.Regular:
                     // Do behavior for this state:
-                    shieldRender.enabled = false;
+                    shieldRender.enabled = false; // disable the shield render on the player
                     if (currShieldHealth < maxShieldHealth) // If NOT shielding and shieldHealth < max...
                     {
-                        currShieldHealth++; // Regen shield health
+                        currShieldHealth = currShieldHealth + .05f; // Regen shield health 
                     }
 
                     if (currShieldHealth >= minShieldHealth) // If shieldHealth >= minimumHealth...
@@ -98,22 +104,22 @@ namespace ASmith
                     } else { canShield = false; } // ELSE, player can NOT shield
 
                     // Transition to other states:
-                    if (!shielding && Input.GetButton("Shield") && currShieldHealth > minShieldHealth)
+                    if (!shielding && Input.GetButtonDown("Shield") && currShieldHealth > minShieldHealth) // If NOT shielding, pressing Q, and currShieldHealth > minShieldHealth...
                     {
-                        currentHealthState = HealthState.Shielding;
-                        shielding = true;
+                        currentHealthState = HealthState.Shielding; // switch to shielding state
+                        shielding = true; // set shielding to true
                     }
 
                     break;
 
                 case HealthState.Shielding:
                     // Do behavior for this state:
-                    shieldRender.enabled = true;
+                    shieldRender.enabled = true; // render the shield on the player
                     // Transition to other states:
-                    if (shielding && Input.GetButton("Shield"))
+                    if (shielding && Input.GetButtonDown("Shield")) // If shielding and pressing Q
                     {
-                        currentHealthState = HealthState.Regular;
-                        shielding = false;
+                        currentHealthState = HealthState.Regular; // switch to regular state
+                        shielding = false; // set shielding to false
                     }
                     break;
             }
@@ -124,6 +130,7 @@ namespace ASmith
         {
             if (cooldownInvulnerability > 0) return; // still have i-frames, dont take damage
             cooldownInvulnerability = .25f; // cooldown till you can take damage
+            amt = BadBullet.damageAmount;
             if (amt < 0) amt = 0; // Negative numbers ignored
             damageTaken = true; // Tells the game that the player took damage
 
