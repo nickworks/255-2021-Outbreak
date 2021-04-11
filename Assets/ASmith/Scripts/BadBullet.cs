@@ -58,10 +58,11 @@ namespace ASmith
             {
                 PlayerHealth health = GetComponent<PlayerHealth>(); // Gets a reference to the PlayerHealth class for access to the health variable
                 print("REFERENCED: " + PlayerHealth.health);
+                Destroy(gameObject); // Destroy bullet on collision with player
                 if (PlayerHealth.health > 0) // if player has health
                 {
                     print("Damage Taken!");
-                    health.TakeDamage(damageAmount);
+                    PlayerHealth.health.TakeDamage(damageAmount); // Calls the TakeDamage function in the PlayerHealth script to deal damage to the player
                 }
             }
                 Destroy(gameObject); // Destroy bullet on collision
