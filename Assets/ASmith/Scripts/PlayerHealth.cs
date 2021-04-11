@@ -66,6 +66,7 @@ namespace ASmith
         /// </summary>
         private bool shielding = false;
 
+        public GameObject player;
         public GameObject Shield;
         private MeshRenderer shieldRender;
 
