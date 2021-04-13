@@ -28,6 +28,7 @@ namespace ASmith
 
         public GameObject player;
         private CapsuleCollider playerCollider;
+
         void Start()
         {
             playerCollider = player.GetComponent<CapsuleCollider>();

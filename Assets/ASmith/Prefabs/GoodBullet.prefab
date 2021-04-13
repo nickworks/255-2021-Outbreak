@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1692834201578568366}
   - component: {fileID: 138008356404743769}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: GoodBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ba5c833ebc92747bbf81f3270bc7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boss: {fileID: 2673966786869070870, guid: 5f32b16813db02e4eb896dd8a04ba3f0, type: 3}
+  turret: {fileID: 583763092125955984, guid: 72a1500956b487740a480afb3a59d122, type: 3}
 --- !u!114 &1692834201578568366
 MonoBehaviour:
   m_ObjectHideFlags: 0

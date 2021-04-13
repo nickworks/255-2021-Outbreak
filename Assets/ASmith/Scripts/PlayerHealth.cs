@@ -77,16 +77,35 @@ namespace ASmith
         /// </summary>
         private bool shielding = false;
 
+        /// <summary>
+        /// Reference to the player
+        /// </summary>
         public GameObject player;
+
+        /// <summary>
+        /// Reference to the Shield object
+        /// </summary>
         public GameObject Shield;
+
+        /// <summary>
+        /// Reference to the renderer for the shield
+        /// </summary>
         private MeshRenderer shieldRender;
 
+        /// <summary>
+        /// Reference to the Image for the Healthbar
+        /// </summary>
         public Image healthFillImage;
+
+        /// <summary>
+        /// Reference to the Text for the healthbar
+        /// </summary>
         public Text healthDisplayText;
 
+        /// <summary>
+        /// Reference to the Image for the shield healthbar
+        /// </summary>
         public Image shieldFillImage;
-        //public Text shieldDisplayText;
-
 
         // Tracks player health and communicates it to the UI
         public float healthValue
@@ -122,7 +141,6 @@ namespace ASmith
                 // Calculates the current fill percentage and displays it
                 float fillPercentage = currShieldHealth / maxShieldHealth;
                 shieldFillImage.fillAmount = fillPercentage;
-                //shieldDisplayText.text = (fillPercentage * 100).ToString("0") + "%";
             }
         }
 
@@ -131,20 +149,13 @@ namespace ASmith
             health = healthMax; // sets health to maximum health at startup
             currShieldHealth = maxShieldHealth; // sets shield health to maximum health at startup
 
-            shieldRender = Shield.GetComponent<MeshRenderer>();
-
-            healthValue = health;
-            shieldValue = currShieldHealth;
+            shieldRender = Shield.GetComponent<MeshRenderer>(); // Gets a reference tp the shields Mesh Renderer
         }
 
         private void Update()
         {
-            print("Current Health: " + health);
-            print("Current ShieldHealth: " + currShieldHealth);
-            print("Current State: " + currentHealthState);
-
-            healthValue = health;
-            shieldValue = currShieldHealth;
+            healthValue = health; // sets the healthValue to the players current health
+            shieldValue = currShieldHealth; // sets the shieldValue to the players current shield health
 
             if (cooldownInvulnerability > 0)
             {
@@ -219,7 +230,7 @@ namespace ASmith
 
         public void Die()
         {
-            healthValue = 0f;
+            healthValue = 0f; // On death, set healthValue to 0 on UI
             Destroy(gameObject); // On death, destroy gameObject
         }
     }

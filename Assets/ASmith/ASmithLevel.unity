@@ -12616,10 +12616,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthMax: 100
   currShieldHealth: 30
-  minShieldHealth: 10
+  minShieldHealth: 0
+  minUsableShieldHealth: 10
   maxShieldHealth: 30
-  player: {fileID: 0}
+  player: {fileID: 1945763110}
   Shield: {fileID: 134093988}
+  healthFillImage: {fileID: 1343894657}
+  healthDisplayText: {fileID: 925046539}
+  shieldFillImage: {fileID: 1178408130}
 --- !u!136 &1945763119
 CapsuleCollider:
   m_ObjectHideFlags: 0
