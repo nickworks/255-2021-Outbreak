@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ASmith
 {
@@ -31,6 +32,11 @@ namespace ASmith
         public float healthMax = 100;
 
         /// <summary>
+        /// Minimum possible health
+        /// </summary>
+        private float healthMin = 0;
+
+        /// <summary>
         /// Damage cooldown
         /// (i-frames)
         /// </summary>
@@ -42,9 +48,14 @@ namespace ASmith
         public float currShieldHealth = 30;
 
         /// <summary>
-        /// The minimum amount of health required for the shield to activate
+        /// The minimum amount of health the shield can have
         /// </summary>
-        public float minShieldHealth = 10;
+        public float minShieldHealth = 0;
+
+        /// <summary>
+        /// The minimum amount of shield health required for the shield to activate
+        /// </summary>
+        public float minUsableShieldHealth = 10;
 
         /// <summary>
         /// The maximum amount of health the shield can have
@@ -70,12 +81,60 @@ namespace ASmith
         public GameObject Shield;
         private MeshRenderer shieldRender;
 
+        public Image healthFillImage;
+        public Text healthDisplayText;
+
+        public Image shieldFillImage;
+        //public Text shieldDisplayText;
+
+
+        // Tracks player health and communicates it to the UI
+        public float healthValue
+        {
+            get
+            {
+                return health;
+            }
+            set
+            {
+                // Clamps the passed value within min/max range
+                health = Mathf.Clamp(value, healthMin, healthMax);
+
+                // Calculates the current fill percentage and displays it
+                float fillPercentage = health / healthMax;
+                healthFillImage.fillAmount = fillPercentage;
+                healthDisplayText.text = (fillPercentage * 100).ToString("0") + "%";
+            }
+        }
+
+        // Tracks player shield health and communicates it to the UI
+        public float shieldValue
+        {
+            get
+            {
+                return currShieldHealth;
+            }
+            set
+            {
+                // Clamps the passed value within min/max range
+                currShieldHealth = Mathf.Clamp(value, minShieldHealth, maxShieldHealth);
+
+                // Calculates the current fill percentage and displays it
+                float fillPercentage = currShieldHealth / maxShieldHealth;
+                shieldFillImage.fillAmount = fillPercentage;
+                //shieldDisplayText.text = (fillPercentage * 100).ToString("0") + "%";
+            }
+        }
+
         private void Start()
         {
             health = healthMax; // sets health to maximum health at startup
             currShieldHealth = maxShieldHealth; // sets shield health to maximum health at startup
 
             shieldRender = Shield.GetComponent<MeshRenderer>();
+
+            healthValue = health;
+            shieldValue = currShieldHealth;
         }
 
         private void Update()
@@ -83,6 +142,9 @@ namespace ASmith
             print("Current Health: " + health);
             print("Current ShieldHealth: " + currShieldHealth);
             print("Current State: " + currentHealthState);
+
+            healthValue = health;
+            shieldValue = currShieldHealth;
 
             if (cooldownInvulnerability > 0)
             {
@@ -105,7 +167,7 @@ namespace ASmith
                     } else { canShield = false; } // ELSE, player can NOT shield
 
                     // Transition to other states:
-                    if (!shielding && Input.GetButtonDown("Shield") && currShieldHealth > minShieldHealth) // If NOT shielding, pressing Q, and currShieldHealth > minShieldHealth...
+                    if (!shielding && Input.GetButtonDown("Shield") && currShieldHealth > minUsableShieldHealth) // If NOT shielding, pressing Q, and currShieldHealth > minShieldHealth...
                     {
                         currentHealthState = HealthState.Shielding; // switch to shielding state
                         shielding = true; // set shielding to true
@@ -157,6 +219,7 @@ namespace ASmith
 
         public void Die()
         {
+            healthValue = 0f;
             Destroy(gameObject); // On death, destroy gameObject
         }
     }
