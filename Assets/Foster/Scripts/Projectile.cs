@@ -24,6 +24,8 @@ namespace Foster
 
         }
 
+
+
         public void InitBullet(Vector3 vel)
         {
             velocity = vel;

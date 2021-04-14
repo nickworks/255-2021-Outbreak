@@ -12,6 +12,8 @@ TagManager:
   - Rose
   - Sword
   - MainPlayer
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
