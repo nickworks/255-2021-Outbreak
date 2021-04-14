@@ -30,7 +30,9 @@ namespace ASmith
         /// <summary>
         /// How many dashes are available
         /// </summary>
-        public static float dashCounter = 2;
+        public static int dashCounter = 2;
+
+        private float dashCooldown = 0;
 
         private float maxDashes = 2;
 
@@ -49,9 +51,20 @@ namespace ASmith
         {
             print("Dash Counter: " + dashCounter);
 
-            if (dashCounter > 2) { dashCounter = 2; }
-            else if (dashCounter > 1) { dashCounter = 2; }
-            else if (dashCounter < maxDashes) { dashCounter = dashCounter + .01f; } // Refill dashCounter
+            if (dashCounter < 2)
+            {
+                dashCooldown -= Time.deltaTime;
+
+                if (dashCooldown <= 0)
+                {
+                    dashCounter++;
+                    dashCooldown = 3;
+                }
+            }
+
+            //if (dashCounter > 2) { dashCounter = 2; }
+            //else if (dashCounter > 1) { dashCounter = 2; }
+            //else if (dashCounter < maxDashes) { dashCounter = dashCounter + .01f; } // Refill dashCounter
 
             switch (currentMoveState)
             {
@@ -71,6 +84,7 @@ namespace ASmith
                         dashDirection = new Vector3(h, 0, v); // Ties the dash vector to "h" and "v" for the x and z axis respectively
                         dashDirection.Normalize();
                         dashTimer = .25f;
+                        dashCooldown = 3;
 
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize(); // Clamps the length of dash to 1 so diagonal movement is same length
                     }
