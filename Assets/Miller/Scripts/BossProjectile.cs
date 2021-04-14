@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Miller
+namespace Miller { 
+public class BossProjectile : MonoBehaviour
 {
-    public class Projectile : MonoBehaviour
-    {
+    
+    
         private Vector3 velocity;
 
-        public int damage = 10;
+        public int damage = 25;
 
         /// <summary>
         /// How long the projectile should live in seconds
@@ -23,12 +24,9 @@ namespace Miller
 
         private void OnTriggerEnter(Collider other)
         {
-
-
-
-            if (other.tag == "Enemy")
+            if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Boss>().BossTakeDamage(damage);
+                other.gameObject.GetComponent<Player>().TakeDamage(damage);
             }
 
 

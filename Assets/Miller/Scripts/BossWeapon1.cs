@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Miller
+namespace Miller { 
+public class BossWeapon1 : MonoBehaviour
 {
-    public class PlayerWeapon : MonoBehaviour
-    {
+    
         public Projectile prefabProjectile;
+        
 
         static class States
         {
             public class State
             {
-                protected PlayerWeapon weapon;
+                protected BossWeapon1 weapon;
                 virtual public State Update()
                 {
                     return null;
                 }
 
-                virtual public void OnStart(PlayerWeapon weapon)
+                virtual public void OnStart(BossWeapon1 weapon)
                 {
                     this.weapon = weapon;
                 }

@@ -11,7 +11,7 @@ namespace Miller
 
         // track invisible things
 
-        Transform hiddenThing;
+        MeshRenderer hiddenThing;
 
         
 

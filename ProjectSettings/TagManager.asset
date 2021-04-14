@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Powerup
   - Pick Up
+  - Enemy
+  - Boss Projectile
+  - Player Projectile
   layers:
   - Default
   - TransparentFX
