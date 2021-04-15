@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 40552100741032418}
   - component: {fileID: 2164262771694761468}
   - component: {fileID: 3127932666725647622}
-  - component: {fileID: 5717023414386566786}
   m_Layer: 0
   m_Name: Right Wing End Mid
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,19 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5717023414386566786
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136260161614091415}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1213887887752028788
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +92,7 @@ GameObject:
   - component: {fileID: 1606649872931502199}
   m_Layer: 0
   m_Name: Barrel Pivot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,10 +123,9 @@ GameObject:
   - component: {fileID: 7547307999488780961}
   - component: {fileID: 167231002109627532}
   - component: {fileID: 6914991210687064483}
-  - component: {fileID: 7191825977263064646}
   m_Layer: 0
   m_Name: Left Wing
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,19 +193,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7191825977263064646
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912040981620193921}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2218633608175744754
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,10 +204,9 @@ GameObject:
   - component: {fileID: 894440167901137470}
   - component: {fileID: 5714838800266951137}
   - component: {fileID: 9199556448765919592}
-  - component: {fileID: 9069462676166705899}
   m_Layer: 0
   m_Name: Left Wing End Top
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,19 +274,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9069462676166705899
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2218633608175744754}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2875900288935516508
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,10 +285,9 @@ GameObject:
   - component: {fileID: 6142288552803515185}
   - component: {fileID: 3227113646570575167}
   - component: {fileID: 4825063895314644432}
-  - component: {fileID: 1076770775794059228}
   m_Layer: 0
   m_Name: Companion Cannon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -398,20 +355,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1076770775794059228
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2875900288935516508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3831810078818110625
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,10 +366,9 @@ GameObject:
   - component: {fileID: 8794743427262129017}
   - component: {fileID: 3408219350466080317}
   - component: {fileID: 476907953376790528}
-  - component: {fileID: 8322332592709550194}
   m_Layer: 0
   m_Name: Right Wing End Bot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -494,19 +436,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8322332592709550194
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3831810078818110625}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4033964167629721342
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,10 +447,9 @@ GameObject:
   - component: {fileID: 2677709329568394997}
   - component: {fileID: 5986523212105682182}
   - component: {fileID: 6153626694371906943}
-  - component: {fileID: 9096003305353417900}
   m_Layer: 0
   m_Name: Right Wing End Top
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -589,19 +517,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9096003305353417900
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4033964167629721342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4120242619139036189
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,10 +528,9 @@ GameObject:
   - component: {fileID: 246495655369169192}
   - component: {fileID: 5892115970951898008}
   - component: {fileID: 2384812490356375233}
-  - component: {fileID: 7360555777893580676}
   m_Layer: 0
   m_Name: Right Wing
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -684,19 +598,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7360555777893580676
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4120242619139036189}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4427371816971265865
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,10 +609,9 @@ GameObject:
   - component: {fileID: 5154168243364656437}
   - component: {fileID: 3379364161384504566}
   - component: {fileID: 3151785694789917948}
-  - component: {fileID: 8914420239863084950}
   m_Layer: 0
   m_Name: Left Wing End Mid
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,19 +679,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8914420239863084950
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4427371816971265865}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4490259327117866307
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,11 +690,11 @@ GameObject:
   - component: {fileID: 1070431741780080370}
   - component: {fileID: 6280305223034930008}
   - component: {fileID: 3889909619890205019}
-  - component: {fileID: 1968831757345845244}
   - component: {fileID: 7866496607306139635}
+  - component: {fileID: -4940890266555558392}
   m_Layer: 0
   m_Name: TIDE Pod
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -820,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4490259327117866307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7467, y: 10.002, z: -0.99299}
+  m_LocalPosition: {x: -2.642021, y: 10.002, z: -1.0777133}
   m_LocalScale: {x: 0.43929, y: 0.43929, z: 0.43929}
   m_Children:
   - {fileID: 1606649872931502199}
@@ -884,19 +771,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1968831757345845244
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4490259327117866307}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7866496607306139635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,8 +786,33 @@ MonoBehaviour:
   prefabGoodBullet: {fileID: -7785968224515959306, guid: 4184dcd3ea962bd4f996bbb693ac88e8,
     type: 3}
   player: {fileID: 0}
+  playerLocation: {fileID: 0}
   barrel: {fileID: 1606649872931502199}
   debugObject: {fileID: 0}
+  batteryFillImage: {fileID: 0}
+  batteryText: {fileID: 0}
+--- !u!195 &-4940890266555558392
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490259327117866307}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &9172023174834608850
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,10 +824,9 @@ GameObject:
   - component: {fileID: 3412565700986025942}
   - component: {fileID: 1737741404275250946}
   - component: {fileID: 6343765352971326122}
-  - component: {fileID: 2861381154927329395}
   m_Layer: 0
   m_Name: Left Wing End Bot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -996,16 +894,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2861381154927329395
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9172023174834608850}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

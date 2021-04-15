@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 namespace ASmith
 {
@@ -31,9 +32,13 @@ namespace ASmith
 
         private bool batteryOn = false;
 
+        private NavMeshAgent nav;
+
         public GoodBullet prefabGoodBullet;
 
         public GameObject player;
+
+        public Transform playerLocation;
 
         public Transform barrel;
 
@@ -65,6 +70,8 @@ namespace ASmith
 
         void Start()
         {
+            nav = GetComponent<NavMeshAgent>();
+
             currBattery = batteryMax;
 
             cam = Camera.main;
@@ -72,7 +79,7 @@ namespace ASmith
 
         void Update()
         {
-            //FollowPlayer();
+            FollowPlayer();
             AimAtMouse();
 
             //print("Follower Battery: " + currBattery);
@@ -87,8 +94,8 @@ namespace ASmith
                     currBattery -= Time.deltaTime;
 
                     // Transition
-                    if (Input.GetKeyDown("Fire1")) { currentPodState = PodState.Shooting; }
-                    if (Input.GetKeyDown("FollowerPower")) { currentPodState = PodState.Charging; }
+                    if (Input.GetButton("Fire1")) { currentPodState = PodState.Shooting; }
+                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Charging; }
                     if (currBattery <= batteryMin) { currentPodState = PodState.Charging; }
 
                     break;
@@ -99,7 +106,7 @@ namespace ASmith
                     SpawnGoodBullet();
 
                     // Transition
-                    if (!Input.GetKeyDown("Fire1")) { currentPodState = PodState.Regular; }
+                    if (!Input.GetButton("Fire1")) { currentPodState = PodState.Regular; }
                     if (currBattery <= batteryMin) { currentPodState = PodState.Charging; }
 
                     break;
@@ -109,14 +116,14 @@ namespace ASmith
                     currBattery++;
 
                     // Transition
-                    if (Input.GetKeyDown("FollowerPower")) { currentPodState = PodState.Regular; }
+                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
                     if (currBattery >= batteryMax) { currentPodState = PodState.Off; }
 
                     break;
 
                 case PodState.Off:
                     // Transition
-                    if (Input.GetKeyDown("FollowerPower")) { currentPodState = PodState.Regular; }
+                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
 
                     break;
             }
@@ -157,10 +164,12 @@ namespace ASmith
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
 
-            //private void FollowPlayer()
-            //{
-            //    // TODO: Create logic to follow player
-            //}
+        }
+
+        public void FollowPlayer()
+        {
+            // TODO: Create logic to follow player
+            if (playerLocation != null) nav.SetDestination(playerLocation.position);
         }
     }
 }
