@@ -23,7 +23,7 @@ namespace ASmith
 
         PodState currentPodState = PodState.Regular;
 
-        private float batteryMax = 100;
+        private float batteryMax = 25;
         private float batteryMin = 0;
         private float currBattery;
         private float rechargeTimer;
@@ -48,7 +48,7 @@ namespace ASmith
 
         public Image batteryFillImage;
 
-        public Text batteryText;
+        public Text podStatus;
 
         public float batteryValue
         {
@@ -64,7 +64,6 @@ namespace ASmith
                 // Calculates the current fill percentage and displays it
                 float fillPercentage = currBattery / batteryMax;
                 batteryFillImage.fillAmount = fillPercentage;
-                batteryText.text = (fillPercentage * 100).ToString("0") + "sec";
             }
         }
 
@@ -82,8 +81,7 @@ namespace ASmith
             FollowPlayer();
             AimAtMouse();
 
-            //print("Follower Battery: " + currBattery);
-            print("Follower State: " + currentPodState);
+            batteryValue = currBattery;
 
             if (timerSpawnBullet > 0) timerSpawnBullet -= Time.deltaTime;
 
@@ -92,6 +90,7 @@ namespace ASmith
                 case PodState.Regular:
                     // Behavior
                     currBattery -= Time.deltaTime;
+                    podStatus.text = ("ONLINE");
 
                     // Transition
                     if (Input.GetButton("Fire1")) { currentPodState = PodState.Shooting; }
@@ -104,6 +103,7 @@ namespace ASmith
                     // Behavior
                     currBattery -= Time.deltaTime;
                     SpawnGoodBullet();
+                    podStatus.text = ("FIRING");
 
                     // Transition
                     if (!Input.GetButton("Fire1")) { currentPodState = PodState.Regular; }
@@ -113,7 +113,8 @@ namespace ASmith
 
                 case PodState.Charging:
                     // Behavior
-                    currBattery++;
+                    currBattery += Time.deltaTime * 1.5f;
+                    podStatus.text = ("CHARGING");
 
                     // Transition
                     if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
@@ -122,6 +123,9 @@ namespace ASmith
                     break;
 
                 case PodState.Off:
+                    // Behavior
+                    podStatus.text = ("OFFLINE");
+
                     // Transition
                     if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
 
@@ -133,7 +137,7 @@ namespace ASmith
         {
             if (timerSpawnBullet > 0) return;
 
-            GoodBullet p = Instantiate(prefabGoodBullet, transform.position, Quaternion.identity);
+            GoodBullet p = Instantiate(prefabGoodBullet, barrel.transform.position, Quaternion.identity);
             p.InitBullet(transform.forward * 20);
 
             timerSpawnBullet = 1 / roundsPerSecond;
@@ -161,14 +165,13 @@ namespace ASmith
                 angle /= Mathf.PI; // converts from "radians" to "half-circles"
                 angle *= 180; // converts form "half-circles" to degrees
 
-                transform.eulerAngles = new Vector3(0, angle, 0);
-            }
+                transform.eulerAngles = new Vector3(0, angle - 90, 0); // angle - 90 makes the pod face the right direction
+            }                                                          // but the pod now shoots at a 90 degree angle
 
         }
 
         public void FollowPlayer()
         {
-            // TODO: Create logic to follow player
             if (playerLocation != null) nav.SetDestination(playerLocation.position);
         }
     }

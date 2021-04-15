@@ -104,14 +104,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213887887752028788}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.48, y: -0.0725508, z: -0.024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.49768093, y: -0.0725508, z: -0.023}
   m_LocalScale: {x: 2.2764006, y: 2.2764006, z: 2.2764006}
   m_Children:
   - {fileID: 6142288552803515185}
   m_Father: {fileID: 1070431741780080370}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1912040981620193921
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,13 +299,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2875900288935516508}
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.010103703, y: 0.031870842, z: 0.058655385}
-  m_LocalScale: {x: 0.13480052, y: 0.13480051, z: 0.13480051}
+  m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 0.058655377, y: 0.031870842, z: 0.010103674}
+  m_LocalScale: {x: 0.1348005, y: 0.1348005, z: 0.13480052}
   m_Children: []
   m_Father: {fileID: 1606649872931502199}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 90}
 --- !u!33 &3227113646570575167
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -707,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4490259327117866307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.642021, y: 10.002, z: -1.0777133}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.43929, y: 0.43929, z: 0.43929}
   m_Children:
   - {fileID: 1606649872931502199}
@@ -790,7 +790,7 @@ MonoBehaviour:
   barrel: {fileID: 1606649872931502199}
   debugObject: {fileID: 0}
   batteryFillImage: {fileID: 0}
-  batteryText: {fileID: 0}
+  podStatus: {fileID: 0}
 --- !u!195 &-4940890266555558392
 NavMeshAgent:
   m_ObjectHideFlags: 0
