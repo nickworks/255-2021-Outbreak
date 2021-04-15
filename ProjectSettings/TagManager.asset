@@ -13,6 +13,7 @@ TagManager:
   - Sword
   - MainPlayer
   - BadBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

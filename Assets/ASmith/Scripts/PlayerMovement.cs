@@ -58,13 +58,9 @@ namespace ASmith
                 if (dashCooldown <= 0)
                 {
                     dashCounter++;
-                    dashCooldown = 3;
+                    dashCooldown = 2;
                 }
             }
-
-            //if (dashCounter > 2) { dashCounter = 2; }
-            //else if (dashCounter > 1) { dashCounter = 2; }
-            //else if (dashCounter < maxDashes) { dashCounter = dashCounter + .01f; } // Refill dashCounter
 
             switch (currentMoveState)
             {
@@ -84,7 +80,7 @@ namespace ASmith
                         dashDirection = new Vector3(h, 0, v); // Ties the dash vector to "h" and "v" for the x and z axis respectively
                         dashDirection.Normalize();
                         dashTimer = .25f;
-                        dashCooldown = 3;
+                        dashCooldown = 2;
 
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize(); // Clamps the length of dash to 1 so diagonal movement is same length
                     }
