@@ -7,15 +7,6 @@ namespace ASmith
     public class BossTrigger : MonoBehaviour
     {
         BossController battleBegun;
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
 
         private void OnTriggerEnter(Collider other)
         {

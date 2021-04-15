@@ -64,7 +64,10 @@ namespace ASmith
                     health.TakeDamage(damageAmount); // Calls the TakeDamage function in the PlayerHealth script to deal damage to the player
                 }
             }
+            if (other.gameObject.tag != "Enemy")
+            {
                 Destroy(gameObject); // Destroy bullet on collision
+            }
         }
 
         private void RaycastCheck()

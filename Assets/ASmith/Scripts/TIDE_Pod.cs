@@ -21,7 +21,7 @@ namespace ASmith
             Off // 3
         }
 
-        PodState currentPodState = PodState.Regular;
+        PodState currentPodState = PodState.Off;
 
         private float batteryMax = 25;
         private float batteryMin = 0;
