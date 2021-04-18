@@ -18,8 +18,19 @@ namespace ASmith {
         /// How long the projectile has been alive, in seconds
         /// </summary>
         private float age = 0;
-        void Start() {
 
+        public static float damageAmount = 10;
+
+        public GameObject boss;
+        public GameObject turret;
+
+        private SphereCollider bossCollider;
+        private CapsuleCollider turretCollider;
+
+        void Start()
+        {
+            bossCollider = boss.GetComponent<SphereCollider>();
+            turretCollider = turret.GetComponent<CapsuleCollider>();
         }
 
         public void InitBullet(Vector3 vel)
@@ -30,7 +41,8 @@ namespace ASmith {
         void Update()
         {
             age += Time.deltaTime; // Tracks the age of the bullet
-            if (age > lifespan) { // if age is greater than lifespan....
+            if (age > lifespan)
+            { // if age is greater than lifespan....
                 Destroy(gameObject); // destroy bullet
             }
 
@@ -38,8 +50,23 @@ namespace ASmith {
 
             // euler physics integration
             transform.position += velocity * Time.deltaTime;
+        }
 
-
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Enemy") // If triggered object is an enemy...
+            {
+                EnemyHealth health = other.GetComponent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
+                Destroy(gameObject); // Destroy bullet on collision with enemy
+                if (EnemyHealth.health > 0) // if enemy has health
+                {
+                    health.TakeDamage(damageAmount); // Calls the TakeDamage function in the EnemyHealth script to deal damage to the enemy
+                }
+            }
+            if (other.gameObject.tag != "Player")
+            {
+                Destroy(gameObject); // Destroy bullet on collision
+            }
         }
 
         private void RaycastCheck()
@@ -73,32 +100,5 @@ namespace ASmith {
                 }
             }
         }
-        /* Original Bullet Bounce Logic
-        private void OnTriggerEnter(Collider other)
-        {
-            if(other.tag == "Wall")
-            {
-                print("hit a wall");
-
-                Vector3 normal = (transform.position - other.transform.position);
-                normal.y = 0; // no vertical bouncing
-
-                Vector3 random = Random.onUnitSphere;
-                random.y = 0; 
-
-                // blend the normal with the random:
-                normal += random * .5f;
-
-                normal.Normalize(); // makes unit vector
-
-                float alignment = Vector3.Dot(velocity, normal);
-                Vector3 reflection = velocity - 2 * alignment * normal;
-
-                reflection = Vector3.Lerp(reflection, Random.onUnitSphere, 0.5f);
-
-                velocity = reflection;
-            }
-        }
-        */
     }
 }

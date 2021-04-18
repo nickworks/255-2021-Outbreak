@@ -44,9 +44,10 @@ GameObject:
   - component: {fileID: 3150844037626509082}
   - component: {fileID: 4841511138969007166}
   - component: {fileID: 6554924335484210291}
+  - component: {fileID: 1596286859008465066}
   m_Layer: 0
   m_Name: 4-Way Turret
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +154,22 @@ MonoBehaviour:
     type: 3}
   cooldownShoot: 0
   roundsPerSecond: 6
+--- !u!114 &1596286859008465066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583763092125955984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1331e6c16547344812a837bbf2acc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMax: 100
+  healthMin: 0
+  boss: {fileID: 0}
+  turret: {fileID: 583763092125955984}
 --- !u!1 &3446208613519757843
 GameObject:
   m_ObjectHideFlags: 0

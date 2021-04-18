@@ -24,10 +24,11 @@ namespace ASmith
         /// <summary>
         /// How much damage each bullet deals
         /// </summary>
-        private float damageAmount = 10;
+        public static float damageAmount = 10;
 
         public GameObject player;
         private CapsuleCollider playerCollider;
+
         void Start()
         {
             playerCollider = player.GetComponent<CapsuleCollider>();
@@ -52,17 +53,18 @@ namespace ASmith
             transform.position += velocity * Time.deltaTime;
         }
 
-        private void OnTriggerEnter(Collider playerCollider)
+        private void OnTriggerEnter(Collider other) 
         {
-            // TODO: Make bullets only trigger on overlap with player
-                Destroy(gameObject);
-                print("HIT");
-            //PlayerHealth health = GetComponent<PlayerHealth>(); // Gets a reference to the PlayerHealth class for access to the health variable
-
-            //if (health) // if player has health
-            //{
-            //    health.TakeDamage(damageAmount);
-            //}
+            if (other.gameObject.tag == "Player") // If triggered object is the player...
+            {
+                PlayerHealth health = other.GetComponent<PlayerHealth>(); // Gets a reference to the PlayerHealth class for access to the health variable
+                Destroy(gameObject); // Destroy bullet on collision with player
+                if (PlayerHealth.health > 0) // if player has health
+                {
+                    health.TakeDamage(damageAmount); // Calls the TakeDamage function in the PlayerHealth script to deal damage to the player
+                }
+            }
+                Destroy(gameObject); // Destroy bullet on collision
         }
 
         private void RaycastCheck()

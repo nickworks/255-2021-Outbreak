@@ -17,11 +17,6 @@ namespace ASmith
         public float playerSpeed = 10;
 
         /// <summary>
-        /// How long a dash should take in seconds
-        /// </summary>
-        public float dashDuration = .25f;
-
-        /// <summary>
         /// Stores how many seconds left in dash
         /// </summary>
         private float dashTimer = 0;
@@ -30,12 +25,16 @@ namespace ASmith
         /// How strong the dash is
         /// The higher the number, the stronger the dash
         /// </summary>
-        public float dashSpeed = 50;
+        public float dashSpeed = 10;
 
         /// <summary>
-        /// The current amount of health remaining
-        /// on the shield
+        /// How many dashes are available
         /// </summary>
+        public static int dashCounter = 2;
+
+        private float dashCooldown = 0;
+
+        private float maxDashes = 2;
 
         private CharacterController pawn;
 
@@ -50,6 +49,19 @@ namespace ASmith
 
         void Update()
         {
+            print("Dash Counter: " + dashCounter);
+
+            if (dashCounter < 2)
+            {
+                dashCooldown -= Time.deltaTime;
+
+                if (dashCooldown <= 0)
+                {
+                    dashCounter++;
+                    dashCooldown = 2;
+                }
+            }
+
             switch (currentMoveState)
             {
                 case MoveState.Regular:
@@ -59,15 +71,16 @@ namespace ASmith
 
                     // Transition to other states:
                     if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting; // When holding shift start sprinting state
-                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking; // When holding ctrl go to sneak state
-                    if (Input.GetButtonDown("Fire2")) // On right mouse down, go to dash state
+                    if (dashCounter > 0 && Input.GetButtonDown("Fire2")) // On right mouse down, go to dash state
                     {
                         currentMoveState = MoveState.Dashing;
+                        dashCounter--;
                         float h = Input.GetAxisRaw("Horizontal"); // Raw makes these number default to wholes rather than decimals: -1/0/1
                         float v = Input.GetAxisRaw("Vertical"); // Raw makes these number default to wholes rather than decimals: -1/0/1
                         dashDirection = new Vector3(h, 0, v); // Ties the dash vector to "h" and "v" for the x and z axis respectively
                         dashDirection.Normalize();
                         dashTimer = .25f;
+                        dashCooldown = 2;
 
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize(); // Clamps the length of dash to 1 so diagonal movement is same length
                     }
@@ -89,7 +102,6 @@ namespace ASmith
 
                     // Transition to other states:
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular; // When not holding shift return to regular state
-                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Regular; // When holding ctrl go to sneak state
 
                     break;
             }
@@ -100,7 +112,8 @@ namespace ASmith
         /// </summary>
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * dashSpeed); 
+            pawn.Move(dashDirection * Time.deltaTime*2.5f * dashSpeed);
+            //pawn.Move(dashDirection * dashDuration * dashSpeed);
         }
 
         private void MoveThePlayer(float mult = 1)
