@@ -85,6 +85,7 @@ namespace Szczesniak {
 
                     // behaviour:
                     bossAttack.MinionSpawning(); // run MinionSpawning method to spawn the minions
+                    SoundEffectBoard.EnemySpawnAlarmSound(); // plays sound
 
                     // transition:
                     return new States.Idle(); // goes to Idle() method
