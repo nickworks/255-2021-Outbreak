@@ -12,17 +12,36 @@ namespace ASmith
         /// </summary>
         public static EnemyHealth main;
 
-        public static float health;
+        /// <summary>
+        /// This is the health variable for all enemies in the game.
+        /// The getter for this variable is public
+        /// The setter for this variable is private
+        /// </summary>
+        public float health { get; private set; }
 
+        /// <summary>
+        /// The maximum amount of health an enemy can have
+        /// Set in the inspector
+        /// </summary>
         public float healthMax;
 
+        /// <summary>
+        /// The lowest amount of health an enemy can have
+        /// Reaching this value should end with the enemy dying
+        /// </summary>
         public float healthMin = 0;
 
+        /// <summary>
+        /// Variable containing the boss gameObject
+        /// </summary>
         public GameObject boss;
 
+        /// <summary>
+        /// Variable containing the turret gameObject
+        /// </summary>
         public GameObject turret;
 
-        // Tracks player health and communicates it to the UI
+        // Tracks enemy health and communicates it to the UI
         public float healthValue
         {
             get
@@ -43,32 +62,41 @@ namespace ASmith
 
         void Start()
         {
-            health = healthMax;
+            health = healthMax; // Sest the player health to the max at start
         }
 
         void Update()
         {
-            healthValue = health;
-            print(boss + ": " + health);
+            healthValue = health; // healthValue tracks the enemy's health and communicates it to the UI 
         }
 
-        public void TakeDamage(float amt)
+        public void TakeDamage(float amt) // Calculates how much damage to deal to the hit enemy
         {
-            amt = BadBullet.damageAmount;
+            amt = GoodBullet.damageAmount;
             if (amt < 0) amt = 0; // Negative numbers ignored
 
-            health -= amt;
+            health -= amt; 
 
-            if (health <= 0)
+            if (health <= 0) // If hit enemy's health is LESS THAN or EQUAL TO 0...
             {
-                Die();
+                Die(); // Enemy dies
             }
         }
 
-        public void Die()
+        public void Die() // Method runs when an enemy's health reaches or passes 0
         {
-            healthValue = 0f;
-            Destroy(gameObject);
+            healthValue = 0f; // Sets healthValue to 0 to communicate to UI
+            Destroy(gameObject); // Destroys the dead enemy
+
+            if (gameObject == boss) // If dead enemy is the boss...
+            {
+                SoundBoard.PlayBossDie(); // Play boss death sound
+            }
+
+            if (gameObject == turret) // If dead enemy is a turret...
+            {
+                SoundBoard.PlayTurretDie(); // Play turret death sound
+            }
         }
     }
 }

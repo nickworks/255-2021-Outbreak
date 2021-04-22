@@ -24,7 +24,7 @@ namespace ASmith
         /// Health state
         /// The getter is public but the setter is private to prevent other classes from effecting it
         /// </summary>
-        public static float health { get; private set; }
+        public float health { get; private set; }
 
         /// <summary>
         /// Maximum possible health
@@ -180,6 +180,7 @@ namespace ASmith
                     // Transition to other states:
                     if (!shielding && Input.GetButtonDown("Shield") && currShieldHealth > minUsableShieldHealth) // If NOT shielding, pressing Q, and currShieldHealth > minShieldHealth...
                     {
+                        SoundBoard.PlayPlayerShieldOn();
                         currentHealthState = HealthState.Shielding; // switch to shielding state
                         shielding = true; // set shielding to true
                     }
@@ -192,6 +193,7 @@ namespace ASmith
                     // Transition to other states:
                     if (shielding && Input.GetButtonDown("Shield")) // If shielding and pressing Q
                     {
+                        SoundBoard.PlayPlayerShieldOff();
                         currentHealthState = HealthState.Regular; // switch to regular state
                         shielding = false; // set shielding to false
                     }
@@ -211,13 +213,19 @@ namespace ASmith
             if (shielding) // If player is shielding...
             {
                 currShieldHealth -= amt; // Deal damage to the shield
+                SoundBoard.PlayPlayerDamage();
                 if (currShieldHealth < 1) // If shield health is below 1...
                 {
+                    SoundBoard.PlayPlayerShieldOff();
                     currentHealthState = HealthState.Regular; // Switch back to Regular HealthState
                     shielding = false; // Turn off shield
                 }
             }
-            else { health -= amt; } // If not shielding, deal damage to player health
+            else
+            {
+                health -= amt; // If not shielding, deal damage to player health
+                SoundBoard.PlayPlayerDamage();
+            } 
             
             //if (health > 0) SoundEffectBoard.PlayDamage(); // plays damage audio
             if (health <= 0)
@@ -230,6 +238,7 @@ namespace ASmith
 
         public void Die()
         {
+            SoundBoard.PlayPlayerDie();
             healthValue = 0f; // On death, set healthValue to 0 on UI
             Destroy(gameObject); // On death, destroy gameObject
         }

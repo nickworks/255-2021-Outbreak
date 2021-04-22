@@ -42,6 +42,8 @@ namespace ASmith
         {
             if (cooldownShoot > 0) return; // still on cooldown
 
+            SoundBoard.PlayTurretShoot();
+
             BadBullet p1 = Instantiate(prefabBadBullet, barrel1.transform.position, barrel1.rotation); // instantiates a bullet on each barrel
             BadBullet p2 = Instantiate(prefabBadBullet, barrel2.transform.position, barrel2.rotation);
             BadBullet p3 = Instantiate(prefabBadBullet, barrel3.transform.position, barrel3.rotation);

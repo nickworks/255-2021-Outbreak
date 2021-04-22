@@ -14,6 +14,7 @@ namespace ASmith
             {
                 if (battleBegun == false)
                 {
+                    SoundBoard.PlayBossFightMusic();
                     BossController.battleBegun = true;
                     Destroy(gameObject);
                 }

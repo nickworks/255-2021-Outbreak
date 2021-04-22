@@ -56,9 +56,9 @@ namespace ASmith {
         {
             if (other.gameObject.tag == "Enemy") // If triggered object is an enemy...
             {
-                EnemyHealth health = other.GetComponent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
+                EnemyHealth health = other.GetComponentInParent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
                 Destroy(gameObject); // Destroy bullet on collision with enemy
-                if (EnemyHealth.health > 0) // if enemy has health
+                if (health.health > 0) // if enemy has health
                 {
                     health.TakeDamage(damageAmount); // Calls the TakeDamage function in the EnemyHealth script to deal damage to the enemy
                 }

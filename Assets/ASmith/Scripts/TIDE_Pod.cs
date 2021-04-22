@@ -94,8 +94,17 @@ namespace ASmith
 
                     // Transition
                     if (Input.GetButton("Fire1")) { currentPodState = PodState.Shooting; }
-                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Charging; }
-                    if (currBattery <= batteryMin) { currentPodState = PodState.Charging; }
+                    if (Input.GetButtonDown("FollowerPower"))
+                    {
+                        SoundBoard.PlayPlayerShieldOff();
+                        currentPodState = PodState.Charging;
+                    }
+
+                    if (currBattery <= batteryMin)
+                    {
+                        SoundBoard.PlayPlayerShieldOff();
+                        currentPodState = PodState.Charging;
+                    }
 
                     break;
 
@@ -107,7 +116,12 @@ namespace ASmith
 
                     // Transition
                     if (!Input.GetButton("Fire1")) { currentPodState = PodState.Regular; }
-                    if (currBattery <= batteryMin) { currentPodState = PodState.Charging; }
+
+                    if (currBattery <= batteryMin)
+                    {
+                        SoundBoard.PlayPlayerShieldOff();
+                        currentPodState = PodState.Charging;
+                    }
 
                     break;
 
@@ -117,7 +131,12 @@ namespace ASmith
                     podStatus.text = ("CHARGING");
 
                     // Transition
-                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
+                    if (Input.GetButtonDown("FollowerPower"))
+                    {
+                        SoundBoard.PlayPlayerShieldOn();
+                        currentPodState = PodState.Regular;
+                    }
+
                     if (currBattery >= batteryMax) { currentPodState = PodState.Off; }
 
                     break;
@@ -127,7 +146,11 @@ namespace ASmith
                     podStatus.text = ("OFFLINE");
 
                     // Transition
-                    if (Input.GetButtonDown("FollowerPower")) { currentPodState = PodState.Regular; }
+                    if (Input.GetButtonDown("FollowerPower"))
+                    {
+                        SoundBoard.PlayPlayerShieldOn();
+                        currentPodState = PodState.Regular;
+                    }
 
                     break;
             }
@@ -137,6 +160,7 @@ namespace ASmith
         {
             if (timerSpawnBullet > 0) return;
 
+            SoundBoard.PlayPlayerShoot();
             GoodBullet p = Instantiate(prefabGoodBullet, barrel.transform.position, Quaternion.identity);
             p.InitBullet(transform.forward * 20);
 
@@ -165,9 +189,8 @@ namespace ASmith
                 angle /= Mathf.PI; // converts from "radians" to "half-circles"
                 angle *= 180; // converts form "half-circles" to degrees
 
-                transform.eulerAngles = new Vector3(0, angle - 90, 0); // angle - 90 makes the pod face the right direction
-            }                                                          // but the pod now shoots at a 90 degree angle
-
+                transform.eulerAngles = new Vector3(0, angle, 0);
+            }
         }
 
         public void FollowPlayer()

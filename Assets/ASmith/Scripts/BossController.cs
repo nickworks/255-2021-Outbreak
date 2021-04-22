@@ -11,6 +11,9 @@ namespace ASmith
     {
         public static BossController main;
 
+        /// <summary>
+        /// State Machine for the Boss
+        /// </summary>
         public enum BossState
         {
             Idling, // 1
@@ -23,18 +26,12 @@ namespace ASmith
 
         BossState currentBossState = BossState.Idling;
 
-        #region Unfinished Random Number Picker
-        // This section was going to be used to pick from a random set of numbers to
-        // be the fire rate for the boss. I have no clue how to make it work at the moment
-
-        //public int[] rpsRange = new int[5] { 3, 4, 5, 6, 7 };
-
-        //public int randomRange = UnityEngine.Random.Range(0, rpsRange.Length);
-        //int randomNumber = rpsRange[randomRange];
-        #endregion
-
+        /// <summary>
+        /// Variable containing the player's current location
+        /// </summary>
         public Transform playerLocation;
 
+        #region List of Gun Barrels on Boss
         public Transform barrel1;
         public Transform barrel2;
         public Transform barrel3;
@@ -43,62 +40,112 @@ namespace ASmith
         public Transform barrel6;
         public Transform barrel7;
         public Transform barrel8;
+        #endregion
 
+        /// <summary>
+        /// Variable containing the Boss gameObject
+        /// </summary>
+        public GameObject TripleB;
+
+        /// <summary>
+        /// Variable containing the turret gameObject
+        /// </summary>
         public GameObject turret;
+
+        /// <summary>
+        /// Variable containing the pillar gameObject
+        /// </summary>
         public GameObject pillar;
 
+        /// <summary>
+        /// Variable containing a reference to the BadBullet prefab
+        /// </summary>
         public BadBullet prefabBadBullet;
 
+        /// <summary>
+        /// Variable containing a reference to the scene's Navigation Mesh
+        /// </summary>
         private NavMeshAgent nav;
 
+        /// <summary>
+        /// Variable that tracks how long till another ability can be used
+        /// </summary>
         private float abilityTimer;
+
+        /// <summary>
+        /// Variable that tracks the boss' current health 
+        /// </summary>
         private float currHealth;
-        private float healthMin;
-        private float healthMax;
-        private float rageTrigger;
+
+        /// <summary>
+        /// Variable that tracks whether or not the boss can enter rage state
+        /// </summary>
+        private float rageTrigger = 350;
+
+        /// <summary>
+        /// Variable that tracks when the boss can shoot again
+        /// </summary>
         private float cooldownShoot = 0;
-        // TODO: Randomize roundsPerSecond with above Random Number Picker
-        private float roundsPerSecond;
 
+        /// <summary>
+        /// Variable that tracks how fast the boss can shoot
+        /// </summary>
+        private float roundsPerSecond = 7;
+
+        /// <summary>
+        /// Variable that tracks the current amount of rounds in the boss' clip
+        /// </summary>
         private int roundsInClip;
-        private int roundsInClipMax = 7;
 
+        /// <summary>
+        /// Variable that tracks that maximum possible rounds in the boss' clip
+        /// </summary>
+        private int roundsInClipMax = 20;
+
+        /// <summary>
+        /// Variable that tracks whether or not the boss battle has begun
+        /// </summary>
         public static bool battleBegun = false;
+
+        /// <summary>
+        /// Variable that tracks whether or not the boss is raging
+        /// </summary>
+        private bool isRaging = false;
 
         void Start()
         {
-            nav = GetComponent<NavMeshAgent>();
-
-            currHealth = healthMax;
-            roundsInClip = roundsInClipMax;
+            nav = GetComponent<NavMeshAgent>(); // Sets the reference to the levels nav mesh
+            roundsInClip = roundsInClipMax; // sets the current rounds in the boss' clip to the max
         }
 
         void Update()
         {
-            if (cooldownShoot > 0)
+            EnemyHealth health = TripleB.GetComponentInParent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
+            currHealth = health.health; // Tracks the boss' current health in the Enemy State script is makes it accessible here
+
+            if (cooldownShoot > 0) // If cooldown is GREATER THAN 0...
             {
-                cooldownShoot -= Time.deltaTime; // counts down the cooldown timer
+                cooldownShoot -= Time.deltaTime; // count down the cooldown timer
             }
 
-            switch (currentBossState)
+            switch (currentBossState) // State Switcher
             {
-                case BossState.Idling:
+                case BossState.Idling: // Idle State: No Actions
                     // Transitions
-                    if (battleBegun) { currentBossState = BossState.Attacking; }
+                    if (battleBegun) { currentBossState = BossState.Attacking; } // If player triggers battleBegun box, switch to attacking state
 
                     break;                
 
-                case BossState.Attacking:
+                case BossState.Attacking: // Attack State: Tracking and Shooting at Player
                     // Behavior
                     FollowPlayer();
                     ShootPlayer();
 
                     // Transitions
-
-
+                    if (currHealth <= rageTrigger) { currentBossState = BossState.Raging; } // If current health is LESS THAN or EQUAL TO the rage trigger, switch to raging state
                     break;
 
-                case BossState.SummoningPillar:
+                case BossState.SummoningPillar: // Summoning Pillar State: Summons Pillar(s) to obstruct players movement and line of sight
                     // Behavior
 
 
@@ -107,7 +154,7 @@ namespace ASmith
 
                     break;
 
-                case BossState.SummoningTurrets:
+                case BossState.SummoningTurrets: // Summoning Turret State: Summons Turret(s) to attack player
                     // Behavior
 
 
@@ -116,32 +163,38 @@ namespace ASmith
 
                     break;
 
-                case BossState.Spinshotting:
-                    // Behavior
-                    FollowPlayer();
-
-                    // Transitions
-
-
-                    break;
-
-                case BossState.Raging:
+                case BossState.Spinshotting: // Spinshotting State: Boss begins spinning rapidly while shooting at a higher rate of fire
                     // Behavior
                     FollowPlayer();
 
                     // Transitions
 
+
+                    break;
+
+                case BossState.Raging: // Raging State: Boss enters an infinite Spinshotting state after reaching a health threshold
+                    // Behavior
+                    if (!isRaging) // If NOT raging...
+                    {
+                        SoundBoard.PlayBossRageMusic(); // Begin playing boss rage music
+                        isRaging = true; // tells game the boss is in rage mode
+                        roundsPerSecond = 12; // Increases rate of fire
+                        roundsInClipMax = 50; // Increases max ammo in clip
+                    }
+
+                    FollowPlayer();
+                    ShootPlayer();
 
                     break;
             }
         }
 
-        private void ShootPlayer()
+        private void ShootPlayer() // Method called when the boss fires its' guns
         {
             if (cooldownShoot > 0) return; // If weapon on cooldown, return
             if (roundsInClip <= 0) // If no ammo in clip, reload
             {
-                cooldownShoot = 4; // sets cooldown timer to simulate reloading
+                cooldownShoot = 3; // sets cooldown timer to simulate reloading
                 roundsInClip = roundsInClipMax; // sets roundsInClip back to max
                 return; // returns to beginning of loop
             }
@@ -170,9 +223,9 @@ namespace ASmith
             cooldownShoot = 1 / roundsPerSecond; // restarts weapon cooldown
         }
 
-        private void FollowPlayer()
+        private void FollowPlayer() // Method called when the boss must chase the player
         {
-            if (playerLocation != null) nav.SetDestination(playerLocation.position);
+            if (playerLocation != null) nav.SetDestination(playerLocation.position); // Sets the boss' destination to the player's current position
         }
     }
 }

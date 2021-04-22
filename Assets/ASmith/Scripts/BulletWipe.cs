@@ -19,11 +19,16 @@ public class BulletWipe : MonoBehaviour
             bulletWipes--;
             wipeCount.text = bulletWipes.ToString();
             GameObject[] BadBullets = GameObject.FindGameObjectsWithTag("BadBullet");
+            SoundBoard.PlayPlayerWipe();
 
             foreach (GameObject BadBullet in BadBullets)
             {
                 Destroy(BadBullet);                
             }
+        }
+        else if (Input.GetButtonDown("BulletWipe") && bulletWipes <= 0)
+        {
+            SoundBoard.PlayPlayerNoAmmo();
         }
     }
 }
