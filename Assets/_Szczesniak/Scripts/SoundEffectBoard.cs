@@ -50,6 +50,11 @@ namespace Szczesniak {
         public AudioClip bossShooting;
 
         /// <summary>
+        /// Sound when enemies have spawned from the boss
+        /// </summary>
+        public AudioClip enemySpawningAlarm;
+
+        /// <summary>
         /// Creating audio source to play sounds on
         /// </summary>
         private AudioSource player;
@@ -113,6 +118,10 @@ namespace Szczesniak {
         /// </summary>
         public static void BossDeathSound() {
             main.player.PlayOneShot(main.bossDeath);
+        }
+
+        public static void EnemySpawnAlarmSound() {
+            main.player.PlayOneShot(main.enemySpawningAlarm);
         }
     }
 }

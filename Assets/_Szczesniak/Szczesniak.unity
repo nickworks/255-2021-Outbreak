@@ -7261,6 +7261,7 @@ MonoBehaviour:
   soundDash: {fileID: 8300000, guid: 5b1edf47f1ff9f048b13ca054c16b8b3, type: 3}
   bossDeath: {fileID: 8300000, guid: 980555b5cb7a9a3468b76e5449e62579, type: 3}
   bossShooting: {fileID: 8300000, guid: 1a08461995505cc48a052c7a49def7b4, type: 3}
+  enemySpawningAlarm: {fileID: 8300000, guid: adce89a3888b1df499f0db752cf5a6d1, type: 3}
 --- !u!1001 &397866069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50861,10 +50862,10 @@ RectTransform:
   m_Father: {fileID: 1223961823}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 550.5, y: -142.07}
-  m_SizeDelta: {x: 41.8578, y: 41.8578}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -89.5, y: 160.93}
+  m_SizeDelta: {x: 41.857788, y: 41.857788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2093952327
 MonoBehaviour:
@@ -51198,6 +51199,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1059291133949205258, guid: b3e2c43327e2b89489201e9fbdc1f15c,
+        type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 4601021773968484166, guid: 59712195396d4a346b49d54a1848bdb7,
+        type: 3}
     - target: {fileID: 1059291133949205259, guid: b3e2c43327e2b89489201e9fbdc1f15c,
         type: 3}
       propertyPath: debugObject

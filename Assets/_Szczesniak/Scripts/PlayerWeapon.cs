@@ -196,6 +196,11 @@ namespace Szczesniak {
         public GameObject muzzle;
 
         /// <summary>
+        /// The particle will spawn to resemple a muzzle flash on a gun.
+        /// </summary>
+        public ParticleSystem muzzleFlash;
+
+        /// <summary>
         /// Getting the player health to check it
         /// </summary>
         private HealthScript playerHealth;
@@ -250,6 +255,8 @@ namespace Szczesniak {
             // Spawns the bullets
             Projectile p = Instantiate(prefabProjectile, muzzle.transform.position, muzzle.transform.rotation);
             p.InitBullet(transform.forward * 30); // sets the velocity of the projectile
+
+            Instantiate(muzzleFlash, muzzle.transform.position, muzzle.transform.rotation);
 
             roundsInClip--; // removes a bullet from roundInClip
             timerSpawnBullet = 1 / roundsPerSecond; // rate of fire
