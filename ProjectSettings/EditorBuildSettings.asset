@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Core/Scenes/GameOver.unity
     guid: 57ab8f9b85bd030459953cd5146b7c17
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Velting/Velting.unity
     guid: 34116571de6d6aa409065f640f8fd476
   - enabled: 1
@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Foster/Scene/Foster_Scene.unity
     guid: 9343657632743984fa8453440bee6bf8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Geib/GeibLevel.unity
     guid: d50d2497240230849a1f5ec24e92a739
   - enabled: 1
@@ -41,14 +41,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Jelsomeno/Jelsomeno.unity
     guid: 0e6c27dd5b1efcc42bea9c09bed43b1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Miller/MillerLevel.unity
     guid: ce288c55ef790ce48b0fa7e23e8ab5cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Pattison/PattisonLevel.unity
     guid: 873e6c1273fdd50449c9199eec416b71
-  - enabled: 1
-    path: Assets/Hopkins/Scenes/scene.unity
+  - enabled: 0
+    path: Assets/Hopkins/Scenes/brokenHopkins.unity
     guid: 65f670699b36b2b4386ba37fbb3c67c5
   - enabled: 1
     path: Assets/_Szczesniak/Szczesniak.unity

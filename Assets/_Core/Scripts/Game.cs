@@ -43,7 +43,7 @@ namespace Outbreak {
              * TODO: Add student's zone info objects here...
              * Namespace.Zone.info
              */
-            Pattison.Zone.info,
+            //Pattison.Zone.info,
             _JSmith.Zone.info,
             Kortge.Zone.info,
             Szczesniak.Zone.info,
