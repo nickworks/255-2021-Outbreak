@@ -88,6 +88,7 @@ namespace Szczesniak {
                     if (enemy.CanSeeThing(enemy.attackTarget, enemy.targetDistanceToDash) && enemy.dashTimer <= 0) {
                         enemy.dashTimer = 5; // resets dash timer
                         SoundEffectBoard.DashSound(); // plays dash sound
+                        enemy.dashTrail.Play();
                         return new States.DashAttack(); // goes to dash attack state
                     }
 
@@ -112,6 +113,7 @@ namespace Szczesniak {
                 public override State Update() {
                     // Behaviour:
                     enemy.DashAttack(); // does the dash attack
+                    
 
                     // Transition:
                     enemy.dashDuration -= Time.deltaTime; // how long to let it dash
@@ -168,6 +170,8 @@ namespace Szczesniak {
         /// </summary>
         public float targetDistanceToDash = 6;
 
+        private ParticleSystem dashTrail;
+
         /// <summary>
         /// Getting boss to check its health
         /// </summary>
@@ -204,6 +208,7 @@ namespace Szczesniak {
             bossHealth = bossObject.GetComponent<HealthScript>(); // gets boss's health
             enemyBasicHealth = GetComponent<HealthScript>(); // gets its health
             timeLeftToDestroy = Random.Range(5, 15); // generates random number for timer
+            dashTrail = GetComponentInChildren<ParticleSystem>();
 
             chanceToSpawnHealth = Random.Range(1, 4);
         }

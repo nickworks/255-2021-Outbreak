@@ -36,7 +36,7 @@ namespace Szczesniak {
 
             foreach (Collider other in pawnsHit) {
                 HealthScript healthOfThing = other.GetComponent<HealthScript>();
-                if (healthOfThing) {
+                if (healthOfThing && healthOfThing.health > 0) {
                     healthOfThing.DamageTaken(damageAmt);
                 }
             }

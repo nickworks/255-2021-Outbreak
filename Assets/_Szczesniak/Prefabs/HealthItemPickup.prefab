@@ -40,6 +40,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 139428116959247966, guid: d9d848d233735ec4b87e78c01d8f41da,
         type: 3}
+      propertyPath: bounceAmt
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 139428116959247966, guid: d9d848d233735ec4b87e78c01d8f41da,
+        type: 3}
       propertyPath: healthIncreaseAmt
       value: 25
       objectReference: {fileID: 0}
@@ -61,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 8791974692908475333, guid: d9d848d233735ec4b87e78c01d8f41da,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.166
       objectReference: {fileID: 0}
     - target: {fileID: 8791974692908475333, guid: d9d848d233735ec4b87e78c01d8f41da,
         type: 3}

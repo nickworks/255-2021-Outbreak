@@ -1423,7 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823a3972648677b4f9951e92f2a1b7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 120
   healthSlider: {fileID: 0}
 --- !u!65 &6010938126906636899
 BoxCollider:
