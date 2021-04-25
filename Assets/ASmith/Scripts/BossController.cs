@@ -78,6 +78,16 @@ namespace ASmith
         private float currHealth;
 
         /// <summary>
+        /// Variable that tracks the minimum possible health for the boss
+        /// </summary>
+        public float healthMin = 0;
+
+        /// <summary>
+        /// Variable that tracks the maximum possible health for the boss
+        /// </summary>
+        public float healthMax = 1000;
+
+        /// <summary>
         /// Variable that tracks whether or not the boss can enter rage state
         /// </summary>
         private float rageTrigger = 350;
@@ -110,7 +120,35 @@ namespace ASmith
         /// <summary>
         /// Variable that tracks whether or not the boss is raging
         /// </summary>
-        private bool isRaging = false;
+        public bool isRaging = false;
+
+        /// <summary>
+        /// Variable that references the image that displays the Boss' health bar
+        /// </summary>
+        public Image healthFillImage;
+
+        /// <summary>
+        /// Variable that references the text that displays the Boss' numerical health value
+        /// </summary>
+        public Text healthDisplayText;
+
+        public float healthValue
+        {
+            get
+            {
+                return currHealth;
+            }
+            set
+            {
+                // Clamps the passed value within min/max range
+                currHealth = Mathf.Clamp(value, healthMin, healthMax);
+
+                // Calculates the current fill percentage and displays it
+                float fillPercentage = currHealth / healthMax;
+                healthFillImage.fillAmount = fillPercentage;
+                healthDisplayText.text = (fillPercentage * 100).ToString("0") + "%";
+            }
+        }
 
         void Start()
         {
@@ -122,6 +160,9 @@ namespace ASmith
         {
             EnemyHealth health = TripleB.GetComponentInParent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
             currHealth = health.health; // Tracks the boss' current health in the Enemy State script is makes it accessible here
+            healthValue = currHealth; // sets the healthValue to the players current health to be communicated to the UI
+
+            if (currHealth <= 50) { currHealth = 0f; healthDisplayText.text = "0%"; }
 
             if (cooldownShoot > 0) // If cooldown is GREATER THAN 0...
             {

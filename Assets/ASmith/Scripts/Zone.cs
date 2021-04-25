@@ -8,9 +8,9 @@ namespace ASmith
     {
         new static public ZoneInfo info = new ZoneInfo()
         {
-            zoneName = "Triple B's Lair",
-            creator = "Antonio Smith",
-            sceneFile = "ASmithLevel"
+            zoneName = "Triple B's Lair", // The name of the level
+            creator = "Antonio Smith", // The creator of the level
+            sceneFile = "ASmithLevel" // The file name for the level
         };
     }
 }

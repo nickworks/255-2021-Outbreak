@@ -17,6 +17,7 @@ namespace ASmith
         /// Holds the color of whatever object was hit
         /// </summary>
         Color thingWeHitsColor;
+
         void Start()
         {
             camTracker = GetComponentInParent<CameraTracking>();

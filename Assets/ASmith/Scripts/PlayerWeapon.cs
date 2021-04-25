@@ -45,7 +45,7 @@ namespace ASmith
                         // if ammo, go to shooting:
                         return new States.Attacking();
                     }
-                    if (Input.GetButton("Reload"))
+                    if (Input.GetButtonDown("Reload"))
                     {
                         // if clip is full, don't reload:
                         if (PlayerWeapon.roundsInClip > 9) return new States.Regular(); // Originally weapon.roundsInClip
@@ -65,7 +65,7 @@ namespace ASmith
                     weapon.SpawnGoodBullet();
 
                     // transitions:
-                    if (!Input.GetButton("Fire1")) return new States.Regular();
+                    if (!Input.GetButtonDown("Fire1")) return new States.Regular();
 
                     return null;
                 }

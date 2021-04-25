@@ -8,6 +8,10 @@ namespace ASmith
     {
         private Camera cam; // doesnt need to be public because it's called through code
 
+        /// <summary>
+        /// Contains a reference to the object used to test out the player aiming.
+        /// Basically a placeholder reticle
+        /// </summary>
         public Transform debugObject;
 
         void Start()

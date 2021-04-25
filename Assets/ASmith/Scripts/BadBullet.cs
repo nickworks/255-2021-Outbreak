@@ -26,13 +26,10 @@ namespace ASmith
         /// </summary>
         public static float damageAmount = 10;
 
+        /// <summary>
+        /// Variable that contains a reference to the player game Object
+        /// </summary>
         public GameObject player;
-        private CapsuleCollider playerCollider;
-
-        void Start()
-        {
-            playerCollider = player.GetComponent<CapsuleCollider>();
-        }
 
         public void InitBullet(Vector3 vel)
         {

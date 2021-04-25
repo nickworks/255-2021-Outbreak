@@ -19,19 +19,20 @@ namespace ASmith {
         /// </summary>
         private float age = 0;
 
+        /// <summary>
+        /// The amount of damage dealt by player bullets
+        /// </summary>
         public static float damageAmount = 10;
 
+        /// <summary>
+        /// Variable that references the boss Game Object
+        /// </summary>
         public GameObject boss;
+
+        /// <summary>
+        /// Variable that references the turret Game Object
+        /// </summary>
         public GameObject turret;
-
-        private SphereCollider bossCollider;
-        private CapsuleCollider turretCollider;
-
-        void Start()
-        {
-            bossCollider = boss.GetComponent<SphereCollider>();
-            turretCollider = turret.GetComponent<CapsuleCollider>();
-        }
 
         public void InitBullet(Vector3 vel)
         {

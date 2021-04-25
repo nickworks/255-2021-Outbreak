@@ -6,51 +6,46 @@ using UnityEngine.UI;
 
 namespace ASmith
 {
-		public class PlayerHUD : MonoBehaviour
+	public class PlayerHUD : MonoBehaviour
 	{
         #region Ammo Variables
-        /// <summary>
-        /// References ammo icon used in the ammo bar on the HUD
-        /// </summary>
-        public Image ammo1;
-		public Image ammo2;
-		public Image ammo3;
-		public Image ammo4;
-		public Image ammo5;
-		public Image ammo6;
-		public Image ammo7;
-		public Image ammo8;
-		public Image ammo9;
-		public Image ammo10;
+            /// <summary>
+            /// References ammo icon used in the ammo bar on the HUD
+            /// </summary>
+            public Image ammo1;
+		    public Image ammo2;
+		    public Image ammo3;
+		    public Image ammo4;
+		    public Image ammo5;
+		    public Image ammo6;
+		    public Image ammo7;
+		    public Image ammo8;
+		    public Image ammo9;
+		    public Image ammo10;
 
-        /// <summary>
-        /// References the text box that displays the current ammo in clip
-        /// </summary>
-        public Text ammoCount;
-        #endregion
+            /// <summary>
+            /// References the text box that displays the current ammo in clip
+            /// </summary>
+            public Text ammoCount;
+            #endregion
 
         /// <summary>
         /// References text box used to display dashes available
         /// </summary>
         public Text dashCount;
 
-        void Start()
-		{
+	    void Update()
+	    {
+	        RenderAmmoCount();
 
-		}
-
-		void Update()
-		{
-			RenderAmmoCount();
-            //dashCount.text = PlayerMovement.dashCounter.ToString();
-
+            // Logic for communicating the player's dash count to the UI
             if (PlayerMovement.dashCounter == 2) { dashCount.text = "2"; } 
             else if (PlayerMovement.dashCounter == 1) { dashCount.text = "1"; }
             else if (PlayerMovement.dashCounter == 0) { dashCount.text = "0"; }
         }
 
-		private void RenderAmmoCount() // Handles displaying how much ammo is available to the player
-		{
+	    private void RenderAmmoCount() // Handles displaying how much ammo is available to the player
+	    {
             ammo10.enabled = (PlayerWeapon.roundsInClip >= 10); //{ ammo10.enabled = false; } // If 9 rounds in clip, turn off ammo10
             ammo9.enabled = (PlayerWeapon.roundsInClip >= 9); //{ ammo9.enabled = false; } // If 8 rounds in clip, turn off ammo9
             ammo8.enabled = (PlayerWeapon.roundsInClip >= 8); //{ ammo8.enabled = false; } // If 7 rounds in clip, turn off ammo8

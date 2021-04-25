@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 8b7e74652c2a5ef498df79ff3c2cfe24
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bulletproof BB
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 37e5ba38792c1ad42a5de94510c236d2, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

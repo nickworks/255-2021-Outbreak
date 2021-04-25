@@ -1,3 +1,4 @@
+using Outbreak;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,12 @@ namespace ASmith
         public float healthMin = 0;
 
         /// <summary>
+        /// Timer used to wait a specific amount of time
+        /// before going to next level
+        /// </summary>
+        private float nextLevelTimer = 0;
+
+        /// <summary>
         /// Variable containing the boss gameObject
         /// </summary>
         public GameObject boss;
@@ -41,25 +48,6 @@ namespace ASmith
         /// </summary>
         public GameObject turret;
 
-        // Tracks enemy health and communicates it to the UI
-        public float healthValue
-        {
-            get
-            {
-                return health;
-            }
-            set
-            {
-                // Clamps the passed value within min/max range
-                health = Mathf.Clamp(value, healthMin, healthMax);
-
-                // Calculates the current fill percentage and displays it
-                //float fillPercentage = health / healthMax;
-                //healthFillImage.fillAmount = fillPercentage;
-                //healthDisplayText.text = (fillPercentage * 100).ToString("0") + "%";
-            }
-        }
-
         void Start()
         {
             health = healthMax; // Sest the player health to the max at start
@@ -67,7 +55,10 @@ namespace ASmith
 
         void Update()
         {
-            healthValue = health; // healthValue tracks the enemy's health and communicates it to the UI 
+            if (nextLevelTimer > 0) // If the Timer has been set in the Die() method...
+            {
+                nextLevelTimer -= Time.deltaTime; // start counting down
+            } 
         }
 
         public void TakeDamage(float amt) // Calculates how much damage to deal to the hit enemy
@@ -85,12 +76,17 @@ namespace ASmith
 
         public void Die() // Method runs when an enemy's health reaches or passes 0
         {
-            healthValue = 0f; // Sets healthValue to 0 to communicate to UI
             Destroy(gameObject); // Destroys the dead enemy
 
             if (gameObject == boss) // If dead enemy is the boss...
             {
                 SoundBoard.PlayBossDie(); // Play boss death sound
+
+                nextLevelTimer = 4; // Sets the time until the game ends after beating the boss
+                if (nextLevelTimer <= 0) // If timer has reached 0
+                {
+                    Game.GotoNextLevel(); // Go to next level
+                }
             }
 
             if (gameObject == turret) // If dead enemy is a turret...
