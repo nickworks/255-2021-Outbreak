@@ -88,6 +88,9 @@ namespace Outbreak {
             Time.timeScale = 1;
             SetPause(false);
         }
+        private void Start() {
+            WarpRandom();
+        }
         void Update() {
 
             if (Input.GetButtonDown("Pause")) TogglePause();
@@ -147,6 +150,7 @@ namespace Outbreak {
             isPaused = pauseValue;
             if (isPaused) prePauseTimescale = Time.timeScale;
             Time.timeScale = isPaused ? 0 : prePauseTimescale;
+            Cursor.visible = isPaused;
         }
         private void BackToMainMenu() {
             prePauseTimescale = Time.timeScale = 1;

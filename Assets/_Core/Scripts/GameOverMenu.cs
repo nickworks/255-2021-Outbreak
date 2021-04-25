@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 namespace Outbreak {
     public class GameOverMenu : MonoBehaviour {
 
+        public void Start() {
+            Cursor.visible = true;
+        }
         public void BttnBackToMainMenu() {
             SceneManager.LoadScene("MainMenu");
         }
