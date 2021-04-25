@@ -19,19 +19,20 @@ namespace ASmith {
         /// </summary>
         private float age = 0;
 
+        /// <summary>
+        /// The amount of damage dealt by player bullets
+        /// </summary>
         public static float damageAmount = 10;
 
+        /// <summary>
+        /// Variable that references the boss Game Object
+        /// </summary>
         public GameObject boss;
+
+        /// <summary>
+        /// Variable that references the turret Game Object
+        /// </summary>
         public GameObject turret;
-
-        private SphereCollider bossCollider;
-        private CapsuleCollider turretCollider;
-
-        void Start()
-        {
-            bossCollider = boss.GetComponent<SphereCollider>();
-            turretCollider = turret.GetComponent<CapsuleCollider>();
-        }
 
         public void InitBullet(Vector3 vel)
         {
@@ -56,9 +57,9 @@ namespace ASmith {
         {
             if (other.gameObject.tag == "Enemy") // If triggered object is an enemy...
             {
-                EnemyHealth health = other.GetComponent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
+                EnemyHealth health = other.GetComponentInParent<EnemyHealth>(); // Gets a reference to the EnemyHealth class for access to the health variable
                 Destroy(gameObject); // Destroy bullet on collision with enemy
-                if (EnemyHealth.health > 0) // if enemy has health
+                if (health.health > 0) // if enemy has health
                 {
                     health.TakeDamage(damageAmount); // Calls the TakeDamage function in the EnemyHealth script to deal damage to the enemy
                 }

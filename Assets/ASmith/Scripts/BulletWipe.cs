@@ -3,26 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BulletWipe : MonoBehaviour
+namespace ASmith
 {
-    public Text wipeCount;
-    public float bulletWipes = 3;
-    void Start()
+    public class BulletWipe : MonoBehaviour
     {
-        wipeCount.text = "3";
-    }
+        /// <summary>
+        /// Variable that communcates the amount of bullet wipes available to the UI
+        /// </summary>
+        public Text wipeCount;
 
-    void Update()
-    {
-        if (Input.GetButtonDown("BulletWipe") && bulletWipes > 0)
+        /// <summary>
+        /// Variable that tracks the amount of bullet wipes available
+        /// </summary>
+        public float bulletWipes = 3;
+
+        void Start()
         {
-            bulletWipes--;
-            wipeCount.text = bulletWipes.ToString();
-            GameObject[] BadBullets = GameObject.FindGameObjectsWithTag("BadBullet");
+            wipeCount.text = "3"; // Tells the UI that there are 3 bullet wipes available at the start of the game
+        }
 
-            foreach (GameObject BadBullet in BadBullets)
+        void Update()
+        {
+            if (Input.GetButtonDown("BulletWipe") && bulletWipes > 0) // If player presses "E"...
             {
-                Destroy(BadBullet);                
+                bulletWipes--; // Subtract 1 bullet wipe from wipeCount
+                wipeCount.text = bulletWipes.ToString(); // Communicates amount of bullet wipes to the UI
+                GameObject[] BadBullets = GameObject.FindGameObjectsWithTag("BadBullet"); // Gets a reference to the BadBullets in the scene
+                SoundBoard.PlayPlayerWipe(); // Plays the bullet wipe sound
+
+                foreach (GameObject BadBullet in BadBullets) // for each bad bullet in the scene...
+                { 
+                    Destroy(BadBullet); // Destroy the bad bullets
+                }
+            }
+            else if (Input.GetButtonDown("BulletWipe") && bulletWipes <= 0) // If no bullet wipes available
+            {
+                SoundBoard.PlayPlayerNoAmmo(); // // Play the no ammo sound
             }
         }
     }

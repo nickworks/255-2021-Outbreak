@@ -14,7 +14,7 @@ namespace ASmith
         /// <summary>
         /// How long the projectile should live, in seconds
         /// </summary>
-        private float lifespan = 3;
+        private float lifespan = 10;
 
         /// <summary>
         /// How long the projectile has been alive, in seconds
@@ -26,13 +26,10 @@ namespace ASmith
         /// </summary>
         public static float damageAmount = 10;
 
+        /// <summary>
+        /// Variable that contains a reference to the player game Object
+        /// </summary>
         public GameObject player;
-        private CapsuleCollider playerCollider;
-
-        void Start()
-        {
-            playerCollider = player.GetComponent<CapsuleCollider>();
-        }
 
         public void InitBullet(Vector3 vel)
         {
@@ -50,7 +47,7 @@ namespace ASmith
             RaycastCheck();
 
             // euler physics integration
-            transform.position += velocity * Time.deltaTime;
+            transform.position += velocity * 2 * Time.deltaTime;
         }
 
         private void OnTriggerEnter(Collider other) 
@@ -59,12 +56,15 @@ namespace ASmith
             {
                 PlayerHealth health = other.GetComponent<PlayerHealth>(); // Gets a reference to the PlayerHealth class for access to the health variable
                 Destroy(gameObject); // Destroy bullet on collision with player
-                if (PlayerHealth.health > 0) // if player has health
+                if (health.health > 0) // if player has health
                 {
                     health.TakeDamage(damageAmount); // Calls the TakeDamage function in the PlayerHealth script to deal damage to the player
                 }
             }
+            if (other.gameObject.tag != "Enemy")
+            {
                 Destroy(gameObject); // Destroy bullet on collision
+            }
         }
 
         private void RaycastCheck()

@@ -1,3 +1,4 @@
+using Outbreak;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace ASmith
         /// Health state
         /// The getter is public but the setter is private to prevent other classes from effecting it
         /// </summary>
-        public static float health { get; private set; }
+        public float health { get; private set; }
 
         /// <summary>
         /// Maximum possible health
@@ -61,6 +62,11 @@ namespace ASmith
         /// The maximum amount of health the shield can have
         /// </summary>
         public float maxShieldHealth = 30;
+
+        /// <summary>
+        /// Varaibale that counts down to when the game ends after the player dies
+        /// </summary>
+        private float gameOverTimer = 0;
 
         /// <summary>
         /// Whether or not player can use shield ability
@@ -157,6 +163,11 @@ namespace ASmith
             healthValue = health; // sets the healthValue to the players current health
             shieldValue = currShieldHealth; // sets the shieldValue to the players current shield health
 
+            if (gameOverTimer > 0) // If the Timer has been set in the Die() method...
+            {
+                gameOverTimer -= Time.deltaTime; // start counting down
+            }
+
             if (cooldownInvulnerability > 0)
             {
                 cooldownInvulnerability -= Time.deltaTime; // if cooldownInvulnerability still has time life, countdown timer
@@ -180,6 +191,7 @@ namespace ASmith
                     // Transition to other states:
                     if (!shielding && Input.GetButtonDown("Shield") && currShieldHealth > minUsableShieldHealth) // If NOT shielding, pressing Q, and currShieldHealth > minShieldHealth...
                     {
+                        SoundBoard.PlayPlayerShieldOn();
                         currentHealthState = HealthState.Shielding; // switch to shielding state
                         shielding = true; // set shielding to true
                     }
@@ -192,6 +204,7 @@ namespace ASmith
                     // Transition to other states:
                     if (shielding && Input.GetButtonDown("Shield")) // If shielding and pressing Q
                     {
+                        SoundBoard.PlayPlayerShieldOff();
                         currentHealthState = HealthState.Regular; // switch to regular state
                         shielding = false; // set shielding to false
                     }
@@ -211,13 +224,19 @@ namespace ASmith
             if (shielding) // If player is shielding...
             {
                 currShieldHealth -= amt; // Deal damage to the shield
+                SoundBoard.PlayPlayerDamage();
                 if (currShieldHealth < 1) // If shield health is below 1...
                 {
+                    SoundBoard.PlayPlayerShieldOff();
                     currentHealthState = HealthState.Regular; // Switch back to Regular HealthState
                     shielding = false; // Turn off shield
                 }
             }
-            else { health -= amt; } // If not shielding, deal damage to player health
+            else
+            {
+                health -= amt; // If not shielding, deal damage to player health
+                SoundBoard.PlayPlayerDamage();
+            } 
             
             //if (health > 0) SoundEffectBoard.PlayDamage(); // plays damage audio
             if (health <= 0)
@@ -230,8 +249,15 @@ namespace ASmith
 
         public void Die()
         {
+            SoundBoard.PlayPlayerDie();
             healthValue = 0f; // On death, set healthValue to 0 on UI
             Destroy(gameObject); // On death, destroy gameObject
+
+            gameOverTimer = 4; // Sets the time until the game ends after dying
+            if (gameOverTimer <= 0) // If timer has reached 0
+            {
+                Game.GameOver(); // Game Over
+            }
         }
     }
 }

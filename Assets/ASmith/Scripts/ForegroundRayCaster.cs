@@ -6,7 +6,6 @@ namespace ASmith
 {
     public class ForegroundRayCaster : MonoBehaviour
     {
-        Camera cam;
         CameraTracking camTracker;
 
         /// <summary>
@@ -18,9 +17,9 @@ namespace ASmith
         /// Holds the color of whatever object was hit
         /// </summary>
         Color thingWeHitsColor;
+
         void Start()
         {
-            cam = GetComponent<Camera>();
             camTracker = GetComponentInParent<CameraTracking>();
         }
 

@@ -36,12 +36,16 @@ namespace ASmith
                     if (Input.GetButton("Fire1"))
                     {
                         // if no ammo, go to cooldown:
-                        if (PlayerWeapon.roundsInClip <= 0) return new States.Cooldown(weapon.reloadTime); // Originally weapon.roundsInClip
+                        if (PlayerWeapon.roundsInClip <= 0)
+                        {
+                            SoundBoard.PlayPlayerNoAmmo();
+                            return new States.Cooldown(weapon.reloadTime); // Originally weapon.roundsInClip
+                        }
 
                         // if ammo, go to shooting:
                         return new States.Attacking();
                     }
-                    if (Input.GetButton("Reload"))
+                    if (Input.GetButtonDown("Reload"))
                     {
                         // if clip is full, don't reload:
                         if (PlayerWeapon.roundsInClip > 9) return new States.Regular(); // Originally weapon.roundsInClip
@@ -61,7 +65,7 @@ namespace ASmith
                     weapon.SpawnGoodBullet();
 
                     // transitions:
-                    if (!Input.GetButton("Fire1")) return new States.Regular();
+                    if (!Input.GetButtonDown("Fire1")) return new States.Regular();
 
                     return null;
                 }
@@ -95,7 +99,7 @@ namespace ASmith
         private States.State state;
 
         public int maxRoundsInClip = 10;
-        public static int roundsInClip = 10;
+        public static int roundsInClip;
 
         /// <summary>
         /// How many bullets to spawn per second
@@ -109,6 +113,11 @@ namespace ASmith
         private float timerSpawnBullet = 0;
 
         public float reloadTime = 1;
+
+        private void Start()
+        {
+            roundsInClip = maxRoundsInClip;
+        }
 
         void Update()
         {
@@ -132,6 +141,7 @@ namespace ASmith
 
         void SpawnGoodBullet()
         {
+            SoundBoard.PlayPlayerShoot();
             if (timerSpawnBullet > 0) return; // need to wait longer
             if (roundsInClip <= 0) return; // no ammo
 
