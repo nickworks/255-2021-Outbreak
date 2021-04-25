@@ -166,6 +166,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -752,6 +757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -5871,6 +5881,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -6141,7 +6156,7 @@ GameObject:
   - component: {fileID: 184896488}
   m_Layer: 0
   m_Name: LeftPoleSet (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6449,6 +6464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -7274,6 +7294,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -7908,6 +7933,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -7982,6 +8012,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -8125,6 +8160,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -8369,6 +8409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -8655,6 +8700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -14438,7 +14488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777789426}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5, y: -4.3868713, z: 21.11}
+  m_LocalPosition: {x: -24.23, y: -4.3868713, z: -13.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 399217502}
@@ -14599,7 +14649,7 @@ GameObject:
   - component: {fileID: 800203909}
   m_Layer: 0
   m_Name: Main Level/Map
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15005,6 +15055,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -16164,6 +16219,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -16238,6 +16298,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -16829,7 +16894,7 @@ GameObject:
   - component: {fileID: 1147591575}
   m_Layer: 0
   m_Name: RightSetOfTrees
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16939,6 +17004,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -17270,6 +17340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -27773,7 +27848,7 @@ GameObject:
   - component: {fileID: 1375113460}
   m_Layer: 0
   m_Name: LeftPoleSet
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27927,6 +28002,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'TreeProp2 '
       objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
       propertyPath: m_RootOrder
@@ -27995,6 +28075,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -28420,6 +28505,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -28587,6 +28677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeProp7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
@@ -39404,6 +39499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoadBlock (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -39484,6 +39584,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -51135,10 +51240,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 618402531, guid: b3e2c43327e2b89489201e9fbdc1f15c, type: 3}
-      propertyPath: maxHealth
-      value: 350
-      objectReference: {fileID: 0}
     - target: {fileID: 1059291133949205253, guid: b3e2c43327e2b89489201e9fbdc1f15c,
         type: 3}
       propertyPath: m_Name
@@ -51199,12 +51300,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1059291133949205258, guid: b3e2c43327e2b89489201e9fbdc1f15c,
-        type: 3}
-      propertyPath: muzzleFlash
-      value: 
-      objectReference: {fileID: 4601021773968484166, guid: 59712195396d4a346b49d54a1848bdb7,
-        type: 3}
     - target: {fileID: 1059291133949205259, guid: b3e2c43327e2b89489201e9fbdc1f15c,
         type: 3}
       propertyPath: debugObject
@@ -51233,6 +51328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223257820647511418, guid: 42d2dcfad93ab994f8c1bab360f87bfc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 1223257820647511419, guid: 42d2dcfad93ab994f8c1bab360f87bfc,
         type: 3}
@@ -51303,6 +51403,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1608268859526960321, guid: 14be51626d2b01d4984887bc6709741b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1608268859526960326, guid: 14be51626d2b01d4984887bc6709741b,
         type: 3}
       propertyPath: m_RootOrder
@@ -51371,6 +51476,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -51510,6 +51620,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4267774061008246942, guid: 640ba29f0c60c0c458d835f074299797,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4267774061008246943, guid: 640ba29f0c60c0c458d835f074299797,
         type: 3}
       propertyPath: m_RootOrder
@@ -51633,6 +51748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580158397513945560, guid: d01da2b3d6a482c4e85d6618deb5f2e4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d01da2b3d6a482c4e85d6618deb5f2e4, type: 3}
@@ -51759,16 +51879,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 8353147503217679080, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.147
-      objectReference: {fileID: 0}
-    - target: {fileID: 8353147503217679080, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.866
-      objectReference: {fileID: 0}
     - target: {fileID: 8499190602258770454, guid: 62f512221ea5efe469431914ea5ce877,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -51778,16 +51888,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974785865222165891, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.15100132
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974785865222165891, guid: 62f512221ea5efe469431914ea5ce877,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.8660012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62f512221ea5efe469431914ea5ce877, type: 3}
@@ -51802,6 +51902,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673976748629020184, guid: 627f1d1812d9f394c90e4e546e23ed6a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 5673976748629020185, guid: 627f1d1812d9f394c90e4e546e23ed6a,
         type: 3}
@@ -51937,6 +52042,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6660993387092264431, guid: 10290f32a51a08c46bf71522974bc46d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 7450334661786307263, guid: 10290f32a51a08c46bf71522974bc46d,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -51975,6 +52085,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadBlock (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863492033317776206, guid: f55ccbb150b37d54a8050ebcfda818bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6490987084001407476, guid: f55ccbb150b37d54a8050ebcfda818bb,
         type: 3}
@@ -52135,6 +52250,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeProp1
       objectReference: {fileID: 0}
+    - target: {fileID: 5910640962547532433, guid: 66479ea83da2bfc4199971fc0b958664,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 6053019191447032937, guid: 66479ea83da2bfc4199971fc0b958664,
         type: 3}
       propertyPath: m_RootOrder
@@ -52203,6 +52323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964762006983096900, guid: c1aa8cf10ced06a4a980a2396e22f5fd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8964762006983096903, guid: c1aa8cf10ced06a4a980a2396e22f5fd,
         type: 3}

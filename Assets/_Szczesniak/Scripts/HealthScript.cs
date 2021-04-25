@@ -26,7 +26,9 @@ namespace Szczesniak {
 
         void Start() {
             health = maxHealth; // set health
-            HealthBarSetup(); // Sets the health bar
+
+            if (healthSlider)
+                HealthBarSetup(); // Sets the health bar
         }
 
         void HealthBarSetup() {
@@ -38,6 +40,18 @@ namespace Szczesniak {
             healthSlider.value = health; // sets health throughout the object's life from being updated
         }
 
+        public void HealingItemEffect(float healthRegain) {
+            if (health <= maxHealth) {
+                health += healthRegain;
+                if (health > maxHealth) {
+                    health = maxHealth;
+                }
+            }
+            
+            if (healthSlider)
+                CurrentHealth();
+        }
+
         /// <summary>
         /// When the object has been damaged
         /// </summary>
@@ -45,7 +59,8 @@ namespace Szczesniak {
         public void DamageTaken(float damage) {
             health -= damage; // takes health away from damage
 
-            CurrentHealth(); // sets the health for the health bar
+            if (healthSlider)
+                CurrentHealth(); // sets the health for the health bar
 
             if (health <= 0) {
                 Destroy(this.gameObject, 3); // destroys the game object in 3 seconds

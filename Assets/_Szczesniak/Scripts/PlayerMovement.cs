@@ -79,6 +79,7 @@ namespace Szczesniak {
 
                     if (Input.GetKeyDown("space") && player.dashTimeToUseAgain <= 0) { // Transition to Dashing when player presses space bar
                         SoundEffectBoard.DashSound(); // plays dash sound effect
+                        player.dashTrail.Play();
                         return new States.Dashing(); // goes to Dashing() state
                     }
 
@@ -187,9 +188,12 @@ namespace Szczesniak {
         /// </summary>
         private HealthScript playerHealth;
 
+        private ParticleSystem dashTrail;
+
         void Start() {
             pawn = GetComponent<CharacterController>(); // Gets CharacterController
             playerHealth = GetComponent<HealthScript>(); // Gets HealthScript
+            dashTrail = GetComponentInChildren<ParticleSystem>();
         }
 
 
