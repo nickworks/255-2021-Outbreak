@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3044641973370348731}
   m_Layer: 0
   m_Name: Enemy Basic
-  m_TagString: Untagged
+  m_TagString: Minions
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +74,8 @@ MonoBehaviour:
   dashDuration: 0.5
   targetDistanceToDash: 6
   enemyExplosion: {fileID: 5651796196059426890, guid: 44cebf338039be64d9d4a29b52cddc6d,
+    type: 3}
+  healthItem: {fileID: 139428117639374877, guid: cf53d976ab42d32469a1bf33f208819a,
     type: 3}
 --- !u!195 &3992645349359143200
 NavMeshAgent:

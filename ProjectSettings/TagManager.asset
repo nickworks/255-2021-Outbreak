@@ -12,6 +12,8 @@ TagManager:
   - Rose
   - Sword
   - MainPlayer
+  - Minions
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4815827494216590074}
   - component: {fileID: 5453896179130742074}
   - component: {fileID: 2757201921843522442}
-  - component: {fileID: 8031637626638706799}
   m_Layer: 0
   m_Name: HealthBox (1)
   m_TagString: Untagged
@@ -114,19 +113,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8031637626638706799
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583128082293625387}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4815038323555213298
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +124,6 @@ GameObject:
   - component: {fileID: 2000396406912567303}
   - component: {fileID: 3089513408750070706}
   - component: {fileID: 340710968375001010}
-  - component: {fileID: 4186427029547255545}
   m_Layer: 0
   m_Name: HealthsignPart2
   m_TagString: Untagged
@@ -209,19 +194,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4186427029547255545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4815038323555213298}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5060052694012975758
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +205,6 @@ GameObject:
   - component: {fileID: 4585354094806103731}
   - component: {fileID: 5128928607124753829}
   - component: {fileID: 8545252498201267408}
-  - component: {fileID: 8981090117175408756}
   m_Layer: 0
   m_Name: HealthsignPart1
   m_TagString: Untagged
@@ -304,19 +275,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8981090117175408756
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060052694012975758}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8285211293799354757
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +286,6 @@ GameObject:
   - component: {fileID: 3665484410468890065}
   - component: {fileID: 3619495710018194640}
   - component: {fileID: 2082218395972005033}
-  - component: {fileID: 3900624444511477404}
   m_Layer: 0
   m_Name: HealthsignPart2
   m_TagString: Untagged
@@ -399,19 +356,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3900624444511477404
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8285211293799354757}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8532317776679803839
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +367,6 @@ GameObject:
   - component: {fileID: 6015008231082458949}
   - component: {fileID: 4030581775020292197}
   - component: {fileID: 7280530964588969445}
-  - component: {fileID: 7722794374053056960}
   m_Layer: 0
   m_Name: HealthsignPart1
   m_TagString: Untagged
@@ -494,19 +437,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7722794374053056960
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8532317776679803839}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8791974691931331441
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +448,6 @@ GameObject:
   - component: {fileID: 8791974691931331442}
   - component: {fileID: 8791974691931331445}
   - component: {fileID: 8791974691931331444}
-  - component: {fileID: 8791974691931331443}
   m_Layer: 0
   m_Name: HealthBox
   m_TagString: Untagged
@@ -589,19 +518,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8791974691931331443
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8791974691931331441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8791974692174179950
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +561,6 @@ GameObject:
   - component: {fileID: 8791974692776928005}
   - component: {fileID: 8791974692776928008}
   - component: {fileID: 8791974692776928007}
-  - component: {fileID: 8791974692776928006}
   m_Layer: 0
   m_Name: HealthsignPart1
   m_TagString: Untagged
@@ -716,19 +631,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8791974692776928006
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8791974692776928004}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8791974692908475332
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +640,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8791974692908475333}
+  - component: {fileID: 139428116959247966}
+  - component: {fileID: 9211947474813425669}
   m_Layer: 0
   m_Name: HealthItem
   m_TagString: Untagged
@@ -764,6 +668,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139428116959247966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791974692908475332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a411f2f0e6f49940873bee895bbdfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthIncreaseAmt: 10
+  rotationSpeed: 0.5
+  bounceAmt: 10
+--- !u!65 &9211947474813425669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791974692908475332}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.59, y: 0.73, z: 0.85}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8791974693408553196
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +707,6 @@ GameObject:
   - component: {fileID: 8791974693408553197}
   - component: {fileID: 8791974693408553200}
   - component: {fileID: 8791974693408553199}
-  - component: {fileID: 8791974693408553198}
   m_Layer: 0
   m_Name: HealthsignPart2
   m_TagString: Untagged
@@ -846,19 +777,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8791974693408553198
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8791974693408553196}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9039791474050427470
 GameObject:
   m_ObjectHideFlags: 0

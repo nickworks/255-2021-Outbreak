@@ -6,7 +6,7 @@ namespace Szczesniak {
 
     public class HealthItem : MonoBehaviour {
 
-        public int healthIncreaseAmt = 10;
+        public float healthIncreaseAmt = 10;
 
         private Vector3 healthItemPos;
 
@@ -15,9 +15,12 @@ namespace Szczesniak {
         public float bounceAmt = 2;
         private float setAmountBounce;
 
+        Transform parentObj;
+
         void Start() {
             healthItemPos = transform.localPosition;
             setAmountBounce = bounceAmt;
+            parentObj = GetComponentInParent<Transform>();
         }
 
 
@@ -36,6 +39,14 @@ namespace Szczesniak {
 
             healthItemPos.y = Mathf.Clamp(healthItemPos.y, -1, 1);
             transform.localPosition += healthItemPos * Time.deltaTime;
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            HealthScript playerHealth = other.GetComponent<HealthScript>();
+            if (playerHealth && other.tag == "Player") {
+                playerHealth.HealingItemEffect(healthIncreaseAmt);
+                Destroy(parentObj.gameObject);
+            }
         }
     }
 }

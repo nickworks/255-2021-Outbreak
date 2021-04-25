@@ -193,6 +193,9 @@ namespace Szczesniak {
         /// </summary>
         public ParticleSystem enemyExplosion;
 
+        private int chanceToSpawnHealth;
+        public Transform healthItem;
+
 
         void Start() {
             nav = GetComponent<NavMeshAgent>(); // Gets navMeshAgent to move around
@@ -201,6 +204,8 @@ namespace Szczesniak {
             bossHealth = bossObject.GetComponent<HealthScript>(); // gets boss's health
             enemyBasicHealth = GetComponent<HealthScript>(); // gets its health
             timeLeftToDestroy = Random.Range(5, 15); // generates random number for timer
+
+            chanceToSpawnHealth = Random.Range(1, 4);
         }
 
         void Update() {
@@ -279,6 +284,7 @@ namespace Szczesniak {
         /// When the minion losses all health
         /// </summary>
         void DeathPhase() {
+            if (chanceToSpawnHealth == 1) Instantiate(healthItem, transform.position, Quaternion.identity);
             Instantiate(enemyExplosion, transform.position, enemyExplosion.transform.rotation); // instantiates the explosion
             nav.enabled = false; // stops minion
             Destroy(gameObject, timeLeftToDestroy); // destroy minion at a certain time
