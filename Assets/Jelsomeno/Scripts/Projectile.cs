@@ -12,6 +12,8 @@ namespace Jelsomeno
         /// </summary>
         private Vector3 velocity;
 
+        public ParticleSystem bulletImpact;
+
         /// <summary>
         /// life time of projectile 
         /// </summary>
@@ -83,6 +85,18 @@ namespace Jelsomeno
 
                 }
 
+            }
+
+        }
+
+        private void OnTriggerEnter(Collider collision)
+        {
+            HealthSystem healthOfEnemy = collision.GetComponent<HealthSystem>();
+            if (collision.gameObject.tag == "Boss" && healthOfEnemy)
+            {
+                healthOfEnemy.DamageTaken(25);
+
+                Instantiate(bulletImpact, this.transform.position, Quaternion.identity);
             }
 
         }

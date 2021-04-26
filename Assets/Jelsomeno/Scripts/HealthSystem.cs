@@ -1,39 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Jelsomeno
 {
     public class HealthSystem : MonoBehaviour
     {
-  
+
         public float health { get; private set; }
-        public float healthMax = 100;
 
-        //public GameObject impactEffect;
+        public float maxHealth = 100;
 
-        private void Start()
+        public Slider healthSlider;
+
+        void Start()
         {
-            health = healthMax;// at start the player has maxhealth
-        }
-        /// <summary>
-        /// if the target is taking damage
-        /// </summary>
-        /// <param name="amt"></param>
-        public void TakeDamage(float amt)
-        {
-            if (amt <= 0) return;
-
-            health -= amt;
-
-            if (health <= 0) Die(); // if the health of player or boss drops below it health it runs the Die method 
+            health = maxHealth; 
+            HealthBarSetup(); 
         }
 
-        public void Die()
+        void HealthBarSetup()
         {
+            healthSlider.maxValue = health; 
+            healthSlider.value = health; 
+       }
 
-            Destroy(gameObject);// when player or enemy has no more health then the gameobject is destroyed
+        void CurrentHealth()
+        {
+            healthSlider.value = health; 
+        }
 
+        public void DamageTaken(float damage)
+        {
+            health -= damage; 
+            CurrentHealth(); 
+
+            if (health <= 0)
+            {
+                Destroy(this.gameObject); 
+
+            }
         }
     }
 

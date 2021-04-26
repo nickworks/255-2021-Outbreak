@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2457676425068887654}
   - component: {fileID: 1461755633707346617}
   - component: {fileID: 8516939065932433498}
+  - component: {fileID: 5144439073844787827}
   m_Layer: 0
   m_Name: HeavyShotBullet
   m_TagString: Untagged
@@ -90,8 +91,23 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9211804531329711110}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5144439073844787827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9211804531329711110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731a384647d286d43a441e6e944f1eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmt: 25
+  bulletImpact: {fileID: 4731150817046841335, guid: fa6e39f3d91e300419b61039563b47cb,
+    type: 3}

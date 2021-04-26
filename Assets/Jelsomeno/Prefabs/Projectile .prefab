@@ -109,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac0a4cf416dd3a468b3ca448380655b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletImpact: {fileID: 3753877468297128061, guid: ced486243c233d8439887e1c81ed0876,
+    type: 3}
 --- !u!54 &4278649819825684690
 Rigidbody:
   m_ObjectHideFlags: 0

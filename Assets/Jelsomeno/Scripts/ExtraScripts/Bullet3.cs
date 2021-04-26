@@ -48,7 +48,7 @@ namespace Jelsomeno
                     HealthSystem playerHealth = target.GetComponent<HealthSystem>();
                     if (playerHealth)
                     {
-                        playerHealth.TakeDamage(10);
+                        playerHealth.DamageTaken(10);
                     }
                     Destroy(gameObject);
                 }

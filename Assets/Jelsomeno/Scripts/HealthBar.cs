@@ -14,7 +14,7 @@ namespace Jelsomeno
 
         public HealthSystem playerHealth; // reference to health system
         public Image fillImage;// image used to fill the health bar
-        private Slider slider; // slider reference
+        public Slider slider; // slider reference
 
 
         // Start is called before the first frame update
@@ -36,7 +36,7 @@ namespace Jelsomeno
                 fillImage.enabled = true;  // unfill health bar
             }
 
-            float fillvalue = playerHealth.health / playerHealth.healthMax;
+            float fillvalue = playerHealth.health / playerHealth.maxHealth;
             if (fillvalue <= slider.maxValue / 3)
             {
                 fillImage.color = Color.red; // when health gets down to a certain point it turns red 
