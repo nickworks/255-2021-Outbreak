@@ -5,20 +5,26 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
+    /// <summary>
+    /// this class is meant to handle the bosses attacking modes using the state pattern
+    /// </summary>
     public class BossAttack2 : MonoBehaviour
     {
+        /// <summary>
+        /// state pattern class
+        /// </summary>
         static class States
         {
             public class State
             {
 
                 /// <summary>
-                /// To get access outside of this child class, boss is needed to access outside variables.
+                /// boss is needs to get access to the outside variables.
                 /// </summary>
                 protected BossAttack2 bossAttack;
 
                 /// <summary>
-                /// Sets update up.
+                /// Setting the update
                 /// </summary>
                 /// <returns></returns>
                 virtual public State Update()
@@ -28,7 +34,7 @@ namespace Jelsomeno
                 }
 
                 /// <summary>
-                /// Referencing BossAttackState
+                /// References the BossAttack2
                 /// </summary>
                 /// <param name="bossAttack"></param>
                 virtual public void OnStart(BossAttack2 bossAttack)
@@ -37,7 +43,7 @@ namespace Jelsomeno
                 }
 
                 /// <summary>
-                /// Tell when it is done
+                /// it is done
                 /// </summary>
                 virtual public void OnEnd()
                 {
@@ -45,25 +51,25 @@ namespace Jelsomeno
                 }
             }
 
-            //////////////////////////// Child Classes: 
+            /////////// Child Classes: 
 
             /// <summary>
-            /// State when the boss has no targets to attack
+            /// boss has nothing to attack
             /// </summary>
             public class Idle : State
             {
                 public override State Update()
                 {
 
-                    // Transitions:
-                    if (bossAttack.healthAmt.health <= 0) // if the boss's health is at 0 or less, it will stop everything.
+                    // Transition to:
+                    if (bossAttack.healthAmt.health <= 0) // the bosses health is gone
                         return null;
 
-                    // if the boss turret can see the player and has bullets in clip
-                    if (bossAttack.bulletAmountInClip > 0 && bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance))
-                        return new States.HeavyShot(); // goes to MiniGunAttack() state
+                    // the boss sees the player and has ammo
+                    if (bossAttack.bulletAmount > 0 && bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance))
+                        return new States.HeavyShot(); // go to main attack mode
 
-                    if (bossAttack.viewingDistance <= 5) return new States.Flamethrower();
+                    if (bossAttack.viewingDistance <= 5) return new States.Flamethrower(); // meant to switch to flamethrower once player got into a certain range 
 
 
                     return null;
@@ -73,64 +79,65 @@ namespace Jelsomeno
 
 
             /// <summary>
-            /// State that fires the minigun
+            /// shoots the main weapon against the player
             /// </summary>
             public class HeavyShot : State
             {
                 public override State Update()
                 {
                     // behaviour
-                    bossAttack.MachineGun(); // run the machine gun method
-                    bossAttack.TurnTowardsTarget(); // runs method to turn towards the target
+                    bossAttack.TankShoot(); // use the TankShoot method
+                    bossAttack.TurnToPlayer(); // points at the player by using this method
 
-                    // transition
-                    if (bossAttack.healthAmt.health <= 0) // if health is a 0 or less (When boss dies)
-                        return new States.Idle(); // goes to Idle() state
+                    // transition to :
 
-                    // if the boss turret can't see the enemy
-                    if (!bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.Idle(); // goes to Idle() state
+                    if (bossAttack.healthAmt.health <= 0) // boss dies when it loses all its health
+                        return new States.Idle(); // goes back to the idle state
 
-                    // if the boss has no bullets
-                    if (bossAttack.bulletAmountInClip <= 0) return new States.Reload(bossAttack.reloadingTime); // goes to Reload() state
+                    // boss can not see the player
+                    if (!bossAttack.CanSeeThing(bossAttack.player, bossAttack.viewingDistance)) return new States.Idle(); // goes back to the idle state
 
-                    if (bossAttack.viewingDistance <= 5) return new States.Flamethrower();
+                    // boss has not ammo ready
+                    if (bossAttack.bulletAmount <= 0) return new States.Reload(bossAttack.reloadingTime); // reload 
+
+                    if (bossAttack.viewingDistance <= 5) return new States.Flamethrower(); // meant to switch to flamethrower once player got into a certain range 
 
                     return null;
                 }
             }
 
             /// <summary>
-            /// State for boss to reload minigun
+            /// reload the main weapon for the gun
             /// </summary>
             public class Reload : State
             {
 
-                float reloadTime = 5; // time to reload
+                float reloadTime = 5; // how long it takes to reload
 
                 public Reload(float reload)
                 {
-                    reloadTime = reload; // re-sets reload time
+                    reloadTime = reload; // timer is reset
                 }
 
                 public override State Update()
                 {
-                    // behaviour
-                    reloadTime -= Time.deltaTime; // counts down the reload time
 
-                    if (reloadTime <= 0) return new States.Idle(); // if reload time is at or below 0, goes to Idle() state
+                    reloadTime -= Time.deltaTime; // reload timer
+
+                    if (reloadTime <= 0) return new States.Idle(); // goes to idle well reloading
 
                     return null;
                 }
 
-                // At the end of the state
+                // end of this state
                 public override void OnEnd()
                 {
-                    bossAttack.bulletAmountInClip = bossAttack.maxRoundsToHave; // refills bullets
+                    bossAttack.bulletAmount = bossAttack.maxRounds; // reload back to max
                 }
             }
 
             /// <summary>
-            /// State for Homing Missiles to spawn
+            /// this was meant for flamethrower but was having probelems getting a particle system to do damage
             /// </summary>
             public class Flamethrower : State
             {
@@ -138,134 +145,120 @@ namespace Jelsomeno
                 public override State Update()
                 {
 
- 
-
-                    return new States.HeavyShot(); // goes to Idle() state
+                    return new States.HeavyShot(); // goe back to the Heavy Shot
                 }
             }
         }
 
         /// <summary>
-        /// access the state pattern, maintain it, and make it function.
+        /// accesses the state pattern and makes it function.
         /// </summary>
         private States.State state;
 
         /// <summary>
-        /// Prefab for the boss's bullets
+        /// the object that will act as the bullets for the boss
         /// </summary>
         public EnemyProjectile prefabBullets;
 
 
         /// <summary>
-        /// amount of bullets the boss can fire
+        /// how many heavy shots the boss can take
         /// </summary>
-        private int bulletAmountInClip = 50;
+        private int bulletAmount = 50;
 
         /// <summary>
-        /// Max bullets it can set
+        /// Max amount of shots for the boss to have
         /// </summary>
-        public int maxRoundsToHave = 50;
+        public int maxRounds = 50;
 
         /// <summary>
-        /// Time it takes to reload
+        /// how long it will take to reload
         /// </summary>
         public float reloadingTime = 0;
 
 
         /// <summary>
-        /// Left muzzle to fire bullets from
+        /// where to spawn the heavy shot from
         /// </summary>
         public Transform bulletSpawn;
 
-
-
         /// <summary>
-        /// Rounds per second to fire
+        /// Rounds per second 
         /// </summary>
         public float roundPerSec = 20;
 
         /// <summary>
-        /// Amount of bullet to fire per second
+        ///  bullets to shoot per second
         /// </summary>
         private float bulletAmountTime = 0;
 
 
         /// <summary>
-        /// Health of the boss
+        /// total health of the boss
         /// </summary>
         public HealthSystem healthAmt;
 
 
         /// <summary>
-        /// Boss turret viewing angle
+        /// field of the view for the heavy shot, same as in the boss2 script
         /// </summary>
         public float viewingAngle = 90;
 
         /// <summary>
-        /// Boss turret viewing distance
+        /// viewing distance for the boss to attack the player, same as in the boss2 script
         /// </summary>
         public float viewingDistance = 20;
 
         /// <summary>
-        /// target to shoot at in viewing
+        /// gets reference to the player which is the target of the boss
         /// </summary>
         public Transform player;
 
         /// <summary>
-        /// The start rotation
+        /// start rotating
         /// </summary>
         private Quaternion startingRotation;
 
         [Header("Rotation Lock")]
 
         /// <summary>
-        /// Lock X rotation
+        /// Locks the X-rotation
         /// </summary>
         public bool lockRotationX;
 
         /// <summary>
-        /// Lock Y rotation
+        /// Locks the Y-rotation
         /// </summary>
         public bool lockRotationY;
 
         /// <summary>
-        /// Lock Z rotation
+        /// Locks the Z-rotation
         /// </summary>
         public bool lockRotationZ;
 
 
         void Start()
         {
-            // Getting components
-            startingRotation = transform.localRotation; // gets the local rotation to rotate back to when there is no target
-            healthAmt = GetComponentInParent<HealthSystem>(); // gets HealthScript for health information
+            startingRotation = transform.localRotation; // gets the local rotation
+            healthAmt = GetComponentInParent<HealthSystem>(); // gets a reference to the HealthSystem script at the start
         }
 
         private void Update()
         {
 
-            // Makes the script not run if boss health is 0 or below:
+            // Makes the script not run if boss is dead
             if (healthAmt.health <= 0)
             {
                 return;
             }
 
-            // if nothing is assigned to the state, then make the state go to the Regular() state
-            if (state == null) SwitchState(new States.Idle());
+            if (state == null) SwitchState(new States.Idle()); // go to the idle state when no other state can be assigned
 
-            if (state != null) SwitchState(state.Update()); // makes the state run it's update method
+            if (state != null) SwitchState(state.Update()); // run the state update method
 
-            if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime; // amount of bullets it would fire
+            if (bulletAmountTime > 0) bulletAmountTime -= Time.deltaTime; // amount of heavyshots the tank can shoot
 
-
-            // missile spawn it TRUE
-            // FALSE when fired
-            // Begins count down
-            // When count down is at 0, spawns missle and ready to fire
         }
-
- 
-
 
         /// <summary>
         /// Makes the state swtich to a different state
@@ -273,68 +266,61 @@ namespace Jelsomeno
         /// <param name="newState"></param>
         void SwitchState(States.State newState)
         {
-            if (newState == null) return; // don't switch to nothing...
+            if (newState == null) return; // don't switch 
 
-            if (state != null) state.OnEnd(); // tell previous state it is done
-            state = newState; // swap states
+            if (state != null) state.OnEnd(); // when it is done tell other states
+            state = newState; 
             state.OnStart(this);
         }
 
         /// <summary>
-        /// Turns turret towards the target
+        /// Turns the barrel of the tank at the player
         /// </summary>
-        private void TurnTowardsTarget()
+        private void TurnToPlayer()
         {
 
-            if (player)
-            { // if player is set as a target
-                Vector3 disToTarget = player.position - transform.position; // Gets distance
+            if (player) // player is the target
+            { 
+                Vector3 disToTarget = player.position - transform.position; // how far away is the player
 
-                Quaternion targetRotation = Quaternion.LookRotation(disToTarget, Vector3.up); // Gets target rotation
-
-                Vector3 euler1 = transform.localEulerAngles; // get local angles BEFORE rotation
-                Quaternion prevRot = transform.rotation; // 
+                Quaternion targetRotation = Quaternion.LookRotation(disToTarget, Vector3.up); // how the player is rotated
+                Vector3 euler1 = transform.localEulerAngles; // get local angles 
+                Quaternion prevRot = transform.rotation; 
                 transform.rotation = targetRotation; // Set Rotation
-                Vector3 euler2 = transform.localEulerAngles; // get local angles AFTER rotation
+                Vector3 euler2 = transform.localEulerAngles; // get local angles again
 
-                if (lockRotationX) euler2.x = euler1.x; //revert x to previous value;
-                if (lockRotationY) euler2.y = euler1.y; //revert y to previous value;
-                if (lockRotationZ) euler2.z = euler1.z; //revert z to previous value;
+                if (lockRotationX) euler2.x = euler1.x; //revert to  previous value;
+                if (lockRotationY) euler2.y = euler1.y; //revert to previous value;
+                if (lockRotationZ) euler2.z = euler1.z; //revert to previous value;
 
-                transform.rotation = prevRot; // This objects rotation turns into the prevRot
+                transform.rotation = prevRot; // go back to previous Rotaion
 
-                transform.localRotation = AnimMath.Slide(transform.localRotation, Quaternion.Euler(euler2), .5f); // slides to rotation
+                transform.localRotation = AnimMath.Slide(transform.localRotation, Quaternion.Euler(euler2), .5f); // slides into a smoother rotation
             }
             else
             {
-                // figure out bone rotation, no target:
 
                 transform.localRotation = AnimMath.Slide(transform.localRotation, startingRotation, .05f);
             }
         }
 
         /// <summary>
-        /// Fires the machine gun to shoot at target
+        /// tank shoots its main weapon
         /// </summary>
-        void MachineGun()
+        void TankShoot()
         {
-            if (bulletAmountTime > 0) return; // rate of fire manager
+            if (bulletAmountTime > 0) return; // how fast the tank shoots
 
-            EnemyProjectile Bullets = Instantiate(prefabBullets, bulletSpawn.position, bulletSpawn.transform.rotation); // spawns bullet
-            Bullets.InitBullet(transform.forward * 30); // sets velocity of the projectile
+            EnemyProjectile Bullets = Instantiate(prefabBullets, bulletSpawn.position, bulletSpawn.transform.rotation); // spawns bullet object
+            Bullets.InitBullet(transform.forward * 30); // speed of object
 
-            bulletAmountInClip--; // removes a bullet
-            bulletAmountTime = 1 / roundPerSec; // cause the rate of fire to happen
-        }
-
-        void Flamethrower()
-        {
-
+            bulletAmount--; // removes a bullet from the tanks current ammo count
+            bulletAmountTime = 1 / roundPerSec; // causes the rate of fire
         }
 
 
         /// <summary>
-        /// If the turret can see the target
+        /// boss can see the player/its enemy
         /// </summary>
         /// <param name="thing"></param>
         /// <param name="viewingDis"></param>
@@ -342,20 +328,17 @@ namespace Jelsomeno
         private bool CanSeeThing(Transform thing, float viewingDis)
         {
 
-            if (!thing) return false; // uh... error
+            if (!thing) return false; // return
 
-            Vector3 vToThing = thing.position - transform.position; // distance from boss to target
+            Vector3 vToThing = thing.position - transform.position; // how far the player is from the boss
 
-            // check distance
+
             if (vToThing.sqrMagnitude > viewingDis * viewingDis)
-            { // can't see target
-                return false; // Too far away to see...
+            { 
+                return false; // player is to far so return
             }
 
-            // check direction
-            if (Vector3.Angle(transform.forward, vToThing) > viewingAngle) return false; // out of vision "cone"
-
-            // TODO: Check occulusion
+            if (Vector3.Angle(transform.forward, vToThing) > viewingAngle) return false; // player is out of field of view
 
             return true;
         }

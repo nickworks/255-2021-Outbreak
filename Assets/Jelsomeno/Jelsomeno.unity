@@ -9264,7 +9264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae2ce0d8d9550f42b727b955e36bff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 400
   healthSlider: {fileID: 971302151}
 --- !u!1 &662850023 stripped
 GameObject:
@@ -11139,7 +11139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae2ce0d8d9550f42b727b955e36bff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 400
   healthSlider: {fileID: 1802376636}
 --- !u!114 &746357799
 MonoBehaviour:
@@ -11155,13 +11155,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBullets: {fileID: 5144439073844787827, guid: 38da04faeaf62ea4d906f209e00ea10e,
     type: 3}
-  maxRoundsToHave: 15
+  maxRounds: 50
   reloadingTime: 5
   bulletSpawn: {fileID: 17527990}
   roundPerSec: 3
   healthAmt: {fileID: 0}
   viewingAngle: 90
-  viewingDistance: 15
+  viewingDistance: 25
   player: {fileID: 657506754}
   lockRotationX: 0
   lockRotationY: 0
@@ -11184,12 +11184,9 @@ MonoBehaviour:
   - {fileID: 1034377371}
   - {fileID: 1172241274}
   - {fileID: 48049415}
-  viewingDistance: 15
+  viewingDistance: 25
   viewingAngle: 90
   stoppingDistance: 25
-  shootingRange: 15
-  explosion: {fileID: 0}
-  cameraSwitching: {fileID: 1307227263}
 --- !u!4 &746357801 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8637995925148001031, guid: e6265776e925f67448a875f409d1c703,
@@ -29661,6 +29658,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96579474393553309, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1190ecce4f3ad649a4646725699b00e, type: 2}
     - target: {fileID: 341595407947156375, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -29751,6 +29753,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 7.046
       objectReference: {fileID: 0}
+    - target: {fileID: 4890985209047565155, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1190ecce4f3ad649a4646725699b00e, type: 2}
+    - target: {fileID: 5856488608525408694, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1190ecce4f3ad649a4646725699b00e, type: 2}
     - target: {fileID: 6733422531660881435, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
         type: 3}
       propertyPath: ShapeModule.type
@@ -29781,6 +29793,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7543878576972302834, guid: e5f9382f1ee4b2b4a85088ae68bc86bc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1190ecce4f3ad649a4646725699b00e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f9382f1ee4b2b4a85088ae68bc86bc, type: 3}
 --- !u!1001 &1985580490

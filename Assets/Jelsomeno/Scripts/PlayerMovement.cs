@@ -5,10 +5,14 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
-
+    /// <summary>
+    /// this class usees a state machine for the player movement 
+    /// </summary>
     public class PlayerMovement : MonoBehaviour
     {
-
+        /// <summary>
+        /// the states of the player movement
+        /// </summary>
         public enum MoveState
         {
             Regular, //0
@@ -19,8 +23,14 @@ namespace Jelsomeno
 
         }
 
-
+        /// <summary>
+        /// players movement speed 
+        /// </summary>
         public float playerSpeed = 10;
+
+        /// <summary>
+        /// controller to control the pawn/player
+        /// </summary>
         private CharacterController pawn;
         MoveState currentMoveState = MoveState.Regular;
 
@@ -68,8 +78,8 @@ namespace Jelsomeno
                     {
 
                         currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxisRaw("Horizontal");
-                        float v = Input.GetAxisRaw("Vertical");
+                        float h = Input.GetAxisRaw("Horizontal"); // -1 or 0 or 1
+                        float v = Input.GetAxisRaw("Vertical"); // -1 or 0 or 1
                         dashDirection = new Vector3(h, 0, v).normalized;                        
                         dashTimer = .15f;
 
@@ -115,7 +125,9 @@ namespace Jelsomeno
                     break;
             }
         }
-
+        /// <summary>
+        /// moves the player while they are dashing
+        /// </summary>
         private void DashThePlayer()
         {
             pawn.Move(dashDirection * Time.deltaTime * dashSpeed);

@@ -66,7 +66,7 @@ namespace Jelsomeno
                 }
             }
             /// <summary>
-            /// 
+            /// enters the player into its attacking mode //// does not work
             /// </summary>
             public class Attacking : State {
                 public override State Update()
@@ -97,13 +97,13 @@ namespace Jelsomeno
                 {
                     timeLeft -= Time.deltaTime;
 
-                    if (timeLeft <= 0) return new States.Regular();
+                    if (timeLeft <= 0) return new States.Regular(); // goes back to the regular state 
 
                     return null;
                 }
                 public override void OnEnd()
                 {
-                    weapon.roundsInClip = 8;
+                    weapon.roundsInClip = 8; // how many rounds the player has
                 }
             }
         }

@@ -5,40 +5,55 @@ using UnityEngine.UI;
 
 namespace Jelsomeno
 {
+    /// <summary>
+    /// this class handles the health for both the boss and player
+    /// </summary>
     public class HealthSystem : MonoBehaviour
     {
-
+        /// <summary>
+        /// health of what ever object/player/AI that is linked to this script
+        /// </summary>
         public float health { get; private set; }
 
+        /// <summary>
+        /// max health that can be changed in the inspector
+        /// </summary>
         public float maxHealth = 100;
 
+        /// <summary>
+        /// referencet to the slider bars in the UI
+        /// </summary>
         public Slider healthSlider;
 
         void Start()
         {
-            health = maxHealth; 
-            HealthBarSetup(); 
+            health = maxHealth; // set the health
+            HealthBarSetup(); // health bar is ready
         }
 
         void HealthBarSetup()
         {
-            healthSlider.maxValue = health; 
-            healthSlider.value = health; 
+            healthSlider.maxValue = health; // health bar is full
+            healthSlider.value = health; // health bar can change
        }
 
         void CurrentHealth()
         {
-            healthSlider.value = health; 
+            healthSlider.value = health; // gets the objects life throughout the game
         }
 
+        /// <summary>
+        /// object is taking damage
+        /// </summary>
+        /// <param name="damage"></param>
         public void DamageTaken(float damage)
         {
-            health -= damage; 
-            CurrentHealth(); 
+            health -= damage; // losing health
+            CurrentHealth(); // constantly setting health on the health bars
 
             if (health <= 0)
             {
-                Destroy(this.gameObject); 
+                Destroy(this.gameObject); // destroys the game object once it loses all its health
 
             }
         }

@@ -4,11 +4,19 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
+    /// <summary>
+    /// this class will go to the game over screen once one of the player or boss dies
+    /// </summary>
     public class GameOver : MonoBehaviour
     {
-
+        /// <summary>
+        /// Getting the reference to the boss
+        /// </summary>
         public Transform boss;
 
+        /// <summary>
+        /// Getting the reference to the player
+        /// </summary>
         public Transform player;
 
 
@@ -16,9 +24,9 @@ namespace Jelsomeno
         void Update()
         {
 
-            if (!boss) Outbreak.Game.GotoNextLevel(); // if boss is dead, then go to the next level
+            if (!boss) Outbreak.Game.GameOver(); // if boss is dead, then the game is over
 
-            if (!player) Outbreak.Game.GameOver(); // if player is dead, then game over
+            if (!player) Outbreak.Game.GameOver(); // if player is dead, then the is game over
 
         }
     }

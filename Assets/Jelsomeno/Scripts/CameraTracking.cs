@@ -22,9 +22,9 @@ namespace Jelsomeno
                 //transform.position += vToTarget * .05f;
                 //transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime);
 
-                float p = 1 - Mathf.Pow(.01f, Time.deltaTime);
+                float p = 1 - Mathf.Pow(.01f, Time.deltaTime); // getting p
 
-                transform.position = Vector3.Lerp(transform.position, target.position, p);
+                transform.position = Vector3.Lerp(transform.position, target.position, p); // creates a smoother turn for the camera by using lerp
 
             }
         }
