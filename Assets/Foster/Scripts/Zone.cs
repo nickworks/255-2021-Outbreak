@@ -8,7 +8,7 @@ namespace Foster
     {
        new static public ZoneInfo info = new ZoneInfo()
         {
-            zoneName = "",
+            zoneName = "Forest Home",
             creator = "Emily Foster",
             sceneFile = "Foster_Scene"
         };

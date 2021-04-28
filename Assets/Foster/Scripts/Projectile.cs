@@ -11,20 +11,12 @@ namespace Foster
         /// <summary>
         /// How long the projectile should live in seconds
         /// </summary>
-        private float lifespan = 3;
+        private float lifespan = .4f;
 
         /// <summary>
         /// How many seconds this projectile has been alive
         /// </summary>
         private float age = 0;
-
-
-        void Start()
-        {
-
-        }
-
-
 
         public void InitBullet(Vector3 vel)
         {
@@ -34,7 +26,7 @@ namespace Foster
         void Update()
         {
             age += Time.deltaTime;
-            if(age > lifespan)
+            if (age > lifespan)
             {
                 Destroy(gameObject);
             }
@@ -42,5 +34,20 @@ namespace Foster
             //euler physics intergration;
             transform.position += velocity * Time.deltaTime;
         }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (this.tag == ("Player") & other.tag == ("EnemyBullet"))
+            {
+                Destroy(gameObject);
+            }
+
+            if (this.tag == ("Enemy") & other.tag == ("Bullet"))
+            {
+                Destroy(gameObject);
+
+            }
+        }
+
     }
 }

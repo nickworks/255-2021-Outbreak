@@ -35,15 +35,37 @@ namespace Foster
         /// </summary>
         private float dashTimer = 0;
 
+
+        //health and mana 
+        public static float health { get; set; }
+        public float healthMax = 100f;
+
+        public static float mana { get; set; }
+        public float manaMax = 100;
+        public float manaRegenTimer = 0f;
+
+        private bool pain;
+
         void Start()
         { 
             pawn = GetComponent<CharacterController>();
+
+            health = healthMax;
+            mana = manaMax;
+
 
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (health >= 100) health = 100;
+            ManaRegen();
+            if (manaRegenTimer >= 0) manaRegenTimer -= Time.deltaTime;
+            //print(health);
+            //print(mana);
+
+            if (pain) health -= .1f;
 
             switch (currentMoveState)
             {
@@ -64,7 +86,7 @@ namespace Foster
                         float v = Input.GetAxisRaw("Vertical");
                         dashDirection = new Vector3(h, 0, v);
                         dashDirection.Normalize();
-                        dashTimer = .25f;
+                        dashTimer = .5f;
 
                         //clamps the length of dashDir to 1
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
@@ -113,6 +135,50 @@ namespace Foster
             }
 
         }
+        public void OnTriggerEnter(Collider other)
+        {
+            if (this.tag == ("Player") & other.tag == ("EnemyBullet"))
+            {
+                TakeDamage(50);
+                print("Player Damaged");
+               // Destroy(gameObject);
+            }
+            if (this.tag == ("Player") & other.tag == ("DamageCircle"))
+            {
+                pain = true;
+            }
+        }
+
+        public void OnTriggerExit(Collider other)
+        {
+            if (this.tag == ("Player") & other.tag == ("DamageCircle"))
+            {
+                pain = false;
+            }
+        }
+        //called when the player/boss takes damage
+        public void TakeDamage(int amt)
+        {
+            if (amt <= 0) return;
+            health -= amt;
+
+            if (health <= 0) Die();
+        }
+
+        //mana regeneration over time when the player/boss uses spells 
+        public void ManaRegen()
+        {
+            if (mana <= 99)
+            {
+                if (manaRegenTimer <= 0)
+                {
+                    mana += 1;
+                    manaRegenTimer = .06f;
+                }
+            }
+            if (mana == 100) return;
+        }
+
         private void DashThePlayer()
         {
             pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
@@ -129,6 +195,12 @@ namespace Foster
             pawn.SimpleMove(move * playerSpeed * mult);
 
 
+        }
+        public void Die()
+        {
+            print("DEAD");
+            Destroy(gameObject);
+            Outbreak.Game.GameOver();
         }
     }
 }
