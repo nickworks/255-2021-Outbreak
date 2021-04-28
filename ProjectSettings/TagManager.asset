@@ -16,6 +16,9 @@ TagManager:
   - Enemy
   - Minions
   - Bullet
+  - EnemyBullet
+  - Floor
+  - DamageCircle
   layers:
   - Default
   - TransparentFX
@@ -25,7 +28,7 @@ TagManager:
   - UI
   - One Way Platform
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
