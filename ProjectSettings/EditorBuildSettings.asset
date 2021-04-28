@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Core/Scenes/GameOver.unity
     guid: 57ab8f9b85bd030459953cd5146b7c17
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Velting/Velting.unity
     guid: 34116571de6d6aa409065f640f8fd476
   - enabled: 1
