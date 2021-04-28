@@ -83,8 +83,9 @@ namespace Howley
                     boss.Stunned();
                     boss.isAttacking = false;
                     boss.DamageCooldown();
-                    // Transitions:
 
+                    // Transitions:
+                    if (boss.damageCooldown <= 0) boss.SwitchState(new States.Idle());
                     if (boss.health.health <= 0) boss.SwitchState(new States.Death());
                     return null;
                 }
@@ -179,7 +180,7 @@ namespace Howley
         // Set pawn to CharacterController
         private CharacterController pawn;
 
-        private HealthSystem health;
+        public HealthSystem health;
 
         // Reference the target to move towards
         public Transform attackTarget;
@@ -424,6 +425,7 @@ namespace Howley
             if (!isAttacking && canTakeDamage)
             {
                 SwitchState(new States.Stunned());
+                health.Damage(25);
             }
             
         }

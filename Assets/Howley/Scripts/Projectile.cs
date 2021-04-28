@@ -12,6 +12,8 @@ namespace Howley
         /// </summary>
         private Vector3 velocity;
 
+        private BossStates boss;
+
         /// <summary>
         /// How long until the projectile is destroyed.
         /// </summary>
@@ -22,10 +24,6 @@ namespace Howley
         /// </summary>
         private float age = 0;
 
-        void Start()
-        {
-
-        }
         public void InitBullet(Vector3 vel)
         {
             velocity = vel;
@@ -63,7 +61,6 @@ namespace Howley
                  // Measure the moveable distance
                  if (hit.transform.tag == "Wall")
                  {
-
                     Vector3 normal = hit.normal;
                     normal.y = 0;
 
@@ -79,10 +76,6 @@ namespace Howley
                     velocity = reflection;
 
                     transform.position = hit.point;
-                 }
-                 if (hit.transform.tag == "Player")
-                 {
-
                  }
             }
 

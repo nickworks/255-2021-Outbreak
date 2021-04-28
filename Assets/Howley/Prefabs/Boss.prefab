@@ -292,7 +292,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109467225005012}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.3702679, y: 2.5766366, z: 1.8563347}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 5656952223599604130}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bc5f6e4fc873e40b9f547a5f254cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 0}
   attackTarget: {fileID: 0}
   neckBone: {fileID: 4112109469135063670}
   torsoBone: {fileID: 4112109468098945670}
@@ -413,7 +414,8 @@ MonoBehaviour:
   hipLeft: {fileID: 4112109468883894750}
   hipRight: {fileID: 4112109467225005013}
   tailBone: {fileID: 4112109468664070061}
-  prefabProjectile: {fileID: 0}
+  prefabProjectile: {fileID: 491720133340043080, guid: 8dd4a9d0c7912c24b965df99bcb7bf58,
+    type: 3}
   visDis: 10
   attackDis: 6
   visCone: 80
@@ -479,7 +481,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109467274522220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.7479682, y: 3.2220466, z: 2.5446835}
@@ -492,7 +494,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109467274522220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.799181, y: 3.8211484, z: 2.757626}
@@ -1354,7 +1356,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109467836114102}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.706367, y: 3.921919, z: 2.671877}
@@ -1852,7 +1854,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109467973585563}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.0449286, y: 3.8452532, z: 2.977849}
@@ -3284,7 +3286,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109468664070060}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.948905, y: 2.222311, z: 6.7989826}
@@ -3622,7 +3624,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4112109468883894749}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.1995368, y: 2.731355, z: 1.7296305}
