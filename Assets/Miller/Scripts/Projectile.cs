@@ -26,7 +26,7 @@ namespace Miller
 
 
 
-            if (other.tag == "Enemy")
+            if (other.gameObject.tag == "Enemy")
             {
                 other.gameObject.GetComponent<Boss>().BossTakeDamage(damage);
             }
@@ -34,12 +34,6 @@ namespace Miller
 
         }
 
-
-
-        void Start()
-        {
-
-        }
 
         public void InitBullet(Vector3 vel)
         {

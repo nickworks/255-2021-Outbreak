@@ -24,13 +24,13 @@ public class BossProjectile : MonoBehaviour
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
+            if (other.gameObject.tag == "Player")
             {
                 other.gameObject.GetComponent<Player>().TakeDamage(damage);
             }
 
 
-        }
+        }  
 
 
 
