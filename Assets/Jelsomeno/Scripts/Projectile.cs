@@ -13,16 +13,28 @@ namespace Jelsomeno
         private Vector3 velocity;
 
         /// <summary>
+        /// on bullet hit, sparks will fly up using this particle system
+        /// </summary>
+        public ParticleSystem bulletImpact;
+
+        /// <summary>
         /// life time of projectile 
         /// </summary>
         private float lifespan = 3;
 
+        /// <summary>
+        /// how long the projectile has been alive
+        /// </summary>
         private float age = 0;
 
         void Start()
         {
 
         }
+        /// <summary>
+        /// setting the velocity of projectile
+        /// </summary>
+        /// <param name="vel"></param>
         public void InitBullet(Vector3 vel)
         {
             velocity = vel;// velocity of the bullet 
@@ -32,8 +44,8 @@ namespace Jelsomeno
         void Update()
         {
 
-            age += Time.deltaTime;
-            if(age > lifespan)
+            age += Time.deltaTime; // counts the age up
+            if(age > lifespan) // if the age becomes older then lifespan
             {
                 Destroy(gameObject); // destroys the bullet after it lifespan is over 
 
@@ -46,10 +58,12 @@ namespace Jelsomeno
 
         }
 
+        /// <summary>
+        /// created in class to help bullets bounce off walls
+        /// </summary>
         private void RaycastCheck()
         {
             // make a ray
-
             Ray ray = new Ray(transform.position, velocity * Time.deltaTime);
 
             // draw the ray:
@@ -70,19 +84,35 @@ namespace Jelsomeno
                     Vector3 random = Random.onUnitSphere;
                     random.y = 0;
 
-                    normal += random * .5f;
+                    normal += random * .5f;// mixes normal with random
 
-                    normal.Normalize();
+                    normal.Normalize(); // make unit
 
                     float allignment = Vector3.Dot(velocity, normal);
                     Vector3 reflection = velocity - 2 * allignment * normal;
 
-                    velocity = reflection;
+                    velocity = reflection;// cause
 
                     transform.position = hit.point;
 
                 }
 
+            }
+
+        }
+
+        /// <summary>
+        /// projectile is hitting a target, in this case the boss
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnTriggerEnter(Collider collision)
+        {
+            HealthSystem healthOfEnemy = collision.GetComponent<HealthSystem>(); // gets the health script
+            if (collision.gameObject.tag == "Boss" && healthOfEnemy)
+            {
+                healthOfEnemy.DamageTaken(25); // damages the boss
+
+                Instantiate(bulletImpact, this.transform.position, Quaternion.identity); // spawns the particles
             }
 
         }

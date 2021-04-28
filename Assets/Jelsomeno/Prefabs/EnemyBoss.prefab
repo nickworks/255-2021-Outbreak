@@ -560,11 +560,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a86d9058d009334a91dabfae57caf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeavyShotBullet: {fileID: 0}
-  bulletSpawn: {fileID: 0}
+  PlayerTank: {fileID: 0}
   viewingDis: 40
   viewingAng: 360
-  PlayerTank: {fileID: 0}
+  stopDis: 25
+  InRange: 15
 --- !u!1 &7223423379244594434
 GameObject:
   m_ObjectHideFlags: 0

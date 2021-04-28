@@ -5,10 +5,16 @@ using UnityEngine;
 
 namespace Jelsomeno
 {
+    /// <summary>
+    /// this class will help the player get a better control for aiming at the boss
+    /// </summary>
     public class PlayerAiming : MonoBehaviour
     {
-
+        /// <summary>
+        /// camera used for the raycast
+        /// </summary>
         private Camera cam;
+
         public Transform debugObject;
         //public Transform PartToRotate;
         //public float turnSpeed = 10;
@@ -17,7 +23,7 @@ namespace Jelsomeno
         // Start is called before the first frame update
         void Start()
         {
-            cam = Camera.main;
+            cam = Camera.main; // assigns the camera
         }
 
         // Update is called once per frame
@@ -30,8 +36,8 @@ namespace Jelsomeno
         private void AimAtMouse()
         {
             // make a ray and a plane 
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.up, transform.position);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition); // creates a ray point
+            Plane plane = new Plane(Vector3.up, transform.position); // Vector3 up = new Vector3(0, 1, 0)
 
 
             // does the ray hit the plane?

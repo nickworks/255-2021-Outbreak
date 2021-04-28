@@ -13,9 +13,9 @@ namespace Jelsomeno
 
         new static public ZoneInfo info = new ZoneInfo()
         {
-            zoneName = "Tank Buster",
-            creator = "Rocco Jelsomeno",
-            sceneFile = "Jelsomeno"
+            zoneName = "Tank Buster", // name of my level
+            creator = "Rocco Jelsomeno", // my name
+            sceneFile = "Jelsomeno" // finds my name
         };
 
     }

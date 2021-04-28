@@ -1,39 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Jelsomeno
 {
+    /// <summary>
+    /// this class handles the health for both the boss and player
+    /// </summary>
     public class HealthSystem : MonoBehaviour
     {
-  
-        public float health { get; private set; }
-        public float healthMax = 100;
-
-        //public GameObject impactEffect;
-
-        private void Start()
-        {
-            health = healthMax;// at start the player has maxhealth
-        }
         /// <summary>
-        /// if the target is taking damage
+        /// health of what ever object/player/AI that is linked to this script
         /// </summary>
-        /// <param name="amt"></param>
-        public void TakeDamage(float amt)
+        public float health { get; private set; }
+
+        /// <summary>
+        /// max health that can be changed in the inspector
+        /// </summary>
+        public float maxHealth = 100;
+
+        /// <summary>
+        /// referencet to the slider bars in the UI
+        /// </summary>
+        public Slider healthSlider;
+
+        void Start()
         {
-            if (amt <= 0) return;
-
-            health -= amt;
-
-            if (health <= 0) Die(); // if the health of player or boss drops below it health it runs the Die method 
+            health = maxHealth; // set the health
+            HealthBarSetup(); // health bar is ready
         }
 
-        public void Die()
+        void HealthBarSetup()
         {
+            healthSlider.maxValue = health; // health bar is full
+            healthSlider.value = health; // health bar can change
+       }
 
-            Destroy(gameObject);// when player or enemy has no more health then the gameobject is destroyed
+        void CurrentHealth()
+        {
+            healthSlider.value = health; // gets the objects life throughout the game
+        }
 
+        /// <summary>
+        /// object is taking damage
+        /// </summary>
+        /// <param name="damage"></param>
+        public void DamageTaken(float damage)
+        {
+            health -= damage; // losing health
+            CurrentHealth(); // constantly setting health on the health bars
+
+            if (health <= 0)
+            {
+                Destroy(this.gameObject); // destroys the game object once it loses all its health
+
+            }
         }
     }
 
