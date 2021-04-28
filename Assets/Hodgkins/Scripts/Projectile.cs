@@ -19,6 +19,11 @@ namespace Hodgkins {
         /// </summary>
         private float age = 0;
 
+        /// <summary>
+        /// How much damage the projectile does
+        /// </summary>
+        public float damageAmount = 40;
+
         void Start() {
 
         }
@@ -76,6 +81,27 @@ namespace Hodgkins {
             }
 
 
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            HealthSystem health = other.GetComponent<HealthSystem>();
+            EnemyBasicController be = other.GetComponent<EnemyBasicController>();
+            BossController boss = other.GetComponent<BossController>();
+
+            if (health && be || health && boss)
+            {
+                health.TakeDamage(damageAmount);
+                Destroy(gameObject);
+            }
+
+
+            //Vector3 vToPlayer = (be.transform.position - this.transform.position).normalized;
+
+            //be.LaunchPlayer(vToPlayer * 15);
+
+
+            SoundEffectBoard.PlayHit();
         }
 
     }

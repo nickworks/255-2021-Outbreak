@@ -6,10 +6,11 @@ namespace Hodgkins
 {
     public class HarmfulObject : MonoBehaviour
     {
-        public float damageAmount = 40;
-        public void OnOverlap(EnemyBasicController be)
+        public float damageAmount = 20;
+        public void OnTriggerEnter(Collider other)
         {
-            HealthSystem health = be.GetComponent<HealthSystem>();
+            HealthSystem health = other.GetComponent<HealthSystem>();
+            PlayerMovement pm = other.GetComponent<PlayerMovement>();
 
             if (health)
             {

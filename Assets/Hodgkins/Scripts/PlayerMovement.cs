@@ -34,7 +34,7 @@ namespace Hodgkins {
         }
 
         // Update is called once per frame
-        void FixedUpdate()
+        void Update()
         {
             switch (currentMoveState)
             {
