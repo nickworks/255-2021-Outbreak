@@ -47,7 +47,7 @@ namespace Outbreak {
             _JSmith.Zone.info,
             Kortge.Zone.info,
             Szczesniak.Zone.info,
-            //Velting.Zone.info,
+            Velting.Zone.info,
             ASmith.Zone.info,
             Foster.Zone.info,
             // Geib.Zone.info,
