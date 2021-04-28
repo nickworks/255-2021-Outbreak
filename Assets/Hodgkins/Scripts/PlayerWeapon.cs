@@ -89,7 +89,7 @@ namespace Hodgkins
         private States.State state;
 
         public int maxRoundsInClip = 8;
-        private int roundsInClip = 8;
+        public int roundsInClip = 8;
         /// <summary>
         /// How many bullets to spawn per second. We use this to calculate the the timing between bullets
         /// </summary>
