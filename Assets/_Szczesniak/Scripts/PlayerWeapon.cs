@@ -256,7 +256,7 @@ namespace Szczesniak {
             Projectile p = Instantiate(prefabProjectile, muzzle.transform.position, muzzle.transform.rotation);
             p.InitBullet(transform.forward * 30); // sets the velocity of the projectile
 
-            Instantiate(muzzleFlash, muzzle.transform.position, muzzle.transform.rotation);
+            Instantiate(muzzleFlash, muzzle.transform.position, muzzle.transform.rotation); // spawns muzzle flash
 
             roundsInClip--; // removes a bullet from roundInClip
             timerSpawnBullet = 1 / roundsPerSecond; // rate of fire

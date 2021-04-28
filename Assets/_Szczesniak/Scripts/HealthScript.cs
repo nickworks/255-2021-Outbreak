@@ -31,25 +31,35 @@ namespace Szczesniak {
                 HealthBarSetup(); // Sets the health bar
         }
 
+        /// <summary>
+        /// Health bar setup to set the max value and base value
+        /// </summary>
         void HealthBarSetup() {
             healthSlider.maxValue = health; // sets the slider's max value
             healthSlider.value = health; // Sets the health
         }
-
+        
+        /// <summary>
+        /// Current health on health bar
+        /// </summary>
         void CurrentHealth() {
             healthSlider.value = health; // sets health throughout the object's life from being updated
         }
 
+        /// <summary>
+        /// Healing thing if they don't have max health
+        /// </summary>
+        /// <param name="healthRegain"></param>
         public void HealingItemEffect(float healthRegain) {
-            if (health <= maxHealth) {
-                health += healthRegain;
-                if (health > maxHealth) {
-                    health = maxHealth;
+            if (health < maxHealth) { // if health is less then max health
+                health += healthRegain; // gets healed
+                if (health > maxHealth) { // if health is greater than max health
+                    health = maxHealth; // sets max health to health
                 }
             }
             
             if (healthSlider)
-                CurrentHealth();
+                CurrentHealth(); // updates health bar
         }
 
         /// <summary>
