@@ -19,6 +19,8 @@ TagManager:
   - EnemyBullet
   - Floor
   - DamageCircle
+  - Player Projectile
+  - Boss Projectile
   layers:
   - Default
   - TransparentFX

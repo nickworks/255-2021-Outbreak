@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,120 +7,127 @@ namespace Miller
 {
     public class PlayerMovement : MonoBehaviour
     {
-
         public enum MoveState
         {
-            Regular, // 0
-            Dashing, // 1
-            Sprinting, // 2
-            Sneaking // 3
+            Regular,//0
+            Dashing,//1
+            Sprinting,//2
+            Sneaking,//3
+            Shielding,//4
         }
 
-
         public float playerSpeed = 10;
+
         private CharacterController pawn;
+
         MoveState currentMoveState = MoveState.Regular;
 
         /// <summary>
-        /// How long a dash should take in seconds:
+        /// How long a dash should take in seconds
         /// </summary>
         public float dashDuration = 0.25f;
+        public float dashSpeed = 50;
 
         private Vector3 dashDirection;
+
         /// <summary>
-        /// This stores how many seconds are left:
+        /// This stores how many seconds are left
         /// </summary>
-        private float dashTImer = 0;
+        private float dashTimer = 0;
 
         void Start()
         {
             pawn = GetComponent<CharacterController>();
+
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            print(currentMoveState);
-
             switch (currentMoveState)
             {
                 case MoveState.Regular:
 
-                    // do behavior for this state:
-
+                    //do behavior for this state;
                     MoveThePlayer(1);
 
-                    // transitions to other states:
-                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
-                    if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
-                    //if (Input.GetButton("Fire2"))
-                    {
-                        currentMoveState = MoveState.Dashing;
-                        float h = Input.GetAxis("Horizontal");
-                        float v = Input.GetAxis("Vertical");
-                        dashDirection = new Vector3(h, 0, v);
+                    //transition to other states;
+                    //if (Input.GetButtonDown("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire3")) currentMoveState = MoveState.Sprinting;
 
-                        //clamp the length of dashDir to 1:
+                    if (Input.GetButtonDown("Fire2")) //transition into dashing
+                    {
+
+                        currentMoveState = MoveState.Dashing;
+                        float h = Input.GetAxisRaw("Horizontal");
+                        float v = Input.GetAxisRaw("Vertical");
+                        dashDirection = new Vector3(h, 0, v);
+                        dashDirection.Normalize();
+                        dashTimer = .25f;
+
+                        //clamps the length of dashDir to 1
                         if (dashDirection.sqrMagnitude > 1) dashDirection.Normalize();
+
                     }
+
                     break;
+
                 case MoveState.Dashing:
 
-                    // do behavior for this state:
+                    //do behavioyr for this state;
                     DashThePlayer();
 
-                    dashTImer -= Time.deltaTime;
+                    dashTimer -= Time.deltaTime;
 
-                    // transitions to other states:
-                    if (dashTImer <= 0) currentMoveState = MoveState.Regular;
+                    //transition to other states;
+                    if (dashTimer <= 0) currentMoveState = MoveState.Regular;
+
+
 
                     break;
                 case MoveState.Sprinting:
 
-                    // do behavior for this state:
-
+                    //do behavioyr for this state;
                     MoveThePlayer(2);
 
 
-                    // transitions to other states:
+                    //transition to other states;
                     if (!Input.GetButton("Fire3")) currentMoveState = MoveState.Regular;
-                    //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+                    //if (Input.GetButton("Fire1")) currentMoveState = MoveState.Sneaking;
+
 
                     break;
+
                 case MoveState.Sneaking:
 
-                    // do behavior for this state:
-
+                    //do behavioyr for this state;
                     MoveThePlayer(0.5f);
 
-                    // transitions to other states:
+
+                    //transition to other states;
                     //if (!Input.GetButton("Fire1")) currentMoveState = MoveState.Regular;
 
-
                     break;
+
             }
 
         }
-
-        /// <summary>
-        /// this function moves the player while they are dashing
-        /// </summary>
         private void DashThePlayer()
         {
-            pawn.Move(dashDirection * Time.deltaTime * 25);
+            pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
-
         private void MoveThePlayer(float mult = 1)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
 
             Vector3 move = Vector3.right * h + Vector3.forward * v;
+            if (move.sqrMagnitude > 1) move.Normalize(); // fix bug with diaginal input vectors
 
-            if (move.sqrMagnitude > 1) move.Normalize(); // fix diagonal input vectors
+            //pawn.Move(move * Time.deltaTime * playerSpeed * mult);
+            pawn.SimpleMove(move * playerSpeed * mult);
 
-            pawn.Move(move * Time.deltaTime * playerSpeed * mult);
 
         }
     }
