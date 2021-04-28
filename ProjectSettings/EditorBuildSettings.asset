@@ -48,7 +48,7 @@ EditorBuildSettings:
     path: Assets/Pattison/PattisonLevel.unity
     guid: 873e6c1273fdd50449c9199eec416b71
   - enabled: 1
-    path: Assets/Hopkins/Scenes/scene.unity
+    path: Assets/Hopkins/Scenes/brokenHopkins.unity
     guid: 65f670699b36b2b4386ba37fbb3c67c5
   - enabled: 1
     path: Assets/_Szczesniak/Szczesniak.unity

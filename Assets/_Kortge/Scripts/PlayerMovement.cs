@@ -33,8 +33,9 @@ namespace Kortge
 
             Vector3 move = (Vector3.right * h + Vector3.forward * v);
 
+            print(move);
             if (move.sqrMagnitude > 1) move.Normalize(); // Fix bug with diagnoal input measures.
-
+            print(move);
             controller.SimpleMove(move * 10);
         }
     }
