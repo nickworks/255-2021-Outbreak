@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Velting
 {
-    public class Projectile : MonoBehaviour
+    public class EnemyBasicProjectile : MonoBehaviour
     {
         /// <summary>
         /// Current direction/speed
@@ -21,7 +21,7 @@ namespace Velting
         /// </summary>
         private float age = 0;
 
-       
+
         void Start()
         {
 
@@ -46,23 +46,23 @@ namespace Velting
 
         private void OnTriggerEnter(Collider other)
         {
-            EnemyBasicController baddie = other.GetComponent<EnemyBasicController>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
             //EnemyBossController boss = other.GetComponent<EnemyBossController>();
 
-            if (baddie.health > 0) baddie.health -= 10;
+            if (player.health > 0) player.health -= 10;
             // if (boss.health > 0) boss.health -= 10;
 
-            
-                
+
+
             Destroy(gameObject);
-        
+
         }
 
         public void BulletGone()
         {
             Destroy(gameObject);
         }
-        
+
 
     }
 }
