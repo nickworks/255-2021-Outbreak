@@ -6,8 +6,14 @@ namespace Howley
 {
     public class ForegroundRaycast : MonoBehaviour
     {
+        /// <summary>
+        /// Reference the camera in the scene
+        /// </summary>
         Camera cam;
 
+        /// <summary>
+        /// Hold reference to the CameraTracking script
+        /// </summary>
         CameraTracking camTracker;
 
         // Track things that are invisible
@@ -19,6 +25,9 @@ namespace Howley
             camTracker = GetComponentInParent<CameraTracking>();
         }
 
+        /// <summary>
+        /// Update is called every game tick
+        /// </summary>
         void Update()
         {
             if (hiddenThing)
@@ -30,6 +39,9 @@ namespace Howley
             DoRayCast();
         }
 
+        /// <summary>
+        /// This function casts a ray from the camera's position into the scene
+        /// </summary>
         void DoRayCast()
         {
             Vector3 vToTarget = camTracker.target.position - transform.position;

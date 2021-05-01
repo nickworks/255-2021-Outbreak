@@ -7,22 +7,37 @@ namespace Howley
 {
     public class BossStates : MonoBehaviour
     {
+        /// <summary>
+        /// Set up for the state design pattern
+        /// </summary>
         static class States
         {
             public class State
             {
+                // Reference the main bossstate script
                 protected BossStates boss;
 
+                /// <summary>
+                /// Reference the override update
+                /// </summary>
+                /// <returns></returns>
                 virtual public State Update()
                 {
                     return null;
                 }
 
+                /// <summary>
+                /// Reference the override onstart
+                /// </summary>
+                /// <param name="boss"></param>
                 virtual public void OnStart(BossStates boss)
                 {
                     this.boss = boss;
                 }
 
+                /// <summary>
+                /// Reference the override onend
+                /// </summary>
                 virtual public void OnEnd()
                 {
 
@@ -33,6 +48,10 @@ namespace Howley
 
             public class Idle : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -47,6 +66,10 @@ namespace Howley
             }
             public class Persuing : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -65,6 +88,10 @@ namespace Howley
             }
             public class ClimbWall : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -77,6 +104,10 @@ namespace Howley
             }
             public class Stunned : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -92,6 +123,10 @@ namespace Howley
             }
             public class Death : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -104,6 +139,10 @@ namespace Howley
             }
             public class Attack1 : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -125,6 +164,10 @@ namespace Howley
             }
             public class Attack2 : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -145,6 +188,10 @@ namespace Howley
             }
             public class Attack3 : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -165,6 +212,10 @@ namespace Howley
             }
             public class Attack4 : State
             {
+                /// <summary>
+                /// Call this state's update every game tick
+                /// </summary>
+                /// <returns></returns>
                 public override State Update()
                 {
                     // Behavior:
@@ -180,6 +231,9 @@ namespace Howley
         // Set pawn to CharacterController
         private CharacterController pawn;
 
+        /// <summary>
+        /// Reference the healthsystem on this object
+        /// </summary>
         public HealthSystem health;
 
         // Reference the target to move towards
@@ -220,10 +274,19 @@ namespace Howley
         /// </summary>
         public Transform tailBone;
 
+        /// <summary>
+        /// Hold reference to the projectile to spawn on attack
+        /// </summary>
         public Projectile prefabProjectile;
 
+        /// <summary>
+        /// This variable holds the direction towards the player
+        /// </summary>
         private Vector3 vToPlayer;
 
+        /// <summary>
+        /// This variable is multiplied to direction to give speed to the boss
+        /// </summary>
         private float moveSpeed = .5f;
 
         /// <summary>
@@ -241,14 +304,29 @@ namespace Howley
         /// </summary>
         public float visCone = 160;
 
+        /// <summary>
+        /// This variable counts the amount of time in the attack state
+        /// </summary>
         private float attackTimer = 0;
 
+        /// <summary>
+        /// This variable counts the amount of time in the attack2 state
+        /// </summary>
         private float attack2Timer = 0;
 
+        /// <summary>
+        /// This variable counts the amount of time in the attack3 state
+        /// </summary>
         private float attack3Timer = 0;
 
+        /// <summary>
+        /// This variable sets the timer for the boss not being able to attack
+        /// </summary>
         private float attackCooldown = 0;
 
+        /// <summary>
+        /// This variable sets the timer for the boss not being able to take damage
+        /// </summary>
         private float damageCooldown = 0;
 
         /// <summary>
@@ -256,10 +334,19 @@ namespace Howley
         /// </summary>
         private bool canSeePlayer = false;
 
+        /// <summary>
+        ///  This variable is true or false depending on if the boss is able to attack
+        /// </summary>
         private bool canAttack = false;
 
+        /// <summary>
+        /// This variable is true or false depending on if the boss can take damage
+        /// </summary>
         private bool canTakeDamage = false;
 
+        /// <summary>
+        /// This variable is true or false depending on if the boss is attacking
+        /// </summary>
         private bool isAttacking = false;
 
 
@@ -271,7 +358,9 @@ namespace Howley
             health = GetComponent<HealthSystem>();
         }
 
-
+        /// <summary>
+        /// Update is called every game tick
+        /// </summary>
         void Update()
         {
             // If we are not in a state, use the Idle state
@@ -284,6 +373,10 @@ namespace Howley
             canSeePlayer = CanSeePlayer();
         }
 
+        /// <summary>
+        /// This funtion switches between the boss's states
+        /// </summary>
+        /// <param name="newState"></param>
         void SwitchState(States.State newState)
         {
             if (newState == null) return; // Can't switch to nothing
@@ -297,6 +390,11 @@ namespace Howley
             // Call the new state's on start function
             state.OnStart(this);
         }
+
+        /// <summary>
+        /// This function returns true or false based on the vector to the player, and the cone of vision for the boss.
+        /// </summary>
+        /// <returns></returns>
         private bool CanSeePlayer()
         {
             if (!attackTarget) return false;
@@ -311,6 +409,9 @@ namespace Howley
             return false;
         }
 
+        /// <summary>
+        /// This function is a cooldown called after the boss does an attack
+        /// </summary>
         void AttackCooldown()
         {
             attackCooldown += Time.deltaTime;
@@ -318,6 +419,9 @@ namespace Howley
             if (attackCooldown >= 5) canAttack = true;
         }
 
+        /// <summary>
+        /// This function is called for the boss to move towards the player
+        /// </summary>
         void MoveTheBoss()
         {
             if (!attackTarget) return;
@@ -346,6 +450,9 @@ namespace Howley
             pawn.SimpleMove(vToPlayer * moveSpeed);
         }
 
+        /// <summary>
+        /// This function is called when the boss is able to do it's first attack
+        /// </summary>
         void DoAttack1()
         {
             Quaternion startingLeftArmRot = shoulderLeft.transform.localRotation;
@@ -356,6 +463,10 @@ namespace Howley
             if (attackTimer <= .5f) shoulderLeft.transform.localRotation = AnimMath.Slide(startingLeftArmRot, targetLeftArmRot, .01f);
             if (attackTimer >= .51f) shoulderLeft.transform.localRotation = AnimMath.Slide(shoulderLeft.transform.localRotation, Quaternion.identity, .01f);
         }
+
+        /// <summary>
+        /// This function is called when the boss is able to do it's second attack
+        /// </summary>
         void DoAttack2()
         {
             Quaternion startingRot = transform.localRotation;
@@ -372,6 +483,10 @@ namespace Howley
             transform.localRotation = AnimMath.Slide(startingRot, targetTorsoRot, .001f);
             tailBone.transform.localRotation = AnimMath.Slide(startingTailRot, targetTailRot, .001f);
         }
+
+        /// <summary>
+        /// This function is called when the boss is able to do it's third attack
+        /// </summary>
         void DoAttack3()
         {
             Projectile projectile;
@@ -387,6 +502,10 @@ namespace Howley
 
             transform.localRotation = AnimMath.Slide(startingNeckRot, targetNeckRot, .005f);
         }       
+
+        /// <summary>
+        /// This function is called when the boss takes damage from the player
+        /// </summary>
         void Stunned()
         {
             Quaternion startingNeckRot = neckBone.transform.localRotation;
@@ -406,6 +525,11 @@ namespace Howley
         {
 
         }
+
+        /// <summary>
+        /// this function is called when the projectile enters the boss's collision box
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
             PlayerMovement pm = other.GetComponent<PlayerMovement>();
@@ -429,6 +553,10 @@ namespace Howley
             }
             
         }
+
+        /// <summary>
+        /// This function is called after the boss takes damage
+        /// </summary>
         void DamageCooldown()
         {
             if (damageCooldown >= 0) canTakeDamage = false;

@@ -7,6 +7,9 @@ namespace Howley
 {
     public class EnemyBasicController : MonoBehaviour
     {
+        /// <summary>
+        /// Set up the state design pattern
+        /// </summary>
         static class States
         {
             public class State
@@ -101,10 +104,19 @@ namespace Howley
             }
         }
 
+        /// <summary>
+        /// Hold refence to the states class
+        /// </summary>
         private States.State state;
 
+        /// <summary>
+        /// Hold reference to the navmesh in the scene
+        /// </summary>
         private NavMeshAgent nav;
 
+        /// <summary>
+        /// Hold reference to the target for the enemy
+        /// </summary>
         public Transform attackTarget;
 
         void Start()
@@ -112,6 +124,10 @@ namespace Howley
             nav = GetComponent<NavMeshAgent>();
 
         }
+
+        /// <summary>
+        /// Update is called every game tick
+        /// </summary>
         void Update()
         {
             if (attackTarget != null) nav.SetDestination(attackTarget.position);
@@ -120,6 +136,11 @@ namespace Howley
 
             if (state != null) SwitchState(state.Update());
         }
+
+        /// <summary>
+        /// This function is called when the enemy is trying to switch states
+        /// </summary>
+        /// <param name="newState"></param>
         void SwitchState(States.State newState)
         {
             if (newState == null) return; // Don't switch to nothing...
