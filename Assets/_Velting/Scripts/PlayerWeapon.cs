@@ -94,9 +94,9 @@ namespace Velting
         public Projectile prefabProjectile;
         private States.State state;
 
-        public int maxRoundsInClip = 8;
+        public int maxRoundsInClip = 25;
 
-        private int roundsInClip = 8;
+        public int roundsInClip = 25;
 
         // Bullets to spawn per second. Calc delay between bullets.
         public float roundsPerSecond = 5;

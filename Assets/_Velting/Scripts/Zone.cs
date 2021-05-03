@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Velting
 {
@@ -10,7 +11,7 @@ namespace Velting
         {
             zoneName = "Corona Attack Much Bad",
             creator = "William Velting",
-            sceneFile = "Velting"
+            sceneFile = "VeltingScene"
         };
 
     }

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Velting
 {
-    public class Projectile : MonoBehaviour
+    public class EnemyHomingMissile : MonoBehaviour
     {
         /// <summary>
         /// Current direction/speed
@@ -14,22 +15,26 @@ namespace Velting
         /// <summary>
         /// How long until the projectile is destroyed.
         /// </summary>
-        private float lifeSpan = 3;
+        private float lifeSpan = 5;
 
         /// <summary>
         /// How long the projectile has lived.
         /// </summary>
         private float age = 0;
 
-       
+        public NavMeshAgent nav;
+
+        public Transform attackTarget;
+
+
+
+
         void Start()
         {
 
+            nav = GetComponent<NavMeshAgent>();
         }
-        public void InitBullet(Vector3 vel)
-        {
-            velocity = vel;
-        }
+        
 
         void Update()
         {
@@ -40,29 +45,51 @@ namespace Velting
             }
 
             // Euler physics
-            transform.position += velocity * Time.deltaTime;
+            nav.SetDestination(attackTarget.transform.position);
+
+            AimAtPlayer();
+
+
 
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            EnemyBasicController baddie = other.GetComponent<EnemyBasicController>();
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
             //EnemyBossController boss = other.GetComponent<EnemyBossController>();
 
-            if (baddie.health > 0) baddie.health -= 10;
+            if (player.health > 0) player.health -= 30;
             // if (boss.health > 0) boss.health -= 10;
 
-            
-                
+
+
             Destroy(gameObject);
-        
+
         }
 
         public void BulletGone()
         {
             Destroy(gameObject);
         }
-        
+
+        public void AimAtPlayer()
+        {
+
+
+            Vector3 hitPos = attackTarget.transform.position;
+
+
+            Vector3 vectorToHitPos = hitPos - transform.position;
+
+
+            float angle = Mathf.Atan2(vectorToHitPos.x, vectorToHitPos.z);
+
+            angle /= Mathf.PI; //convert from "radians" to "half-circles"
+            angle *= 180; //convert from "half-circles" to "degrees"
+
+            transform.eulerAngles = new Vector3(0, angle, 0);
+
+        }
 
     }
 }
