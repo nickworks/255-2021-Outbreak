@@ -55,7 +55,7 @@ namespace Outbreak {
             //Hopkins.Zone.info,
             Howley.Zone.info,
             Jelsomeno.Zone.info,
-            //Miller.Zone.info
+            Miller.Zone.info
 
         };
         public static List<ZoneInfo> zones { get { return _zones; } }

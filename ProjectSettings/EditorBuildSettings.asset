@@ -41,7 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Jelsomeno/Jelsomeno.unity
     guid: 0e6c27dd5b1efcc42bea9c09bed43b1e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Miller/MillerLevel.unity
     guid: ce288c55ef790ce48b0fa7e23e8ab5cd
   - enabled: 0
