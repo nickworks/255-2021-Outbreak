@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Kortge
 {
@@ -113,7 +114,8 @@ namespace Kortge
                 {
                     boss.SmokeOut();
                     stateTime = boss.stateTime;
-                    boss.sprite.color = Color.red;
+                    boss.sprite.color = new Color(1, 0.6f, 0.6f);
+                    boss.text.text = "";
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -153,6 +155,7 @@ namespace Kortge
                 public override void OnStart(Boss boss)
                 {
                     stateTime = boss.stateTime;
+                    boss.text.text = "Avoid!";
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -298,6 +301,7 @@ namespace Kortge
                     boss.health.vulnerable = true;
                     stateTime = boss.stateTime;
                     boss.audioManager.Play("Sword Stuck");
+                    boss.text.text = "Attack!";
                     base.OnStart(boss);
                 }
                 /// <summary>
@@ -424,6 +428,10 @@ namespace Kortge
         /// </summary>
         public Projectile projectionPrefab;
         /// <summary>
+        /// A tip that is meant to follow the boss around.
+        /// </summary>
+        public Text text;
+        /// <summary>
         /// The character the boss focuses on.
         /// </summary>
         public Transform player;
@@ -448,7 +456,21 @@ namespace Kortge
         {
             StateManagement();
 
+            if (health.health < 5) text.text = "";
+
             if (focused) LookAtPlayer();
+
+            if (text != null)
+            {
+                Vector3 newPosition;
+                newPosition.x = transform.position.x;
+                newPosition.x = Mathf.Clamp(newPosition.x, -6f, 6f);
+                newPosition.y = transform.position.z;
+                newPosition.y = Mathf.Clamp(newPosition.y, -5f, 2.5f);
+                newPosition.z = 0;
+                RectTransform position = text.gameObject.GetComponent<RectTransform>();
+                position.anchoredPosition = newPosition;
+            }
 
             stateTime = health.health * 0.2f;
         }

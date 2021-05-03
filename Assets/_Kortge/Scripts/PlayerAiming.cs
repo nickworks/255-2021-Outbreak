@@ -54,6 +54,10 @@ namespace Kortge
         /// The cursor usd to show what the player is meant to be aiming at.
         /// </summary>
         public Transform debugObject;
+        /// <summary>
+        /// This is destroyed after the player picks up their first rose.
+        /// </summary>
+        public GameObject roseTag;
 
         /// <summary>
         /// Hides the cursor within the game and gets the animator and camera components.
@@ -173,6 +177,7 @@ namespace Kortge
                 Destroy(hit.gameObject);
                 particles.Play();
                 audioManager.Play("Power Up");
+                if (roseTag != null) Destroy(roseTag);
             }
         }
     }
