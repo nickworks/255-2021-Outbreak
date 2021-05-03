@@ -6,25 +6,48 @@ namespace Howley
 {
     public class PlayerWeapon : MonoBehaviour
     {
+        /// <summary>
+        /// Set up the state design pattern
+        /// </summary>
         static class States
         {
             public class State {
 
+                /// <summary>
+                /// reference the main class;
+                /// </summary>
                 protected PlayerWeapon weapon;
 
+                /// <summary>
+                /// Set up the state class override update
+                /// </summary>
+                /// <returns></returns>
                 virtual public State Update()
                 {
                     return null;
                 }
+
+                /// <summary>
+                ///  Reference the state class override Start
+                /// </summary>
+                /// <param name="weapon"></param>
                 virtual public void OnStart(PlayerWeapon weapon)
                 {
                     this.weapon = weapon;
                 }
+
+                /// <summary>
+                /// Reference the state class override End
+                /// </summary>
                 virtual public void OnEnd()
                 {
 
                 }
              }
+
+            /// <summary>
+            /// This state is for when the player is idle
+            /// </summary>
             public class Regular : State {
                 public override State Update()
                 {
@@ -46,6 +69,10 @@ namespace Howley
                 }
                 
             }
+
+            /// <summary>
+            /// This state is for while the player is attacking.
+            /// </summary>
             public class Attacking : State {
                 public override State Update()
                 {
@@ -58,6 +85,9 @@ namespace Howley
                     return null;
                 }
             }
+            /// <summary>
+            /// This state is while the player is reloading
+            /// </summary>
             public class Reloading : State 
             {
                 // How long until reloading is over.
@@ -88,11 +118,20 @@ namespace Howley
         // encapsulation
         // Polymorphism
 
+        // Reference the projectile prefab
         public Projectile prefabProjectile;
+
+        // Hold reference to the state class
         private States.State state;
 
+        /// <summary>
+        /// This variable stores the maximum ammo in a clip.
+        /// </summary>
         public int maxRoundsInClip = 8;
 
+        /// <summary>
+        /// This variable holds the current rounds in clip
+        /// </summary>
         private int roundsInClip = 8;
 
         // Bullets to spawn per second. Calc delay between bullets.
@@ -101,8 +140,14 @@ namespace Howley
         // Seconds until player can fire again.
         private float bulletCooldown = 0;
 
+        /// <summary>
+        ///  This variable holds the amount of time it takes the player to reload.
+        /// </summary>
         public float reloadTime = 1;
 
+        /// <summary>
+        /// Update is called every game tick.
+        /// </summary>
         void Update()
         {
             if (bulletCooldown > 0) bulletCooldown -= Time.deltaTime;
@@ -114,6 +159,10 @@ namespace Howley
             if (state != null) SwitchState(state.Update());
         }
 
+        /// <summary>
+        /// This function switches between the player's available states.
+        /// </summary>
+        /// <param name="newState"></param>
         void SwitchState(States.State newState)
         {
             // If null is passed in, return nothing.
@@ -129,6 +178,9 @@ namespace Howley
             state.OnStart(this);
         }
 
+        /// <summary>
+        /// This function spawns a projectile when the player presses the fire button.
+        /// </summary>
         void SpawnProjectile()
         {
             if (bulletCooldown > 0) return; // Need to wait longer to shoot.

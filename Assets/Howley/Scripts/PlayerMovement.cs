@@ -7,6 +7,9 @@ namespace Howley
 {
     public class PlayerMovement : MonoBehaviour
     {
+        /// <summary>
+        /// Set up a state machine for the player to use
+        /// </summary>
         public enum MoveState
         {
             Regular, // 0
@@ -15,12 +18,24 @@ namespace Howley
             Sneaking // 3
         }
 
+        /// <summary>
+        /// This value is multiplied to a vector to give the player quicker movement
+        /// </summary>
         public float playerSpeed = 10;
 
+        /// <summary>
+        /// This variable is used in unison to the mouse position to dash in a direction
+        /// </summary>
         public Vector3 dashDirection;
 
+        /// <summary>
+        /// This value is multiplied to a vector to give the dash speed.
+        /// </summary>
         public float dashSpeed = 100;
 
+        /// <summary>
+        /// This function is used to give a timer to the dash
+        /// </summary>
         public float dashDuration = 0.25f;
 
         /// <summary>
@@ -28,8 +43,14 @@ namespace Howley
         /// </summary>
         private float dashTimer = 0;
 
+        /// <summary>
+        /// Hold reference to the charactercontroller 
+        /// </summary>
         private CharacterController pawn;
 
+        /// <summary>
+        /// Set the original movestate to regular
+        /// </summary>
         MoveState currentMoveState = MoveState.Regular;
 
         void Start()
@@ -37,6 +58,9 @@ namespace Howley
             pawn = GetComponent<CharacterController>();
         }
 
+        /// <summary>
+        /// update is called every game tick
+        /// </summary>
         void Update()
         {
             print(currentMoveState);
@@ -95,11 +119,18 @@ namespace Howley
 
         }
 
+        /// <summary>
+        /// This function is called when the player tries to dash
+        /// </summary>
         private void DashThePlayer()
         {
             pawn.Move(dashDirection * Time.deltaTime * dashSpeed);
         }
 
+        /// <summary>
+        /// This funtion is called when the player uses the WASD keys
+        /// </summary>
+        /// <param name="mult"></param>
         private void MovePlayer(float mult = 1)
         {
             float h = Input.GetAxis("Horizontal");
